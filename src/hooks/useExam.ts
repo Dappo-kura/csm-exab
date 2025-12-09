@@ -148,7 +148,7 @@ export function useExam({ questions }: UseExamProps): UseExamReturn {
       const correctSet = new Set(question.correctAnswers);
       const isCorrect =
         userSet.size === correctSet.size &&
-        [...userSet].every((ans) => correctSet.has(ans));
+        Array.from(userSet).every((ans) => correctSet.has(ans));
 
       if (isCorrect) {
         correctCount++;

@@ -33,7 +33,7 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
     const correctSet = new Set(q.correctAnswers);
     const isCorrect =
       userSet.size === correctSet.size &&
-      [...userSet].every((ans) => correctSet.has(ans));
+      Array.from(userSet).every((ans) => correctSet.has(ans));
     return !isCorrect;
   });
 
