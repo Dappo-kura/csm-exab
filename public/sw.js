@@ -1,11 +1,12 @@
 const CACHE_NAME = 'psm-exam-v1';
 
-// キャッシュするファイル一覧
+// キャッシュするファイル一覧（GitHub Pages対応）
+const BASE_PATH = '/csm-exab';
 const urlsToCache = [
-  '/',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
+  `${BASE_PATH}/`,
+  `${BASE_PATH}/manifest.json`,
+  `${BASE_PATH}/icon-192.png`,
+  `${BASE_PATH}/icon-512.png`,
 ];
 
 // Service Worker インストール時
@@ -68,9 +69,7 @@ self.addEventListener('fetch', (event) => {
       })
       .catch(() => {
         // オフライン時のフォールバック
-        return caches.match('/');
+        return caches.match(`${BASE_PATH}/`);
       })
   );
 });
-
-

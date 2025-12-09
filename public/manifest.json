@@ -2,23 +2,23 @@
   "name": "PSM I 模擬試験",
   "short_name": "PSM Exam",
   "description": "Professional Scrum Master™ I (PSM I) 模擬試験アプリ - オフライン対応",
-  "start_url": "/",
+  "start_url": "/csm-exab/",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
   "orientation": "portrait",
-  "scope": "/",
+  "scope": "/csm-exab/",
   "lang": "ja",
   "categories": ["education", "productivity"],
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/csm-exab/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/csm-exab/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
