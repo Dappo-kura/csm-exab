@@ -8,10 +8,10 @@ export const metadata: Metadata = {
     "Professional Scrum Master™ I (PSM I) の模擬試験アプリです。60分80問の本番形式で実力をチェックしましょう。",
   keywords: ["PSM", "スクラムマスター", "模擬試験", "Scrum", "アジャイル"],
   authors: [{ name: "PSM Exam App" }],
-  manifest: "/manifest.json",
+  manifest: "/csm-exab/manifest.json",
   icons: {
-    icon: "/favicon.ico",
-    apple: "/icon-192.png",
+    icon: "/csm-exab/icon-192.png",
+    apple: "/csm-exab/icon-192.png",
   },
   appleWebApp: {
     capable: true,
@@ -44,7 +44,9 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="PSM Exam" />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <link rel="apple-touch-icon" href="/csm-exab/icon-192.png" />
+        <link rel="apple-touch-icon" sizes="192x192" href="/csm-exab/icon-192.png" />
+        <link rel="apple-touch-icon" sizes="512x512" href="/csm-exab/icon-512.png" />
       </head>
       <body className="antialiased min-h-screen bg-slate-900">
         <PWARegister />
