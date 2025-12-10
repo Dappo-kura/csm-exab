@@ -112,3 +112,4 @@ MIT License
 ※ Professional Scrum Master™ は Scrum.org の商標です。本アプリは公式のものではありません。
 
 
+
