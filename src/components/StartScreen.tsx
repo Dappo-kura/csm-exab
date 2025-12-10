@@ -18,23 +18,23 @@ function LanguageToggle() {
   };
 
   return (
-    <div className="flex items-center bg-slate-900/70 p-1 border border-slate-700/50 rounded-full">
+    <div className="flex items-center border border-slate-600 rounded-full overflow-hidden">
       <button
         onClick={() => handleToggle("ja")}
-        className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${
+        className={`px-4 py-1.5 text-sm font-medium transition-all duration-200 ${
           language === "ja"
-            ? "bg-emerald-500 text-white shadow-sm"
-            : "text-slate-400 hover:text-white"
+            ? "bg-emerald-500 text-white"
+            : "bg-transparent text-slate-400 hover:text-white"
         }`}
       >
         JA
       </button>
       <button
         onClick={() => handleToggle("en")}
-        className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${
+        className={`px-4 py-1.5 text-sm font-medium transition-all duration-200 ${
           language === "en"
-            ? "bg-emerald-500 text-white shadow-sm"
-            : "text-slate-400 hover:text-white"
+            ? "bg-emerald-500 text-white"
+            : "bg-transparent text-slate-400 hover:text-white"
         }`}
       >
         EN
