@@ -216,7 +216,7 @@ export function ExamScreen({
       </main>
 
       {/* フッター - ナビゲーション */}
-      <footer className="sticky bottom-0 bg-slate-900/95 backdrop-blur border-t border-slate-800 p-4 space-y-3">
+      <footer className="sticky bottom-0 bg-slate-900/95 backdrop-blur border-t border-slate-800 p-4 pb-8 space-y-3">
         {/* 見直しフラグボタン */}
         <button
           onClick={onToggleFlag}

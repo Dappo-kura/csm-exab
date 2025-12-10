@@ -152,7 +152,7 @@ export function StartScreen({ onStart }: StartScreenProps) {
       </main>
 
       {/* フッター - 開始ボタン */}
-      <footer className="sticky bottom-0 p-4 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent pt-8">
+      <footer className="sticky bottom-0 p-4 pb-8 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent pt-8">
         <button
           onClick={onStart}
           className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-lg rounded-full shadow-lg shadow-emerald-500/25 transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-3"
