@@ -1,4 +1,4 @@
-import { Question } from "@/types";
+import { Question, QuestionCategory } from "@/types";
 
 /**
  * PSM I 模擬試験の問題データ
@@ -19,6 +19,7 @@ export const questions: Question[] = [
   {
     id: 1,
     type: "multiple",
+    category: "basics",
     question: "スクラムの3つの柱（Three Pillars）として正しいものを全て選んでください。",
     choices: [
       { id: "a", text: "透明性（Transparency）" },
@@ -33,6 +34,7 @@ export const questions: Question[] = [
   {
     id: 2,
     type: "multiple",
+    category: "basics",
     question: "スクラムの5つの価値基準として正しいものを全て選んでください。（5つ選択）",
     choices: [
       { id: "a", text: "確約（Commitment）" },
@@ -49,6 +51,7 @@ export const questions: Question[] = [
   {
     id: 3,
     type: "single",
+    category: "basics",
     question: "スクラムが基づいている理論は何ですか？",
     choices: [
       { id: "a", text: "ウォーターフォール理論" },
@@ -62,6 +65,7 @@ export const questions: Question[] = [
   {
     id: 4,
     type: "single",
+    category: "basics",
     question: "スクラムにおいて「透明性」が重要な理由として最も適切なものはどれですか？",
     choices: [
       { id: "a", text: "管理者がチームの作業を監視できるようにするため" },
@@ -75,6 +79,7 @@ export const questions: Question[] = [
   {
     id: 5,
     type: "single",
+    category: "basics",
     question: "スクラムの価値基準において、「確約」とは何を意味しますか？",
     choices: [
       { id: "a", text: "スプリントで計画した全ての作業を完了することを約束する" },
@@ -88,6 +93,7 @@ export const questions: Question[] = [
   {
     id: 6,
     type: "single",
+    category: "basics",
     question: "スクラムにおいて「検査」を行う際に最も重要なことは何ですか？",
     choices: [
       { id: "a", text: "できるだけ頻繁に検査を行うこと" },
@@ -101,6 +107,7 @@ export const questions: Question[] = [
   {
     id: 7,
     type: "single",
+    category: "basics",
     question: "スクラムの「適応」について正しい説明はどれですか？",
     choices: [
       { id: "a", text: "プロセスの側面が許容範囲を逸脱した場合、できるだけ早く調整する" },
@@ -114,6 +121,7 @@ export const questions: Question[] = [
   {
     id: 8,
     type: "single",
+    category: "basics",
     question: "スクラムの価値基準における「公開」とは何を意味しますか？",
     choices: [
       { id: "a", text: "全ての情報をインターネット上で公開すること" },
@@ -127,6 +135,7 @@ export const questions: Question[] = [
   {
     id: 9,
     type: "single",
+    category: "basics",
     question: "スクラムの価値基準における「勇気」について正しい説明はどれですか？",
     choices: [
       { id: "a", text: "リスクの高いプロジェクトに挑戦すること" },
@@ -140,6 +149,7 @@ export const questions: Question[] = [
   {
     id: 10,
     type: "single",
+    category: "basics",
     question: "スクラムは何と定義されていますか？",
     choices: [
       { id: "a", text: "ソフトウェア開発のためのプロセス" },
@@ -155,6 +165,7 @@ export const questions: Question[] = [
   {
     id: 11,
     type: "single",
+    category: "roles",
     question: "スクラムチームにおいて、スプリントバックログの所有者は誰ですか？",
     choices: [
       { id: "a", text: "プロダクトオーナー" },
@@ -168,6 +179,7 @@ export const questions: Question[] = [
   {
     id: 12,
     type: "single",
+    category: "roles",
     question: "プロダクトバックログの並び順を最終的に決定する責任を持つのは誰ですか？",
     choices: [
       { id: "a", text: "スクラムマスター" },
@@ -181,6 +193,7 @@ export const questions: Question[] = [
   {
     id: 13,
     type: "multiple",
+    category: "roles",
     question: "スクラムマスターの責務として正しいものを全て選んでください。",
     choices: [
       { id: "a", text: "スクラムの理論とプラクティスを全員に理解してもらう" },
@@ -195,6 +208,7 @@ export const questions: Question[] = [
   {
     id: 14,
     type: "single",
+    category: "roles",
     question: "スクラムチームの最適な人数は何人ですか？",
     choices: [
       { id: "a", text: "3人以下" },
@@ -208,6 +222,7 @@ export const questions: Question[] = [
   {
     id: 15,
     type: "single",
+    category: "roles",
     question: "スクラムチームにおいて、開発者（Developers）の特徴として正しいものはどれですか？",
     choices: [
       { id: "a", text: "テスターやプログラマーなど、専門の役職に分かれている" },
@@ -221,6 +236,7 @@ export const questions: Question[] = [
   {
     id: 16,
     type: "multiple",
+    category: "roles",
     question: "開発者（Developers）の責務として正しいものを全て選んでください。",
     choices: [
       { id: "a", text: "スプリントの計画（スプリントバックログ）を作成する" },
@@ -235,6 +251,7 @@ export const questions: Question[] = [
   {
     id: 17,
     type: "single",
+    category: "roles",
     question: "プロダクトオーナーが不在の場合、プロダクトバックログアイテムの優先順位は誰が決定できますか？",
     choices: [
       { id: "a", text: "スクラムマスター" },
@@ -248,6 +265,7 @@ export const questions: Question[] = [
   {
     id: 18,
     type: "single",
+    category: "roles",
     question: "スクラムマスターがチームに対して行うべきことは何ですか？",
     choices: [
       { id: "a", text: "開発者に作業を割り当て、進捗を管理する" },
@@ -261,6 +279,7 @@ export const questions: Question[] = [
   {
     id: 19,
     type: "single",
+    category: "roles",
     question: "スクラムガイド2020において「開発チーム」という用語はどのように変更されましたか？",
     choices: [
       { id: "a", text: "「実装チーム」に変更された" },
@@ -274,6 +293,7 @@ export const questions: Question[] = [
   {
     id: 20,
     type: "multiple",
+    category: "roles",
     question: "プロダクトオーナーの責務として正しいものを全て選んでください。",
     choices: [
       { id: "a", text: "プロダクトゴールを策定し、明示的に伝える" },
@@ -288,6 +308,7 @@ export const questions: Question[] = [
   {
     id: 21,
     type: "single",
+    category: "roles",
     question: "スクラムチームは何に対して説明責任を持ちますか？",
     choices: [
       { id: "a", text: "プロジェクト計画の遵守" },
@@ -301,6 +322,7 @@ export const questions: Question[] = [
   {
     id: 22,
     type: "single",
+    category: "roles",
     question: "スクラムマスターが組織に対して行うサービスとして最も適切なものはどれですか？",
     choices: [
       { id: "a", text: "プロジェクトの進捗レポートを作成する" },
@@ -314,6 +336,7 @@ export const questions: Question[] = [
   {
     id: 23,
     type: "single",
+    category: "roles",
     question: "プロダクトオーナーは委員会やチームとして機能できますか？",
     choices: [
       { id: "a", text: "はい、複数人で責任を分担できる" },
@@ -327,6 +350,7 @@ export const questions: Question[] = [
   {
     id: 24,
     type: "single",
+    category: "roles",
     question: "スクラムチームにサブチームや階層構造は存在しますか？",
     choices: [
       { id: "a", text: "はい、QAチームや設計チームなどのサブチームがある" },
@@ -340,6 +364,7 @@ export const questions: Question[] = [
   {
     id: 25,
     type: "single",
+    category: "roles",
     question: "スクラムにおいて、誰がスプリント中の作業の進め方を決定しますか？",
     choices: [
       { id: "a", text: "プロダクトオーナー" },
@@ -355,6 +380,7 @@ export const questions: Question[] = [
   {
     id: 26,
     type: "single",
+    category: "events",
     question: "スプリントの最大期間として正しいものはどれですか？",
     choices: [
       { id: "a", text: "2週間" },
@@ -368,6 +394,7 @@ export const questions: Question[] = [
   {
     id: 27,
     type: "single",
+    category: "events",
     question: "スプリントプランニングの主な成果物は何ですか？",
     choices: [
       { id: "a", text: "プロダクトバックログ" },
@@ -381,6 +408,7 @@ export const questions: Question[] = [
   {
     id: 28,
     type: "single",
+    category: "events",
     question: "スプリントプランニングで最初に取り組むトピックは何ですか？",
     choices: [
       { id: "a", text: "このスプリントで完了できる作業量の見積もり" },
@@ -394,6 +422,7 @@ export const questions: Question[] = [
   {
     id: 29,
     type: "single",
+    category: "events",
     question: "デイリースクラムの目的として最も適切なものはどれですか？",
     choices: [
       { id: "a", text: "開発者がスクラムマスターに進捗を報告する" },
@@ -407,6 +436,7 @@ export const questions: Question[] = [
   {
     id: 30,
     type: "single",
+    category: "events",
     question: "デイリースクラムの制限時間は何分ですか？",
     choices: [
       { id: "a", text: "15分" },
@@ -420,6 +450,7 @@ export const questions: Question[] = [
   {
     id: 31,
     type: "single",
+    category: "events",
     question: "デイリースクラムで「3つの質問」について正しい説明はどれですか？",
     choices: [
       { id: "a", text: "必ず使用しなければならない" },
@@ -433,6 +464,7 @@ export const questions: Question[] = [
   {
     id: 32,
     type: "single",
+    category: "events",
     question: "スプリントレビューの主な目的は何ですか？",
     choices: [
       { id: "a", text: "チームのパフォーマンスを評価する" },
@@ -446,6 +478,7 @@ export const questions: Question[] = [
   {
     id: 33,
     type: "single",
+    category: "events",
     question: "スプリントレトロスペクティブの主な目的は何ですか？",
     choices: [
       { id: "a", text: "次のスプリントの作業を計画する" },
@@ -459,6 +492,7 @@ export const questions: Question[] = [
   {
     id: 34,
     type: "multiple",
+    category: "events",
     question: "スプリントレトロスペクティブで議論される内容として正しいものを全て選んでください。（5つ選択）",
     choices: [
       { id: "a", text: "個人に関すること" },
@@ -475,6 +509,7 @@ export const questions: Question[] = [
   {
     id: 35,
     type: "single",
+    category: "events",
     question: "スプリント中にスプリントゴールが陳腐化した場合、何が起こりますか？",
     choices: [
       { id: "a", text: "スプリントは継続しなければならない" },
@@ -488,6 +523,7 @@ export const questions: Question[] = [
   {
     id: 36,
     type: "single",
+    category: "events",
     question: "1ヶ月のスプリントの場合、スプリントプランニングのタイムボックスは最大何時間ですか？",
     choices: [
       { id: "a", text: "4時間" },
@@ -501,6 +537,7 @@ export const questions: Question[] = [
   {
     id: 37,
     type: "single",
+    category: "events",
     question: "1ヶ月のスプリントの場合、スプリントレビューのタイムボックスは最大何時間ですか？",
     choices: [
       { id: "a", text: "2時間" },
@@ -514,6 +551,7 @@ export const questions: Question[] = [
   {
     id: 38,
     type: "single",
+    category: "events",
     question: "1ヶ月のスプリントの場合、スプリントレトロスペクティブのタイムボックスは最大何時間ですか？",
     choices: [
       { id: "a", text: "1時間" },
@@ -527,6 +565,7 @@ export const questions: Question[] = [
   {
     id: 39,
     type: "single",
+    category: "events",
     question: "スプリントを中止できるのは誰ですか？",
     choices: [
       { id: "a", text: "スクラムマスター" },
@@ -540,6 +579,7 @@ export const questions: Question[] = [
   {
     id: 40,
     type: "multiple",
+    category: "events",
     question: "スクラムの5つのイベントとして正しいものを全て選んでください。",
     choices: [
       { id: "a", text: "スプリント" },
@@ -555,6 +595,7 @@ export const questions: Question[] = [
   {
     id: 41,
     type: "single",
+    category: "events",
     question: "スプリントレビューに参加すべき人は誰ですか？",
     choices: [
       { id: "a", text: "開発者のみ" },
@@ -568,6 +609,7 @@ export const questions: Question[] = [
   {
     id: 42,
     type: "single",
+    category: "events",
     question: "デイリースクラムに参加する必要があるのは誰ですか？",
     choices: [
       { id: "a", text: "スクラムチーム全員" },
@@ -581,6 +623,7 @@ export const questions: Question[] = [
   {
     id: 43,
     type: "single",
+    category: "events",
     question: "スプリントのスコープは誰が変更できますか？",
     choices: [
       { id: "a", text: "プロダクトオーナーのみ" },
@@ -594,6 +637,7 @@ export const questions: Question[] = [
   {
     id: 44,
     type: "single",
+    category: "events",
     question: "スプリント中に品質を下げることは許容されますか？",
     choices: [
       { id: "a", text: "はい、スケジュールを守るためなら許容される" },
@@ -607,6 +651,7 @@ export const questions: Question[] = [
   {
     id: 45,
     type: "single",
+    category: "events",
     question: "スプリントとスプリントの間に休憩期間はありますか？",
     choices: [
       { id: "a", text: "はい、1〜2日の休憩期間がある" },
@@ -622,6 +667,7 @@ export const questions: Question[] = [
   {
     id: 46,
     type: "single",
+    category: "artifacts",
     question: "プロダクトバックログに対するコミットメントは何ですか？",
     choices: [
       { id: "a", text: "完成の定義" },
@@ -635,6 +681,7 @@ export const questions: Question[] = [
   {
     id: 47,
     type: "single",
+    category: "artifacts",
     question: "スプリントバックログに対するコミットメントは何ですか？",
     choices: [
       { id: "a", text: "完成の定義" },
@@ -648,6 +695,7 @@ export const questions: Question[] = [
   {
     id: 48,
     type: "single",
+    category: "artifacts",
     question: "インクリメントに対するコミットメントは何ですか？",
     choices: [
       { id: "a", text: "完成の定義" },
@@ -661,6 +709,7 @@ export const questions: Question[] = [
   {
     id: 49,
     type: "single",
+    category: "artifacts",
     question: "完成の定義（Definition of Done）を作成する責任は誰にありますか？",
     choices: [
       { id: "a", text: "プロダクトオーナー" },
@@ -674,6 +723,7 @@ export const questions: Question[] = [
   {
     id: 50,
     type: "single",
+    category: "artifacts",
     question: "プロダクトバックログアイテムが「完成の定義」を満たさない場合、どうなりますか？",
     choices: [
       { id: "a", text: "スプリントレビューでステークホルダーに提示される" },
@@ -687,6 +737,7 @@ export const questions: Question[] = [
   {
     id: 51,
     type: "multiple",
+    category: "artifacts",
     question: "スクラムの3つの作成物として正しいものを全て選んでください。",
     choices: [
       { id: "a", text: "プロダクトバックログ" },
@@ -701,6 +752,7 @@ export const questions: Question[] = [
   {
     id: 52,
     type: "single",
+    category: "artifacts",
     question: "プロダクトバックログの特徴として正しいものはどれですか？",
     choices: [
       { id: "a", text: "プロジェクト開始時に完全に定義される" },
@@ -714,6 +766,7 @@ export const questions: Question[] = [
   {
     id: 53,
     type: "single",
+    category: "artifacts",
     question: "スプリントバックログに含まれるものとして正しいものはどれですか？",
     choices: [
       { id: "a", text: "プロダクトゴール、選択したPBI、それらを達成するための計画" },
@@ -727,6 +780,7 @@ export const questions: Question[] = [
   {
     id: 54,
     type: "single",
+    category: "artifacts",
     question: "インクリメントについて正しい説明はどれですか？",
     choices: [
       { id: "a", text: "スプリントの最後にのみ作成される" },
@@ -740,6 +794,7 @@ export const questions: Question[] = [
   {
     id: 55,
     type: "single",
+    category: "artifacts",
     question: "プロダクトゴールについて正しい説明はどれですか？",
     choices: [
       { id: "a", text: "スプリントごとに変更される短期的な目標" },
@@ -753,6 +808,7 @@ export const questions: Question[] = [
   {
     id: 56,
     type: "single",
+    category: "artifacts",
     question: "スプリントゴールについて正しい説明はどれですか？",
     choices: [
       { id: "a", text: "選択したプロダクトバックログアイテムの合計である" },
@@ -766,6 +822,7 @@ export const questions: Question[] = [
   {
     id: 57,
     type: "single",
+    category: "artifacts",
     question: "プロダクトバックログリファインメントについて正しい説明はどれですか？",
     choices: [
       { id: "a", text: "スクラムの公式イベントの一つである" },
@@ -779,6 +836,7 @@ export const questions: Question[] = [
   {
     id: 58,
     type: "single",
+    category: "artifacts",
     question: "完成の定義がプロダクトバックログアイテムに適用されるとどうなりますか？",
     choices: [
       { id: "a", text: "開発者が作業を開始できる" },
@@ -792,6 +850,7 @@ export const questions: Question[] = [
   {
     id: 59,
     type: "single",
+    category: "artifacts",
     question: "組織に完成の定義の標準がある場合、スクラムチームはどうすべきですか？",
     choices: [
       { id: "a", text: "組織の標準を無視して独自の定義を作成する" },
@@ -805,6 +864,7 @@ export const questions: Question[] = [
   {
     id: 60,
     type: "multiple",
+    category: "artifacts",
     question: "スプリントバックログについて正しいものを全て選んでください。",
     choices: [
       { id: "a", text: "開発者によって作成・管理される" },
@@ -821,6 +881,7 @@ export const questions: Question[] = [
   {
     id: 61,
     type: "single",
+    category: "situation",
     question: "スプリント中に開発者が計画した全ての作業を完了できないことが明らかになりました。最も適切な対応はどれですか？",
     choices: [
       { id: "a", text: "品質を下げて全ての作業を完了する" },
@@ -834,6 +895,7 @@ export const questions: Question[] = [
   {
     id: 62,
     type: "single",
+    category: "situation",
     question: "プロダクトオーナーがステークホルダーから新しい緊急の要件を受けました。スプリント中にこの要件を追加するにはどうすべきですか？",
     choices: [
       { id: "a", text: "プロダクトオーナーが直接スプリントバックログに追加する" },
@@ -847,6 +909,7 @@ export const questions: Question[] = [
   {
     id: 63,
     type: "single",
+    category: "situation",
     question: "スクラムマスターがチームのために行うべき最も重要なことは何ですか？",
     choices: [
       { id: "a", text: "開発者に作業を割り当てる" },
@@ -860,6 +923,7 @@ export const questions: Question[] = [
   {
     id: 64,
     type: "single",
+    category: "situation",
     question: "開発者がスプリントプランニングで選択できるプロダクトバックログアイテムの量を最終的に決定するのは誰ですか？",
     choices: [
       { id: "a", text: "プロダクトオーナー" },
@@ -873,6 +937,7 @@ export const questions: Question[] = [
   {
     id: 65,
     type: "single",
+    category: "situation",
     question: "ステークホルダーがスプリント中に開発者に直接作業を依頼しました。開発者はどう対応すべきですか？",
     choices: [
       { id: "a", text: "ステークホルダーの依頼を即座に実行する" },
@@ -886,6 +951,7 @@ export const questions: Question[] = [
   {
     id: 66,
     type: "single",
+    category: "situation",
     question: "デイリースクラムで開発者の一人が、ある技術的な問題について長時間議論を始めました。スクラムマスターはどう対応すべきですか？",
     choices: [
       { id: "a", text: "議論が終わるまで待つ" },
@@ -899,6 +965,7 @@ export const questions: Question[] = [
   {
     id: 67,
     type: "single",
+    category: "situation",
     question: "スプリントレビューで、ステークホルダーから多くの変更要求が出ました。プロダクトオーナーはどう対応すべきですか？",
     choices: [
       { id: "a", text: "全ての変更要求を即座に承認する" },
@@ -912,6 +979,7 @@ export const questions: Question[] = [
   {
     id: 68,
     type: "single",
+    category: "situation",
     question: "新しいスクラムチームが、完成の定義をまだ持っていません。どうすべきですか？",
     choices: [
       { id: "a", text: "スクラムマスターが完成の定義を作成する" },
@@ -925,6 +993,7 @@ export const questions: Question[] = [
   {
     id: 69,
     type: "single",
+    category: "situation",
     question: "プロダクトオーナーが忙しく、スプリントプランニングに参加できないと言っています。どうすべきですか？",
     choices: [
       { id: "a", text: "プロダクトオーナーなしでスプリントプランニングを行う" },
@@ -938,6 +1007,7 @@ export const questions: Question[] = [
   {
     id: 70,
     type: "single",
+    category: "situation",
     question: "経営層がスクラムチームに、見積もりの精度を上げるためにガントチャートの作成を要求しています。スクラムマスターはどう対応すべきですか？",
     choices: [
       { id: "a", text: "要求に従いガントチャートを作成する" },
@@ -951,6 +1021,7 @@ export const questions: Question[] = [
   {
     id: 71,
     type: "multiple",
+    category: "situation",
     question: "スプリントゴールについて正しいものを全て選んでください。",
     choices: [
       { id: "a", text: "スプリントプランニングで作成される" },
@@ -965,6 +1036,7 @@ export const questions: Question[] = [
   {
     id: 72,
     type: "single",
+    category: "situation",
     question: "チームメンバーの一人が、スクラムマスターに「プロダクトオーナーが技術的な決定に介入しすぎている」と相談しました。スクラムマスターはどう対応すべきですか？",
     choices: [
       { id: "a", text: "プロダクトオーナーを叱責する" },
@@ -978,6 +1050,7 @@ export const questions: Question[] = [
   {
     id: 73,
     type: "single",
+    category: "situation",
     question: "スプリントレトロスペクティブで特定した改善アクションは、いつ実施されるべきですか？",
     choices: [
       { id: "a", text: "次のスプリントで改善する機会を探す" },
@@ -991,6 +1064,7 @@ export const questions: Question[] = [
   {
     id: 74,
     type: "single",
+    category: "situation",
     question: "開発者が「この機能は技術的に実現不可能だ」と判断しました。どうすべきですか？",
     choices: [
       { id: "a", text: "プロダクトオーナーと代替案を検討し、プロダクトバックログを調整する" },
@@ -1004,6 +1078,7 @@ export const questions: Question[] = [
   {
     id: 75,
     type: "single",
+    category: "situation",
     question: "複数のスクラムチームが同じプロダクトに取り組んでいます。完成の定義はどうあるべきですか？",
     choices: [
       { id: "a", text: "各チームが独自の完成の定義を持つ" },
@@ -1017,6 +1092,7 @@ export const questions: Question[] = [
   {
     id: 76,
     type: "multiple",
+    category: "situation",
     question: "スプリントについて正しいものを全て選んでください。",
     choices: [
       { id: "a", text: "他の全てのイベントのコンテナである" },
@@ -1031,6 +1107,7 @@ export const questions: Question[] = [
   {
     id: 77,
     type: "single",
+    category: "situation",
     question: "スクラムチームが初めてスプリントを開始します。最初のスプリントで必ず行うべきことは何ですか？",
     choices: [
       { id: "a", text: "要件定義を完了する" },
@@ -1044,6 +1121,7 @@ export const questions: Question[] = [
   {
     id: 78,
     type: "single",
+    category: "situation",
     question: "スクラムマスターがチームを離れ、新しいスクラムマスターが就任しました。最初に行うべきことは何ですか？",
     choices: [
       { id: "a", text: "すぐにプロセスを変更する" },
@@ -1057,6 +1135,7 @@ export const questions: Question[] = [
   {
     id: 79,
     type: "single",
+    category: "situation",
     question: "開発者が見積もりを行う際、プロダクトオーナーの役割は何ですか？",
     choices: [
       { id: "a", text: "見積もりを承認する" },
@@ -1070,6 +1149,7 @@ export const questions: Question[] = [
   {
     id: 80,
     type: "multiple",
+    category: "situation",
     question: "スクラムの経験主義の3つの柱を支えるために必要なことを全て選んでください。",
     choices: [
       { id: "a", text: "スクラムの価値基準を体現する" },
@@ -1080,6 +1160,1153 @@ export const questions: Question[] = [
     ],
     correctAnswers: ["a", "c", "d", "e"],
     explanation: "経験主義の3つの柱（透明性、検査、適応）を支えるには、スクラムの価値基準の体現、信頼関係の構築、頻繁な検査と適応、作成物の透明性確保が必要です。詳細なプロジェクト計画は経験主義とは相反します。",
+  },
+
+  // ===== PSM I シチュエーション問題（81-105）=====
+  {
+    id: 81,
+    type: "single",
+    category: "situation",
+    question: "スプリントレビュー中、ステークホルダーが「この機能は私たちが求めていたものとは違う」と言いました。プロダクトオーナーはどう対応すべきですか？",
+    choices: [
+      { id: "a", text: "ステークホルダーの要望を無視して次に進む" },
+      { id: "b", text: "フィードバックを収集し、プロダクトバックログの調整を検討する" },
+      { id: "c", text: "開発者を叱責する" },
+      { id: "d", text: "スプリントを最初からやり直す" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スプリントレビューはフィードバックを収集する重要な機会です。ステークホルダーの意見を聞き、プロダクトバックログを調整して今後のスプリントで価値を提供できるようにします。",
+  },
+  {
+    id: 82,
+    type: "single",
+    category: "situation",
+    question: "開発者の一人が病気で1週間欠勤することになりました。スクラムマスターはどう対応すべきですか？",
+    choices: [
+      { id: "a", text: "欠勤した開発者の代わりを即座に雇う" },
+      { id: "b", text: "スプリントを中止する" },
+      { id: "c", text: "チームが自己管理できるよう支援し、必要に応じてスコープの再交渉を促す" },
+      { id: "d", text: "欠勤した開発者のタスクを自分で代行する" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "スクラムマスターはチームが自己管理できるよう支援します。チームはキャパシティの変化に対応し、必要に応じてプロダクトオーナーとスコープを再交渉できます。",
+  },
+  {
+    id: 83,
+    type: "single",
+    category: "situation",
+    question: "スプリント中、開発者が重大なセキュリティ脆弱性を発見しました。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "次のスプリントで対応するためにプロダクトバックログに追加する" },
+      { id: "b", text: "プロダクトオーナーに報告し、スプリントバックログに追加するか即座に判断を仰ぐ" },
+      { id: "c", text: "スプリントレビューまで報告を待つ" },
+      { id: "d", text: "スクラムマスターが対応方法を決定する" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "重大なセキュリティ問題は即座に対応が必要です。プロダクトオーナーと開発者が協力して、スプリントバックログに追加するかどうかを判断します。",
+  },
+  {
+    id: 84,
+    type: "single",
+    category: "situation",
+    question: "プロダクトオーナーが「開発者に直接要件を伝えたい」と言うビジネスアナリストがいます。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "ビジネスアナリストに自由に開発者と話させる" },
+      { id: "b", text: "プロダクトオーナーを通じてコミュニケーションを取るよう説明する" },
+      { id: "c", text: "スクラムマスターが仲介役となる" },
+      { id: "d", text: "ビジネスアナリストをスクラムチームに加える" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "プロダクトバックログの優先順位付けと要件の決定はプロダクトオーナーの責務です。ステークホルダーはプロダクトオーナーを通じて要件を伝えるべきです。",
+  },
+  {
+    id: 85,
+    type: "single",
+    category: "situation",
+    question: "デイリースクラムで、ある開発者が「昨日は何もしていない」と報告しました。スクラムマスターはどう対応すべきですか？",
+    choices: [
+      { id: "a", text: "その開発者を叱責する" },
+      { id: "b", text: "デイリースクラム後に個別に話を聞き、障害がないか確認する" },
+      { id: "c", text: "プロダクトオーナーに報告する" },
+      { id: "d", text: "何もしない、デイリースクラムは報告会ではないため" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムマスターは障害を取り除く支援をします。開発者が作業できなかった理由を理解し、必要に応じて支援を提供します。公の場での叱責は避けるべきです。",
+  },
+  {
+    id: 86,
+    type: "single",
+    category: "situation",
+    question: "スプリントの途中で、プロダクトオーナーが「市場の変化により、現在のスプリントゴールは無意味になった」と言いました。どうすべきですか？",
+    choices: [
+      { id: "a", text: "スプリントゴールを変更して続ける" },
+      { id: "b", text: "プロダクトオーナーがスプリントを中止することを検討する" },
+      { id: "c", text: "スクラムマスターがスプリントを中止する" },
+      { id: "d", text: "スプリント終了まで現在のゴールを追い続ける" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スプリントゴールが陳腐化した場合、プロダクトオーナーのみがスプリントを中止できます。スプリントゴールの変更は許可されていません。",
+  },
+  {
+    id: 87,
+    type: "single",
+    category: "situation",
+    question: "新しく参加した開発者が、スクラムのプロセスを理解していません。誰が教育を担当すべきですか？",
+    choices: [
+      { id: "a", text: "プロダクトオーナー" },
+      { id: "b", text: "スクラムマスター" },
+      { id: "c", text: "人事部門" },
+      { id: "d", text: "他の開発者のみ" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムマスターはスクラムの理論とプラクティスを全員に理解してもらう責任があります。新メンバーへの教育もスクラムマスターの重要な役割です。",
+  },
+  {
+    id: 88,
+    type: "single",
+    category: "situation",
+    question: "スプリントレトロスペクティブで、開発者が「プロダクトオーナーの要件説明が不十分だ」と不満を述べました。スクラムマスターはどう対応すべきですか？",
+    choices: [
+      { id: "a", text: "プロダクトオーナーを擁護する" },
+      { id: "b", text: "建設的な議論を促し、具体的な改善策を検討するよう導く" },
+      { id: "c", text: "プロダクトオーナーを叱責する" },
+      { id: "d", text: "議論を打ち切る" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムマスターはレトロスペクティブで建設的な議論を促進します。問題を特定し、具体的な改善策を見つけることに焦点を当てます。",
+  },
+  {
+    id: 89,
+    type: "multiple",
+    category: "situation",
+    question: "スプリントプランニングで考慮すべき要素を全て選んでください。",
+    choices: [
+      { id: "a", text: "チームのキャパシティ" },
+      { id: "b", text: "過去のパフォーマンス" },
+      { id: "c", text: "経営層の期待" },
+      { id: "d", text: "プロダクトバックログの優先順位" },
+      { id: "e", text: "完成の定義" },
+    ],
+    correctAnswers: ["a", "b", "d", "e"],
+    explanation: "スプリントプランニングでは、チームのキャパシティ、過去のパフォーマンス、プロダクトバックログの優先順位、完成の定義を考慮します。経営層の期待は直接の考慮事項ではありません。",
+  },
+  {
+    id: 90,
+    type: "single",
+    category: "situation",
+    question: "開発者が「このタスクは私の専門外だ」と言って作業を拒否しました。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "その開発者を別のチームに移動させる" },
+      { id: "b", text: "スクラムマスターがそのタスクを代行する" },
+      { id: "c", text: "チームとして協力し、知識共有やペアプログラミングを促す" },
+      { id: "d", text: "外部の専門家を雇う" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "スクラムチームは機能横断的であり、必要なスキルを持つべきです。チーム内での知識共有やペアプログラミングを通じて、全員が成長できるよう支援します。",
+  },
+  {
+    id: 91,
+    type: "single",
+    category: "situation",
+    question: "スプリント中に開発者同士で意見の対立が起きました。スクラムマスターはどう対応すべきですか？",
+    choices: [
+      { id: "a", text: "どちらが正しいか判断を下す" },
+      { id: "b", text: "対立を無視する" },
+      { id: "c", text: "自己管理を促し、チームが自分たちで解決できるよう支援する" },
+      { id: "d", text: "プロダクトオーナーに報告して決定を任せる" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "スクラムマスターは自己管理型チームを育成します。対立の解決方法を教え、チームが自分たちで問題を解決できるよう支援します。",
+  },
+  {
+    id: 92,
+    type: "single",
+    category: "situation",
+    question: "プロダクトオーナーが長期休暇を取ることになりました。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "スクラムマスターがプロダクトオーナーの代理を務める" },
+      { id: "b", text: "開発者がプロダクトバックログの優先順位を決める" },
+      { id: "c", text: "プロダクトオーナーが代理人を指名し、決定権を委譲する" },
+      { id: "d", text: "スプリントを一時停止する" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "プロダクトオーナーは一人の人間ですが、不在の場合は代理人に決定権を委譲できます。ただし、責任は依然としてプロダクトオーナーにあります。",
+  },
+  {
+    id: 93,
+    type: "single",
+    category: "situation",
+    question: "スプリントレビューで、プロダクトオーナーがインクリメントを「受け入れない」と言いました。どうすべきですか？",
+    choices: [
+      { id: "a", text: "スプリントを失敗とみなす" },
+      { id: "b", text: "完成の定義を満たしていれば、インクリメントはすでに「完成」している" },
+      { id: "c", text: "開発者を叱責する" },
+      { id: "d", text: "スクラムマスターが仲裁する" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "完成の定義を満たしたインクリメントは「完成」です。プロダクトオーナーの「受け入れ」は公式のスクラムプロセスではありません。追加の要求はプロダクトバックログに追加されます。",
+  },
+  {
+    id: 94,
+    type: "single",
+    category: "situation",
+    question: "開発者が「デイリースクラムは時間の無駄だ」と言っています。スクラムマスターはどう対応すべきですか？",
+    choices: [
+      { id: "a", text: "デイリースクラムを廃止する" },
+      { id: "b", text: "デイリースクラムの目的と価値を説明し、効果的な運用方法を探る" },
+      { id: "c", text: "その開発者をデイリースクラムから除外する" },
+      { id: "d", text: "プロダクトオーナーに報告する" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムマスターはスクラムの価値を説明し、チームがイベントの恩恵を受けられるよう支援します。デイリースクラムの運用方法を改善することを検討します。",
+  },
+  {
+    id: 95,
+    type: "single",
+    category: "situation",
+    question: "複数のステークホルダーがそれぞれ異なる機能を最優先にするよう要求しています。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "全ての要求を同時に進める" },
+      { id: "b", text: "スクラムマスターが優先順位を決める" },
+      { id: "c", text: "プロダクトオーナーが価値に基づいて優先順位を決定する" },
+      { id: "d", text: "開発者が技術的な難易度で優先順位を決める" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "プロダクトオーナーは多くのステークホルダーのニーズを代表し、価値に基づいてプロダクトバックログの優先順位を決定する唯一の責任者です。",
+  },
+  {
+    id: 96,
+    type: "single",
+    category: "situation",
+    question: "スプリント中に技術的負債が発見されました。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "無視して機能開発を優先する" },
+      { id: "b", text: "プロダクトバックログに追加し、プロダクトオーナーと優先順位を検討する" },
+      { id: "c", text: "スクラムマスターが対応を決定する" },
+      { id: "d", text: "スプリント終了後に別のチームで対応する" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "技術的負債はプロダクトバックログアイテムとして追加し、プロダクトオーナーと開発者が協力して優先順位を検討します。",
+  },
+  {
+    id: 97,
+    type: "multiple",
+    category: "situation",
+    question: "スクラムマスターがプロダクトオーナーを支援する方法として正しいものを全て選んでください。",
+    choices: [
+      { id: "a", text: "効果的なプロダクトバックログ管理の方法を見つける支援" },
+      { id: "b", text: "プロダクトゴールとプロダクトバックログアイテムを理解してもらう支援" },
+      { id: "c", text: "プロダクトバックログの優先順位を決定する" },
+      { id: "d", text: "ステークホルダーとの効果的なコラボレーション支援" },
+      { id: "e", text: "経験主義に基づくプロダクト計画の支援" },
+    ],
+    correctAnswers: ["a", "b", "d", "e"],
+    explanation: "スクラムマスターはプロダクトオーナーを様々な方法で支援しますが、プロダクトバックログの優先順位決定はプロダクトオーナーの専属の責務です。",
+  },
+  {
+    id: 98,
+    type: "single",
+    category: "situation",
+    question: "スプリント終了時に、一部のプロダクトバックログアイテムが完成の定義を満たしませんでした。どうすべきですか？",
+    choices: [
+      { id: "a", text: "完成の定義を緩和して完了とみなす" },
+      { id: "b", text: "未完了のアイテムをプロダクトバックログに戻す" },
+      { id: "c", text: "スプリントを延長して完了させる" },
+      { id: "d", text: "次のスプリントに自動的に引き継ぐ" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "完成の定義を満たさないアイテムはインクリメントの一部にはなりません。プロダクトバックログに戻し、今後のスプリントで取り組むかどうかをプロダクトオーナーが判断します。",
+  },
+  {
+    id: 99,
+    type: "single",
+    category: "situation",
+    question: "経営層がスプリント期間を2週間から1週間に短縮するよう要求しています。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "即座に要求に従う" },
+      { id: "b", text: "スクラムチームとしてメリット・デメリットを検討し、チームが決定する" },
+      { id: "c", text: "スクラムマスターが拒否する" },
+      { id: "d", text: "プロダクトオーナーが決定する" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スプリント期間の変更はスクラムチーム全体で検討すべきです。短いスプリントのメリット・デメリットを評価し、チームとして最適な長さを決定します。",
+  },
+  {
+    id: 100,
+    type: "single",
+    category: "situation",
+    question: "開発者が「プロダクトオーナーの要求が曖昧すぎる」と訴えています。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "開発者が自分で要件を解釈する" },
+      { id: "b", text: "プロダクトバックログリファインメントを通じて、アイテムを明確にする活動を促す" },
+      { id: "c", text: "スクラムマスターが要件を明確にする" },
+      { id: "d", text: "曖昧なアイテムは削除する" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "プロダクトバックログリファインメントは、アイテムを分解し、詳細を追加する継続的な活動です。プロダクトオーナーと開発者が協力して要件を明確にします。",
+  },
+  {
+    id: 101,
+    type: "single",
+    category: "situation",
+    question: "スプリントレトロスペクティブで同じ問題が繰り返し議論されています。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "レトロスペクティブを廃止する" },
+      { id: "b", text: "問題を無視する" },
+      { id: "c", text: "改善アクションが実際に実行されているか確認し、根本原因を特定する" },
+      { id: "d", text: "経営層に報告する" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "同じ問題が繰り返される場合、改善アクションが実行されていない可能性があります。根本原因を特定し、実効性のある改善策を実施することが重要です。",
+  },
+  {
+    id: 102,
+    type: "single",
+    category: "situation",
+    question: "新しいスクラムチームがベロシティを測定し始めました。最初の数スプリントでベロシティが不安定です。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "ベロシティを安定させるために残業を強制する" },
+      { id: "b", text: "新しいチームでは当然のことと理解し、時間をかけてチームが安定することを待つ" },
+      { id: "c", text: "チームメンバーを入れ替える" },
+      { id: "d", text: "ベロシティの測定を止める" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "新しいチームがベロシティを安定させるには時間がかかります。チームがまとまり、プロセスを改善するにつれて、自然と安定していきます。",
+  },
+  {
+    id: 103,
+    type: "single",
+    category: "situation",
+    question: "スプリント中に、完成の定義に含まれるテストの一部が実施できないことが判明しました。どうすべきですか？",
+    choices: [
+      { id: "a", text: "その部分のテストをスキップして完了とみなす" },
+      { id: "b", text: "完成の定義を満たさないため、インクリメントとしてリリースしない" },
+      { id: "c", text: "プロダクトオーナーの承認を得てリリースする" },
+      { id: "d", text: "スクラムマスターが例外を認める" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "完成の定義を満たさないアイテムはインクリメントの一部にはなりません。品質を下げることは許容されません。",
+  },
+  {
+    id: 104,
+    type: "single",
+    category: "situation",
+    question: "開発者が自分たちでタスクを選べるようになったものの、難しいタスクが残り続けています。どう対応すべきですか？",
+    choices: [
+      { id: "a", text: "スクラムマスターがタスクを割り当てる" },
+      { id: "b", text: "スプリントレトロスペクティブで問題を取り上げ、チームで解決策を検討する" },
+      { id: "c", text: "難しいタスクを削除する" },
+      { id: "d", text: "外部のコンサルタントを雇う" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "チームのプロセスに関する問題はスプリントレトロスペクティブで取り上げます。チームとして解決策を検討し、自己管理能力を高めます。",
+  },
+  {
+    id: 105,
+    type: "single",
+    category: "situation",
+    question: "プロダクトオーナーがスプリント中に頻繁にスコープを追加しようとします。スクラムマスターはどう対応すべきですか？",
+    choices: [
+      { id: "a", text: "プロダクトオーナーの全ての要求を受け入れる" },
+      { id: "b", text: "スプリントゴールの安定性の重要性を説明し、プロダクトバックログへの追加を促す" },
+      { id: "c", text: "プロダクトオーナーをスプリントから排除する" },
+      { id: "d", text: "開発者に無視するよう指示する" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムマスターはスプリントゴールの安定性を守る支援をします。新しい要件はプロダクトバックログに追加し、次のスプリントで検討するよう促します。",
+  },
+
+  // ===== PSM I 引っかけ問題（106-120）=====
+  {
+    id: 106,
+    type: "single",
+    category: "tricky",
+    question: "スプリントバックログは誰が変更できますか？",
+    choices: [
+      { id: "a", text: "プロダクトオーナーのみ" },
+      { id: "b", text: "開発者のみ" },
+      { id: "c", text: "スクラムマスターのみ" },
+      { id: "d", text: "スクラムチーム全員" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スプリントバックログは開発者が所有し、開発者のみが変更できます。スプリント中に計画を調整するのは開発者の責任です。",
+  },
+  {
+    id: 107,
+    type: "single",
+    category: "tricky",
+    question: "デイリースクラムはどこで開催すべきですか？",
+    choices: [
+      { id: "a", text: "必ず対面で同じ場所で行う" },
+      { id: "b", text: "スクラムマスターが決めた場所で行う" },
+      { id: "c", text: "開発者が選択する。同じ時刻・同じ場所が推奨される" },
+      { id: "d", text: "プロダクトオーナーのオフィスで行う" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "デイリースクラムは複雑さを軽減するため、同じ時刻・同じ場所で開催することが推奨されますが、開発者が構造と手法を選択できます。",
+  },
+  {
+    id: 108,
+    type: "single",
+    category: "tricky",
+    question: "プロダクトバックログリファインメントに費やす時間の目安はどれくらいですか？",
+    choices: [
+      { id: "a", text: "スプリントの50%以上" },
+      { id: "b", text: "スプリントの10%以下を目安とすることが多い" },
+      { id: "c", text: "スクラムガイドで厳密に定義されている" },
+      { id: "d", text: "リファインメントは不要である" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "プロダクトバックログリファインメントは通常、開発者のキャパシティの10%以下を消費しますが、スクラムガイドでは厳密に定義されていません。",
+  },
+  {
+    id: 109,
+    type: "single",
+    category: "tricky",
+    question: "スクラムマスターは管理職（マネージャー）ですか？",
+    choices: [
+      { id: "a", text: "はい、チームを管理する責任がある" },
+      { id: "b", text: "いいえ、リーダーではあるが管理職ではない" },
+      { id: "c", text: "プロジェクトの規模による" },
+      { id: "d", text: "組織の方針による" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムマスターはサーバントリーダーであり、真のリーダーですが、チームを管理する従来の管理職ではありません。チームの自己管理を支援します。",
+  },
+  {
+    id: 110,
+    type: "single",
+    category: "tricky",
+    question: "スプリント中に「完成の定義」を変更することはできますか？",
+    choices: [
+      { id: "a", text: "はい、いつでも変更できる" },
+      { id: "b", text: "はい、ただし基準を厳格化する方向でのみ" },
+      { id: "c", text: "いいえ、スプリント中は変更できない" },
+      { id: "d", text: "プロダクトオーナーの承認があれば変更できる" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "スプリント中に完成の定義を変更することは避けるべきです。変更はスプリントレトロスペクティブで検討し、次のスプリントから適用します。",
+  },
+  {
+    id: 111,
+    type: "single",
+    category: "tricky",
+    question: "スクラムでは見積もりは必須ですか？",
+    choices: [
+      { id: "a", text: "はい、ストーリーポイントでの見積もりが必須" },
+      { id: "b", text: "はい、時間での見積もりが必須" },
+      { id: "c", text: "いいえ、スクラムガイドでは見積もりの手法を規定していない" },
+      { id: "d", text: "スクラムマスターが見積もり方法を決定する" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "スクラムガイドでは見積もりの手法（ストーリーポイント、時間など）を規定していません。チームが適切と判断する方法を選択できます。",
+  },
+  {
+    id: 112,
+    type: "single",
+    category: "tricky",
+    question: "スプリントゴールはスプリント中に変更できますか？",
+    choices: [
+      { id: "a", text: "はい、プロダクトオーナーの承認があれば変更できる" },
+      { id: "b", text: "はい、チーム全員の合意があれば変更できる" },
+      { id: "c", text: "いいえ、スプリントゴールは不変である" },
+      { id: "d", text: "スクラムマスターの判断で変更できる" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "スプリントゴールはスプリント中に変更できません。スコープの調整は可能ですが、ゴール自体は固定されます。",
+  },
+  {
+    id: 113,
+    type: "single",
+    category: "tricky",
+    question: "スクラムチームのサイズが大きくなりすぎた場合、どうすべきですか？",
+    choices: [
+      { id: "a", text: "一つの大きなチームとして維持する" },
+      { id: "b", text: "複数の小さなスクラムチームに再編成することを検討する" },
+      { id: "c", text: "スクラムマスターを増やして対応する" },
+      { id: "d", text: "サブチームを作成する" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムチームは通常10人以下が推奨されます。大きくなりすぎた場合は、複数の凝集性のあるスクラムチームに再編成することを検討します。サブチームの作成は避けるべきです。",
+  },
+  {
+    id: 114,
+    type: "single",
+    category: "tricky",
+    question: "インクリメントは必ずスプリント終了時に作成されますか？",
+    choices: [
+      { id: "a", text: "はい、スプリントレビューの直前に作成される" },
+      { id: "b", text: "いいえ、スプリント中に複数のインクリメントが作成されることもある" },
+      { id: "c", text: "プロダクトオーナーの判断による" },
+      { id: "d", text: "スプリント終了後に作成される" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "インクリメントはスプリント中に複数作成されることもあります。アイテムが完成の定義を満たすたびにインクリメントが生まれます。",
+  },
+  {
+    id: 115,
+    type: "single",
+    category: "tricky",
+    question: "スプリントレビューとデモは同じものですか？",
+    choices: [
+      { id: "a", text: "はい、同じイベントの別名である" },
+      { id: "b", text: "いいえ、スプリントレビューはデモだけでなく、協働の作業セッションである" },
+      { id: "c", text: "デモはスプリントレビューの後に別途行われる" },
+      { id: "d", text: "プロダクトオーナーの判断による" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スプリントレビューは単なるデモではありません。スプリントの成果を検査し、ステークホルダーと協働して今後の適応を決定する作業セッションです。",
+  },
+  {
+    id: 116,
+    type: "single",
+    category: "tricky",
+    question: "バーンダウンチャートはスクラムの必須の作成物ですか？",
+    choices: [
+      { id: "a", text: "はい、スプリントごとに作成が必須" },
+      { id: "b", text: "いいえ、スクラムガイドでは規定されていない" },
+      { id: "c", text: "はい、進捗の透明性のために必須" },
+      { id: "d", text: "スクラムマスターが必要と判断した場合のみ" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "バーンダウンチャートはスクラムガイドで規定されていません。有用なツールですが、必須の作成物ではありません。",
+  },
+  {
+    id: 117,
+    type: "single",
+    category: "tricky",
+    question: "スクラムマスターは開発者を兼任できますか？",
+    choices: [
+      { id: "a", text: "いいえ、役割は完全に分離すべき" },
+      { id: "b", text: "はい、特に小さなチームでは可能だが、両方の責任を果たす必要がある" },
+      { id: "c", text: "プロダクトオーナーの承認が必要" },
+      { id: "d", text: "組織の方針による" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムマスターは開発者を兼任できますが、両方の責任を果たす必要があります。ただし、利益相反に注意が必要です。",
+  },
+  {
+    id: 118,
+    type: "single",
+    category: "tricky",
+    question: "プロダクトオーナーはステークホルダーからの要求を全て受け入れるべきですか？",
+    choices: [
+      { id: "a", text: "はい、顧客満足のために全て受け入れるべき" },
+      { id: "b", text: "いいえ、価値に基づいて優先順位を判断し、取捨選択する" },
+      { id: "c", text: "スクラムマスターと相談して決める" },
+      { id: "d", text: "開発者が実現可能なもののみ受け入れる" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "プロダクトオーナーはステークホルダーのニーズを代表しますが、全てを受け入れる必要はありません。価値に基づいて優先順位を判断し、プロダクトの成功に貢献する決定を行います。",
+  },
+  {
+    id: 119,
+    type: "single",
+    category: "tricky",
+    question: "スプリントレトロスペクティブの参加者として正しいのは誰ですか？",
+    choices: [
+      { id: "a", text: "開発者のみ" },
+      { id: "b", text: "スクラムチーム全員（プロダクトオーナー、スクラムマスター、開発者）" },
+      { id: "c", text: "開発者とスクラムマスターのみ" },
+      { id: "d", text: "ステークホルダーを含む全員" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スプリントレトロスペクティブにはスクラムチーム全員（プロダクトオーナー、スクラムマスター、開発者）が参加します。ステークホルダーは参加しません。",
+  },
+  {
+    id: 120,
+    type: "single",
+    category: "tricky",
+    question: "「完了（Done）」と「完成の定義」の違いは何ですか？",
+    choices: [
+      { id: "a", text: "同じ意味である" },
+      { id: "b", text: "「完了」は個々のタスクの状態、「完成の定義」はインクリメントの品質基準" },
+      { id: "c", text: "「完成の定義」は任意、「完了」は必須" },
+      { id: "d", text: "プロダクトオーナーが区別を決める" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "「完成の定義」はインクリメントが満たすべき品質基準の正式な説明です。「完了」はその基準を満たした状態を指します。",
+  },
+
+  // ===== PSM I 深掘り問題（121-135）=====
+  {
+    id: 121,
+    type: "multiple",
+    category: "deep",
+    question: "スクラムの経験主義において「透明性」が重要な理由を全て選んでください。",
+    choices: [
+      { id: "a", text: "検査を可能にする" },
+      { id: "b", text: "意思決定を最適化する" },
+      { id: "c", text: "管理者による監視を容易にする" },
+      { id: "d", text: "信頼関係の基盤となる" },
+      { id: "e", text: "誤解を招く検査を防ぐ" },
+    ],
+    correctAnswers: ["a", "b", "d", "e"],
+    explanation: "透明性は検査を可能にし、意思決定を最適化し、信頼関係の基盤となり、誤解を招く検査を防ぎます。管理者による監視のためではありません。",
+  },
+  {
+    id: 122,
+    type: "single",
+    category: "deep",
+    question: "スクラムガイド2020で「自己組織化」から変更された用語は何ですか？",
+    choices: [
+      { id: "a", text: "自己管理（Self-managing）" },
+      { id: "b", text: "自己指導（Self-directing）" },
+      { id: "c", text: "自律（Autonomous）" },
+      { id: "d", text: "独立（Independent）" },
+    ],
+    correctAnswers: ["a"],
+    explanation: "スクラムガイド2020では「自己組織化（Self-organizing）」から「自己管理（Self-managing）」に用語が変更されました。これは、チームが誰が、いつ、どのように作業を行うかを自分たちで決定することを強調しています。",
+  },
+  {
+    id: 123,
+    type: "multiple",
+    category: "deep",
+    question: "スクラムチームが「機能横断的（Cross-functional）」であることの意味として正しいものを全て選んでください。",
+    choices: [
+      { id: "a", text: "各メンバーが全てのスキルを持っている" },
+      { id: "b", text: "チームとして必要な全てのスキルを持っている" },
+      { id: "c", text: "外部への依存なしに価値を創出できる" },
+      { id: "d", text: "メンバーが複数のプロジェクトで働く" },
+      { id: "e", text: "専門家としてお互いに責任を持つ" },
+    ],
+    correctAnswers: ["b", "c", "e"],
+    explanation: "機能横断的とは、チーム全体として必要なスキルを持ち、外部依存なしに価値を創出できることを意味します。各メンバーが全スキルを持つ必要はありません。",
+  },
+  {
+    id: 124,
+    type: "single",
+    category: "deep",
+    question: "スクラムガイド2020で追加された「コミットメント」の概念において、各作成物に対するコミットメントの目的は何ですか？",
+    choices: [
+      { id: "a", text: "作業の完了を保証する" },
+      { id: "b", text: "透明性を高め、進捗を測定するための焦点を提供する" },
+      { id: "c", text: "チームを評価するための基準を設ける" },
+      { id: "d", text: "ステークホルダーへの報告を容易にする" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "各作成物に対するコミットメント（プロダクトゴール、スプリントゴール、完成の定義）は、透明性を高め、進捗を測定するための焦点を提供します。",
+  },
+  {
+    id: 125,
+    type: "single",
+    category: "deep",
+    question: "スクラムにおいて「タイムボックス」の主な目的は何ですか？",
+    choices: [
+      { id: "a", text: "作業を急がせてプレッシャーを与える" },
+      { id: "b", text: "リスクを制限し、集中を促し、検査と適応の機会を確保する" },
+      { id: "c", text: "正確な見積もりを可能にする" },
+      { id: "d", text: "経営層への報告を容易にする" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "タイムボックスはリスクを制限し、集中を促し、定期的な検査と適応の機会を確保するために設けられています。プレッシャーを与えることが目的ではありません。",
+  },
+  {
+    id: 126,
+    type: "multiple",
+    category: "deep",
+    question: "スプリントがスクラムの心臓部である理由を全て選んでください。",
+    choices: [
+      { id: "a", text: "アイデアを価値に変換する" },
+      { id: "b", text: "予測可能性を実現する" },
+      { id: "c", text: "検査と適応の機会を確保する" },
+      { id: "d", text: "リスクを最小化する" },
+      { id: "e", text: "詳細な計画を可能にする" },
+    ],
+    correctAnswers: ["a", "b", "c", "d"],
+    explanation: "スプリントはアイデアを価値に変換し、予測可能性を実現し、検査と適応の機会を確保し、リスクを最小化します。詳細な計画は経験主義とは相反します。",
+  },
+  {
+    id: 127,
+    type: "single",
+    category: "deep",
+    question: "スクラムガイドが「軽量フレームワーク」と称する理由として最も適切なものはどれですか？",
+    choices: [
+      { id: "a", text: "少ない人数で実践できるから" },
+      { id: "b", text: "意図的に不完全であり、必要最小限の要素のみを定義しているから" },
+      { id: "c", text: "短期間のプロジェクトに適しているから" },
+      { id: "d", text: "ドキュメントが少ないから" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムは意図的に不完全であり、スクラムの理論を実現するために必要な部分のみを定義しています。これにより様々な状況に適応できます。",
+  },
+  {
+    id: 128,
+    type: "single",
+    category: "deep",
+    question: "スクラムにおける「経験主義」と「リーン思考」の関係として正しいものはどれですか？",
+    choices: [
+      { id: "a", text: "経験主義はリーン思考の一部である" },
+      { id: "b", text: "スクラムは経験主義とリーン思考の両方に基づいている" },
+      { id: "c", text: "リーン思考は経験主義を置き換えるものである" },
+      { id: "d", text: "両者は相反する考え方である" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムガイド2020では、スクラムは「経験主義」と「リーン思考」の両方に基づいていると明記されています。経験主義は知識が経験から生まれることを、リーン思考はムダを省くことを重視します。",
+  },
+  {
+    id: 129,
+    type: "single",
+    category: "deep",
+    question: "スクラムの「適応」が最も困難になる状況はどれですか？",
+    choices: [
+      { id: "a", text: "関係者に権限が与えられていない場合" },
+      { id: "b", text: "チームが大きすぎる場合" },
+      { id: "c", text: "スプリントが長すぎる場合" },
+      { id: "d", text: "ステークホルダーが多すぎる場合" },
+    ],
+    correctAnswers: ["a"],
+    explanation: "スクラムガイドでは「関係者に権限が与えられていなかったり、自己管理がなされていなかったりすれば、適応はより困難になる」と記載されています。",
+  },
+  {
+    id: 130,
+    type: "multiple",
+    category: "deep",
+    question: "プロダクトゴールの特徴として正しいものを全て選んでください。",
+    choices: [
+      { id: "a", text: "プロダクトの将来の状態を表す" },
+      { id: "b", text: "スクラムチームの長期的な目標" },
+      { id: "c", text: "プロダクトバックログに存在する" },
+      { id: "d", text: "複数のプロダクトゴールを同時に追求できる" },
+      { id: "e", text: "達成または放棄するまで次のゴールに取り組まない" },
+    ],
+    correctAnswers: ["a", "b", "c", "e"],
+    explanation: "プロダクトゴールはプロダクトの将来の状態を表し、長期的な目標であり、プロダクトバックログに存在します。同時に複数のゴールは追求しません。",
+  },
+  {
+    id: 131,
+    type: "single",
+    category: "deep",
+    question: "スクラムガイド2020において、スクラムチームが「価値を創出する」とはどういう意味ですか？",
+    choices: [
+      { id: "a", text: "利益を最大化すること" },
+      { id: "b", text: "毎スプリント、使用可能なインクリメントを作成すること" },
+      { id: "c", text: "コストを最小化すること" },
+      { id: "d", text: "ドキュメントを作成すること" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムにおいて価値を創出するとは、毎スプリント使用可能で価値のあるインクリメントを作成することを意味します。",
+  },
+  {
+    id: 132,
+    type: "single",
+    category: "deep",
+    question: "スクラムガイドにおいて「スプリント中にスプリントゴールに悪影響を与える変更を行わない」とはどういう意味ですか？",
+    choices: [
+      { id: "a", text: "スプリントバックログを一切変更しない" },
+      { id: "b", text: "ゴール達成を危うくする変更は避け、スコープは調整可能" },
+      { id: "c", text: "完成の定義を変更しない" },
+      { id: "d", text: "開発者の構成を変更しない" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スプリント中にスコープを明確化したり再交渉したりすることは可能ですが、スプリントゴールの達成を危うくするような変更は避けるべきです。",
+  },
+  {
+    id: 133,
+    type: "single",
+    category: "deep",
+    question: "スクラムガイド2020で「検査」について強調されていることは何ですか？",
+    choices: [
+      { id: "a", text: "検査は毎日行う必要がある" },
+      { id: "b", text: "検査を行う人はスキルを持ち、熱心に行う必要がある" },
+      { id: "c", text: "検査は外部の監査人が行うべき" },
+      { id: "d", text: "検査は詳細なドキュメントを作成すること" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムガイド2020では「作成物と進捗は頻繁かつ熱心に検査しなければならない」とあり、検査を行う人はスキルと熱意が必要です。",
+  },
+  {
+    id: 134,
+    type: "single",
+    category: "deep",
+    question: "スクラムにおいて「完成の定義」が満たす要件として最も重要なものはどれですか？",
+    choices: [
+      { id: "a", text: "プロダクトオーナーの期待を満たすこと" },
+      { id: "b", text: "作業が使用可能なインクリメントの一部になるための正式な状態の説明であること" },
+      { id: "c", text: "ステークホルダーの全ての要求を含むこと" },
+      { id: "d", text: "チーム全員が同意していること" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "完成の定義は、作業がインクリメントの一部になるために満たすべき品質基準の正式な説明です。これにより透明性が確保されます。",
+  },
+  {
+    id: 135,
+    type: "multiple",
+    category: "deep",
+    question: "スクラムにおいて、スプリントプランニングで回答すべき3つのトピックは何ですか？",
+    choices: [
+      { id: "a", text: "このスプリントはなぜ価値があるのか" },
+      { id: "b", text: "このスプリントで何ができるのか" },
+      { id: "c", text: "誰が何のタスクを担当するのか" },
+      { id: "d", text: "選択した作業をどのように成し遂げるのか" },
+      { id: "e", text: "いつリリースするのか" },
+    ],
+    correctAnswers: ["a", "b", "d"],
+    explanation: "スプリントプランニングの3つのトピックは「なぜ価値があるのか」「何ができるのか」「どのように成し遂げるのか」です。誰がタスクを担当するかは開発者の自己管理に委ねられます。",
+  },
+
+  // ===== PSM I 総合問題（136-150）=====
+  {
+    id: 136,
+    type: "multiple",
+    category: "comprehensive",
+    question: "スクラムフレームワークの構成要素を全て選んでください。",
+    choices: [
+      { id: "a", text: "スクラムチーム（3つの責任）" },
+      { id: "b", text: "イベント（5つ）" },
+      { id: "c", text: "作成物（3つ）" },
+      { id: "d", text: "コミットメント（3つ）" },
+      { id: "e", text: "バーンダウンチャート" },
+      { id: "f", text: "ストーリーポイント" },
+    ],
+    correctAnswers: ["a", "b", "c", "d"],
+    explanation: "スクラムフレームワークはスクラムチーム、イベント、作成物、コミットメントで構成されます。バーンダウンチャートやストーリーポイントはスクラムガイドで規定されていません。",
+  },
+  {
+    id: 137,
+    type: "single",
+    category: "comprehensive",
+    question: "スクラムの全ての要素を組み合わせることで得られる最大の価値は何ですか？",
+    choices: [
+      { id: "a", text: "正確な予測と計画" },
+      { id: "b", text: "経験主義の実践と自己管理" },
+      { id: "c", text: "効率的なドキュメント管理" },
+      { id: "d", text: "コスト削減" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムの全ての要素は経験主義と自己管理を実践するために設計されています。これにより複雑な問題に適応的に対応できます。",
+  },
+  {
+    id: 138,
+    type: "single",
+    category: "comprehensive",
+    question: "スクラムチームがスプリントごとに使用可能なインクリメントを作成できない場合、最初に確認すべきことは何ですか？",
+    choices: [
+      { id: "a", text: "開発者のスキル不足" },
+      { id: "b", text: "完成の定義が適切かどうか" },
+      { id: "c", text: "プロダクトオーナーの要求の妥当性" },
+      { id: "d", text: "スプリント期間の長さ" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "使用可能なインクリメントを作成できない場合、まず完成の定義が現実的で適切かどうかを確認します。完成の定義が厳しすぎるか、または曖昧な可能性があります。",
+  },
+  {
+    id: 139,
+    type: "multiple",
+    category: "comprehensive",
+    question: "スクラムにおいて、透明性を高めるための方法を全て選んでください。",
+    choices: [
+      { id: "a", text: "明確な完成の定義を持つ" },
+      { id: "b", text: "プロダクトバックログを可視化する" },
+      { id: "c", text: "スプリントゴールを設定する" },
+      { id: "d", text: "詳細なプロジェクト計画を作成する" },
+      { id: "e", text: "スクラムの価値基準を体現する" },
+    ],
+    correctAnswers: ["a", "b", "c", "e"],
+    explanation: "透明性は完成の定義、プロダクトバックログの可視化、スプリントゴール、価値基準の体現によって高められます。詳細な計画は経験主義とは相反します。",
+  },
+  {
+    id: 140,
+    type: "single",
+    category: "comprehensive",
+    question: "スクラムチームが取り組んでいるプロダクトにおいて、ステークホルダーの関与が低い場合、最も適切なアプローチはどれですか？",
+    choices: [
+      { id: "a", text: "ステークホルダーなしで進める" },
+      { id: "b", text: "スクラムマスターがステークホルダーとの協働を促進する" },
+      { id: "c", text: "プロダクトオーナーがステークホルダーの役割も担う" },
+      { id: "d", text: "開発者がステークホルダーに直接働きかける" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムマスターは組織に対してスクラムの採用を支援し、ステークホルダーとスクラムチームの協働を促進する役割があります。",
+  },
+  {
+    id: 141,
+    type: "single",
+    category: "comprehensive",
+    question: "複数のスクラムチームが同じプロダクトに取り組む場合、プロダクトオーナーは何人必要ですか？",
+    choices: [
+      { id: "a", text: "チームごとに一人" },
+      { id: "b", text: "一つのプロダクトに一人" },
+      { id: "c", text: "スクラムマスターが兼任する" },
+      { id: "d", text: "組織の方針による" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "一つのプロダクトには一人のプロダクトオーナーがいます。複数のチームが同じプロダクトに取り組む場合も、プロダクトバックログは一つであり、プロダクトオーナーも一人です。",
+  },
+  {
+    id: 142,
+    type: "multiple",
+    category: "comprehensive",
+    question: "スクラムにおいて、チームが自己管理を実践するために必要なことを全て選んでください。",
+    choices: [
+      { id: "a", text: "誰が作業を行うかを自分たちで決定する" },
+      { id: "b", text: "何の作業を行うかを自分たちで決定する" },
+      { id: "c", text: "どのように作業を行うかを自分たちで決定する" },
+      { id: "d", text: "プロダクトバックログの優先順位を決定する" },
+      { id: "e", text: "スプリントの長さを決定する" },
+    ],
+    correctAnswers: ["a", "b", "c", "e"],
+    explanation: "自己管理チームは誰が、何を、どのように作業を行うかを決定します。スプリントの長さもチームが決定できます。ただし、プロダクトバックログの優先順位はプロダクトオーナーの責務です。",
+  },
+  {
+    id: 143,
+    type: "single",
+    category: "comprehensive",
+    question: "スクラムにおいて「予測可能性」はどのように実現されますか？",
+    choices: [
+      { id: "a", text: "詳細な計画と見積もりによって" },
+      { id: "b", text: "固定されたスプリント期間と継続的な検査と適応によって" },
+      { id: "c", text: "経験豊富なプロジェクトマネージャーによって" },
+      { id: "d", text: "厳格なプロセス遵守によって" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムでは固定されたスプリント期間と継続的な検査と適応によって予測可能性を実現します。経験主義に基づく適応的なアプローチです。",
+  },
+  {
+    id: 144,
+    type: "single",
+    category: "comprehensive",
+    question: "スクラムを採用する組織において、マネージャーの役割はどうあるべきですか？",
+    choices: [
+      { id: "a", text: "チームの作業を監督し、指示を出す" },
+      { id: "b", text: "チームが自己管理できる環境を整える" },
+      { id: "c", text: "スクラムマスターの役割を担う" },
+      { id: "d", text: "スクラムには関与しない" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムを採用する組織では、マネージャーはチームが自己管理できる環境を整え、障害を取り除く支援をすべきです。直接的な監督や指示は避けます。",
+  },
+  {
+    id: 145,
+    type: "multiple",
+    category: "comprehensive",
+    question: "スクラムが「シンプルだが習得が困難」と言われる理由を全て選んでください。",
+    choices: [
+      { id: "a", text: "ルールは少ないが、価値観の変化が必要" },
+      { id: "b", text: "理論は単純だが、実践には組織文化の変革が必要" },
+      { id: "c", text: "フレームワークは軽量だが、自己管理には規律が必要" },
+      { id: "d", text: "ドキュメントが不十分" },
+      { id: "e", text: "技術的なスキルが高度に必要" },
+    ],
+    correctAnswers: ["a", "b", "c"],
+    explanation: "スクラムは理論・ルールはシンプルですが、価値観の変化、組織文化の変革、自己管理の規律など、人と組織の変化が必要なため習得が困難です。",
+  },
+  {
+    id: 146,
+    type: "single",
+    category: "comprehensive",
+    question: "スクラムにおいて、スプリントの成功を測る最も重要な指標は何ですか？",
+    choices: [
+      { id: "a", text: "計画したストーリーポイントの達成率" },
+      { id: "b", text: "スプリントゴールの達成と価値のあるインクリメントの作成" },
+      { id: "c", text: "開発者の稼働率" },
+      { id: "d", text: "バグの発生数" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スプリントの成功はスプリントゴールの達成と価値のあるインクリメントの作成で測られます。ストーリーポイントや稼働率はスクラムの公式な指標ではありません。",
+  },
+  {
+    id: 147,
+    type: "single",
+    category: "comprehensive",
+    question: "スクラムにおいて、技術的な決定を行う最終的な責任は誰にありますか？",
+    choices: [
+      { id: "a", text: "テックリード" },
+      { id: "b", text: "アーキテクト" },
+      { id: "c", text: "開発者" },
+      { id: "d", text: "スクラムマスター" },
+    ],
+    correctAnswers: ["c"],
+    explanation: "スクラムにはテックリードやアーキテクトという役割は定義されていません。技術的な決定は開発者が自己管理の一環として行います。",
+  },
+  {
+    id: 148,
+    type: "multiple",
+    category: "comprehensive",
+    question: "スクラムチームが新しいプロダクトを開始する際に最初に行うべきことを全て選んでください。",
+    choices: [
+      { id: "a", text: "プロダクトゴールを設定する" },
+      { id: "b", text: "初期のプロダクトバックログを作成する" },
+      { id: "c", text: "完成の定義を確立する" },
+      { id: "d", text: "詳細なプロジェクト計画を作成する" },
+      { id: "e", text: "全ての要件を文書化する" },
+    ],
+    correctAnswers: ["a", "b", "c"],
+    explanation: "新しいプロダクトを開始する際は、プロダクトゴール、初期のプロダクトバックログ、完成の定義を確立します。詳細な計画や全要件の文書化は不要です。",
+  },
+  {
+    id: 149,
+    type: "single",
+    category: "comprehensive",
+    question: "スクラムにおいて、「スプリントゴール」と「プロダクトゴール」の関係として正しいものはどれですか？",
+    choices: [
+      { id: "a", text: "両者は同じレベルの目標である" },
+      { id: "b", text: "スプリントゴールはプロダクトゴールに向かう一歩となる" },
+      { id: "c", text: "プロダクトゴールはスプリントゴールの合計である" },
+      { id: "d", text: "両者は独立しており関係がない" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スプリントゴールはプロダクトゴールに向かう一歩です。各スプリントでスプリントゴールを達成することで、長期的なプロダクトゴールに近づきます。",
+  },
+  {
+    id: 150,
+    type: "multiple",
+    category: "comprehensive",
+    question: "スクラムを正しく実践しているチームの特徴を全て選んでください。",
+    choices: [
+      { id: "a", text: "毎スプリント価値のあるインクリメントを作成している" },
+      { id: "b", text: "継続的に検査と適応を行っている" },
+      { id: "c", text: "全ての計画を事前に詳細化している" },
+      { id: "d", text: "スクラムの価値基準を体現している" },
+      { id: "e", text: "自己管理を実践している" },
+    ],
+    correctAnswers: ["a", "b", "d", "e"],
+    explanation: "正しくスクラムを実践しているチームは、価値のあるインクリメントの作成、継続的な検査と適応、価値基準の体現、自己管理を行っています。詳細な事前計画は経験主義とは相反します。",
+  },
+
+  // ===== PSM II 問題（151-160）=====
+  {
+    id: 151,
+    type: "single",
+    category: "psm2",
+    question: "【PSM II】スクラムマスターがチームに対してコーチングを行う際、最も効果的なアプローチはどれですか？",
+    choices: [
+      { id: "a", text: "問題が発生したら即座に解決策を提示する" },
+      { id: "b", text: "質問を通じてチームが自ら気づきを得られるよう導く" },
+      { id: "c", text: "経験に基づいて正しい方法を指示する" },
+      { id: "d", text: "外部のコンサルタントを紹介する" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "効果的なコーチングは、答えを与えるのではなく、質問を通じてチームが自ら気づきを得られるよう導くことです。これにより持続的な学習と成長が促進されます。",
+  },
+  {
+    id: 152,
+    type: "multiple",
+    category: "psm2",
+    question: "【PSM II】サーバントリーダーとしてのスクラムマスターの行動として正しいものを全て選んでください。",
+    choices: [
+      { id: "a", text: "チームの障害を取り除く" },
+      { id: "b", text: "チームに代わって意思決定を行う" },
+      { id: "c", text: "チームの成長を支援する" },
+      { id: "d", text: "チームの自己管理を促進する" },
+      { id: "e", text: "チームのパフォーマンスを評価する" },
+    ],
+    correctAnswers: ["a", "c", "d"],
+    explanation: "サーバントリーダーは障害を取り除き、チームの成長を支援し、自己管理を促進します。意思決定の代行やパフォーマンス評価は行いません。",
+  },
+  {
+    id: 153,
+    type: "single",
+    category: "psm2",
+    question: "【PSM II】組織がスクラムを導入しようとしていますが、既存の組織文化が大きな障壁となっています。スクラムマスターとして最初に取るべきアプローチはどれですか？",
+    choices: [
+      { id: "a", text: "組織文化を無視してスクラムを強制する" },
+      { id: "b", text: "現状を理解し、小さな変化から始めて段階的に文化を変革する" },
+      { id: "c", text: "経営層に組織改革を要求する" },
+      { id: "d", text: "スクラムの導入を諦める" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "組織変革は段階的に行うべきです。現状を理解し、小さな成功を積み重ねることで、徐々に組織文化を変革していきます。",
+  },
+  {
+    id: 154,
+    type: "single",
+    category: "psm2",
+    question: "【PSM II】チームの信頼関係が低下している場合、スクラムマスターが取るべき最初のステップは何ですか？",
+    choices: [
+      { id: "a", text: "信頼関係の低下の原因を特定するために、安全な場を設けて対話を促進する" },
+      { id: "b", text: "チームメンバーを入れ替える" },
+      { id: "c", text: "経営層に報告する" },
+      { id: "d", text: "チームビルディングイベントを企画する" },
+    ],
+    correctAnswers: ["a"],
+    explanation: "信頼関係の問題に対処するには、まず原因を理解する必要があります。安全な場を設けて対話を促進し、チームが問題を認識し解決できるよう支援します。",
+  },
+  {
+    id: 155,
+    type: "single",
+    category: "psm2",
+    question: "【PSM II】スクラムマスターがファシリテーションを行う際、最も重要なスキルは何ですか？",
+    choices: [
+      { id: "a", text: "議論をリードして結論に導く能力" },
+      { id: "b", text: "中立的な立場を維持し、全員が参加できる環境を作る能力" },
+      { id: "c", text: "技術的な知識" },
+      { id: "d", text: "プレゼンテーション能力" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "効果的なファシリテーションには、中立的な立場を維持し、全員が参加できる安全な環境を作ることが重要です。結論に導くのではなく、チームが自ら結論に到達できるよう支援します。",
+  },
+  {
+    id: 156,
+    type: "multiple",
+    category: "psm2",
+    question: "【PSM II】複数のスクラムチームがスケーリングする際に考慮すべきことを全て選んでください。",
+    choices: [
+      { id: "a", text: "チーム間の依存関係の管理" },
+      { id: "b", text: "共通の完成の定義の維持" },
+      { id: "c", text: "統合されたインクリメントの作成" },
+      { id: "d", text: "各チームに個別のプロダクトバックログを持たせる" },
+      { id: "e", text: "チーム間のコミュニケーションの促進" },
+    ],
+    correctAnswers: ["a", "b", "c", "e"],
+    explanation: "スケーリングでは依存関係の管理、共通の完成の定義、統合されたインクリメント、チーム間コミュニケーションが重要です。同じプロダクトには一つのプロダクトバックログを使用します。",
+  },
+  {
+    id: 157,
+    type: "single",
+    category: "psm2",
+    question: "【PSM II】スクラムマスターが組織のアジャイル変革を支援する際、最も効果的なアプローチはどれですか？",
+    choices: [
+      { id: "a", text: "トップダウンで変革を強制する" },
+      { id: "b", text: "成功事例を作り、その影響を組織全体に広げる" },
+      { id: "c", text: "全従業員に一斉にトレーニングを行う" },
+      { id: "d", text: "外部のコンサルタントに任せる" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "組織変革は成功事例を作り、その影響を広げることで効果的に進められます。小さな成功を積み重ね、その価値を示すことで自然と広がっていきます。",
+  },
+  {
+    id: 158,
+    type: "single",
+    category: "psm2",
+    question: "【PSM II】プロダクトオーナーがビジネスの優先順位とステークホルダーの期待の間で板挟みになっています。スクラムマスターはどう支援すべきですか？",
+    choices: [
+      { id: "a", text: "プロダクトオーナーに代わって決定する" },
+      { id: "b", text: "プロダクトオーナーがステークホルダーと効果的にコラボレーションできるよう支援する" },
+      { id: "c", text: "ステークホルダーの期待を無視するよう助言する" },
+      { id: "d", text: "経営層にエスカレーションする" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "スクラムマスターはプロダクトオーナーがステークホルダーとの効果的なコラボレーションを行えるよう支援します。決定を代行するのではなく、プロダクトオーナーの能力を高めます。",
+  },
+  {
+    id: 159,
+    type: "multiple",
+    category: "psm2",
+    question: "【PSM II】チームの持続可能なペースを維持するためにスクラムマスターが行うべきことを全て選んでください。",
+    choices: [
+      { id: "a", text: "残業を禁止する規則を作る" },
+      { id: "b", text: "チームのキャパシティを尊重し、オーバーコミットを防ぐ" },
+      { id: "c", text: "チームの疲労や燃え尽きの兆候に注意を払う" },
+      { id: "d", text: "休暇を取ることを奨励する" },
+      { id: "e", text: "スプリント期間を短くする" },
+    ],
+    correctAnswers: ["b", "c", "d"],
+    explanation: "持続可能なペースはキャパシティの尊重、疲労への注意、適切な休暇によって維持されます。規則による禁止ではなく、文化として根付かせることが重要です。",
+  },
+  {
+    id: 160,
+    type: "single",
+    category: "psm2",
+    question: "【PSM II】スクラムマスターが「真のリーダー」として組織に影響を与えるために最も重要なことは何ですか？",
+    choices: [
+      { id: "a", text: "権威と肩書き" },
+      { id: "b", text: "行動で示し、スクラムの価値基準を体現すること" },
+      { id: "c", text: "技術的な専門知識" },
+      { id: "d", text: "経営層との良好な関係" },
+    ],
+    correctAnswers: ["b"],
+    explanation: "真のリーダーシップは権威や肩書きではなく、行動で示すことで発揮されます。スクラムの価値基準を自ら体現し、周囲に影響を与えることが重要です。",
   },
 ];
 

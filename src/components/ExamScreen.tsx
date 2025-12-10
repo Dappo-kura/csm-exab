@@ -12,7 +12,7 @@ import {
   AlertTriangle,
   Grid3X3,
 } from "lucide-react";
-import { Question } from "@/types";
+import { Question, categoryLabels, categoryColors } from "@/types";
 import { useState } from "react";
 
 interface ExamScreenProps {
@@ -126,8 +126,8 @@ export function ExamScreen({
 
       {/* メインコンテンツ */}
       <main className="flex-1 px-4 py-6 overflow-y-auto">
-        {/* 問題タイプ表示 */}
-        <div className="flex items-center gap-2 mb-3">
+        {/* 問題タイプ・カテゴリ表示 */}
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
           <span
             className={`text-xs font-medium px-2 py-1 rounded-md ${
               question.type === "multiple"
@@ -136,6 +136,13 @@ export function ExamScreen({
             }`}
           >
             {question.type === "multiple" ? "複数選択" : "単一選択"}
+          </span>
+          <span
+            className={`text-xs font-medium px-2 py-1 rounded-md ${
+              categoryColors[question.category].bg
+            } ${categoryColors[question.category].text}`}
+          >
+            {categoryLabels[question.category]}
           </span>
           <span className="text-xs text-slate-500">
             問題 {currentIndex + 1}

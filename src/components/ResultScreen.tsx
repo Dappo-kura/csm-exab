@@ -11,7 +11,7 @@ import {
   Target,
   BookOpen,
 } from "lucide-react";
-import { ExamResult, Question } from "@/types";
+import { ExamResult, Question, categoryLabels, categoryColors } from "@/types";
 import { EXAM_CONFIG } from "@/data/constants";
 
 interface ResultScreenProps {
@@ -210,9 +210,20 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                           <span className="flex-shrink-0 w-6 h-6 rounded-full bg-slate-700 text-slate-400 text-xs flex items-center justify-center font-medium">
                             {questionIndex + 1}
                           </span>
-                          <p className="text-slate-300 text-sm line-clamp-2 flex-1">
-                            {question.question}
-                          </p>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span
+                                className={`text-xs font-medium px-1.5 py-0.5 rounded ${
+                                  categoryColors[question.category].bg
+                                } ${categoryColors[question.category].text}`}
+                              >
+                                {categoryLabels[question.category]}
+                              </span>
+                            </div>
+                            <p className="text-slate-300 text-sm line-clamp-2">
+                              {question.question}
+                            </p>
+                          </div>
                           {isExpanded ? (
                             <ChevronUp className="w-4 h-4 text-slate-500 flex-shrink-0" />
                           ) : (
