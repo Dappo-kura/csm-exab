@@ -7,6 +7,8 @@ import { useTimer } from "@/hooks/useTimer";
 import { questions, getQuestions } from "@/data/questions";
 import { EXAM_CONFIG } from "@/data/constants";
 import { Question } from "@/types";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getTranslation } from "@/locales/translations";
 
 export default function Home() {
   // 実際の問題数（データが80問未満の場合は全問題を使用）
@@ -14,6 +16,10 @@ export default function Home() {
   
   // 確認ダイアログの状態
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
+
+  // 言語設定
+  const { language } = useLanguage();
+  const t = (key: string) => getTranslation(language, key);
 
   // 試験管理フック
   const exam = useExam({ questions: examQuestions });
@@ -94,6 +100,7 @@ export default function Home() {
             onGoToQuestion={exam.goToQuestion}
             isAnsweredAt={exam.isAnswered}
             isFlaggedAt={exam.isFlagged}
+            onBackToTop={handleRetry}
           />
 
           {/* 終了確認ダイアログ */}
@@ -101,24 +108,25 @@ export default function Home() {
             <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
               <div className="bg-slate-800 rounded-2xl p-6 max-w-sm w-full border border-slate-700 shadow-xl animate-fade-in">
                 <h3 className="text-xl font-bold text-white mb-2">
-                  試験を終了しますか？
+                  {t("dialog.finishTitle")}
                 </h3>
                 <p className="text-slate-400 mb-6">
-                  まだ{exam.progress.total - exam.progress.answered}
-                  問が未回答です。本当に終了してよろしいですか？
+                  {language === "ja"
+                    ? `まだ${exam.progress.total - exam.progress.answered}問が未回答です。本当に終了してよろしいですか？`
+                    : `${exam.progress.total - exam.progress.answered} ${t("dialog.finishMessage")}`}
                 </p>
                 <div className="flex gap-3">
                   <button
                     onClick={() => setShowFinishConfirm(false)}
-                    className="flex-1 py-3 px-4 bg-slate-700 text-white rounded-xl font-medium hover:bg-slate-600 transition-colors"
+                    className="flex-1 py-3 px-4 bg-slate-700 text-white rounded-full font-medium hover:bg-slate-600 transition-colors"
                   >
-                    戻る
+                    {t("dialog.back")}
                   </button>
                   <button
                     onClick={handleConfirmFinish}
-                    className="flex-1 py-3 px-4 bg-red-500 text-white rounded-xl font-medium hover:bg-red-400 transition-colors"
+                    className="flex-1 py-3 px-4 bg-red-500 text-white rounded-full font-medium hover:bg-red-400 transition-colors"
                   >
-                    終了する
+                    {t("dialog.finish")}
                   </button>
                 </div>
               </div>

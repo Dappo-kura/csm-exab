@@ -11,9 +11,12 @@ import {
   CheckCircle2,
   AlertTriangle,
   Grid3X3,
+  Home,
 } from "lucide-react";
-import { Question, categoryLabels, categoryColors } from "@/types";
+import { Question, categoryLabels, categoryColors, getLocalizedText } from "@/types";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getTranslation } from "@/locales/translations";
 
 interface ExamScreenProps {
   question: Question;
@@ -33,6 +36,7 @@ interface ExamScreenProps {
   onGoToQuestion: (index: number) => void;
   isAnsweredAt: (index: number) => boolean;
   isFlaggedAt: (index: number) => boolean;
+  onBackToTop: () => void;
 }
 
 export function ExamScreen({
@@ -53,8 +57,13 @@ export function ExamScreen({
   onGoToQuestion,
   isAnsweredAt,
   isFlaggedAt,
+  onBackToTop,
 }: ExamScreenProps) {
   const [showQuestionList, setShowQuestionList] = useState(false);
+  const [showBackToTopConfirm, setShowBackToTopConfirm] = useState(false);
+  const { language } = useLanguage();
+  const t = (key: string) => getTranslation(language, key);
+  
   const isLastQuestion = currentIndex === totalQuestions - 1;
   const isFirstQuestion = currentIndex === 0;
 
@@ -87,7 +96,7 @@ export function ExamScreen({
               className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 rounded-lg text-slate-300 hover:text-white transition-colors"
             >
               <Grid3X3 className="w-4 h-4" />
-              <span className="text-sm font-medium">問題一覧</span>
+              <span className="text-sm font-medium">{t("exam.questionList")}</span>
             </button>
           </div>
 
@@ -112,12 +121,12 @@ export function ExamScreen({
           <div className="flex items-center gap-4 mt-2 text-xs text-slate-500">
             <span className="flex items-center gap-1">
               <CheckCircle2 className="w-3 h-3 text-emerald-500" />
-              回答済: {answeredCount}
+              {t("exam.answered")}: {answeredCount}
             </span>
             {flaggedCount > 0 && (
               <span className="flex items-center gap-1">
                 <Flag className="w-3 h-3 text-amber-500" />
-                見直し: {flaggedCount}
+                {t("exam.flagged")}: {flaggedCount}
               </span>
             )}
           </div>
@@ -129,45 +138,48 @@ export function ExamScreen({
         {/* 問題タイプ・カテゴリ表示 */}
         <div className="flex items-center gap-2 mb-3 flex-wrap">
           <span
-            className={`text-xs font-medium px-2 py-1 rounded-md ${
+            className={`text-xs font-medium px-2 py-1 ${
               question.type === "multiple"
-                ? "bg-purple-500/20 text-purple-400"
-                : "bg-slate-700 text-slate-400"
+                ? "bg-purple-500/25 text-purple-400"
+                : "bg-slate-800/80 text-slate-400"
             }`}
           >
-            {question.type === "multiple" ? "複数選択" : "単一選択"}
+            {question.type === "multiple" ? t("exam.multiple") : t("exam.single")}
           </span>
           <span
-            className={`text-xs font-medium px-2 py-1 rounded-md ${
+            className={`text-xs font-medium px-2 py-1 ${
               categoryColors[question.category].bg
             } ${categoryColors[question.category].text}`}
           >
-            {categoryLabels[question.category]}
+            {categoryLabels[question.category][language]}
           </span>
           <span className="text-xs text-slate-500">
-            問題 {currentIndex + 1}
+            {t("exam.question")} {currentIndex + 1}
           </span>
         </div>
 
         {/* 問題文 */}
         <div className="mb-6">
           <p className="text-white text-lg leading-relaxed font-medium">
-            {question.question}
+            {getLocalizedText(question.question, language)}
           </p>
         </div>
 
-        {/* 選択肢 */}
-        <div className="space-y-3">
-          {question.choices.map((choice) => {
+        {/* 選択肢 - 1つのコンテナにまとめる */}
+        <div className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 overflow-hidden">
+          {question.choices.map((choice, index) => {
             const isSelected = selectedAnswers.includes(choice.id);
+            const isLast = index === question.choices.length - 1;
             return (
               <button
                 key={choice.id}
                 onClick={() => onSelectAnswer(choice.id)}
-                className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 active:scale-[0.98] ${
+                className={`w-full text-left p-4 transition-all duration-200 active:scale-[0.99] ${
+                  !isLast ? "border-b border-slate-700/50" : ""
+                } ${
                   isSelected
-                    ? "bg-emerald-500/10 border-emerald-500 text-white"
-                    : "bg-slate-800/50 border-slate-700 text-slate-300 hover:border-slate-600"
+                    ? "bg-emerald-500/15 text-white"
+                    : "bg-transparent text-slate-300 hover:bg-slate-800/50"
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -184,11 +196,22 @@ export function ExamScreen({
                       <Circle className="w-5 h-5 text-slate-500" />
                     )}
                   </div>
-                  <span className="flex-1 leading-relaxed">{choice.text}</span>
+                  <span className="flex-1 leading-relaxed">{getLocalizedText(choice.text, language)}</span>
                 </div>
               </button>
             );
           })}
+        </div>
+
+        {/* TOPに戻るボタン */}
+        <div className="mt-6 flex justify-end">
+          <button
+            onClick={() => setShowBackToTopConfirm(true)}
+            className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-300 transition-colors px-3 py-2 rounded-full"
+          >
+            <Home className="w-3.5 h-3.5" />
+            <span>{language === "ja" ? "TOPに戻る" : "Back to TOP"}</span>
+          </button>
         </div>
       </main>
 
@@ -197,15 +220,15 @@ export function ExamScreen({
         {/* 見直しフラグボタン */}
         <button
           onClick={onToggleFlag}
-          className={`w-full py-3 px-4 rounded-xl border-2 transition-all flex items-center justify-center gap-2 ${
+          className={`w-full py-3 px-4 rounded-full border transition-all flex items-center justify-center gap-2 ${
             isFlagged
-              ? "bg-amber-500/10 border-amber-500 text-amber-400"
-              : "bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-600"
+              ? "bg-amber-500/15 border-amber-500/60 text-amber-400"
+              : "bg-slate-900/60 border-slate-700/50 text-slate-400 hover:bg-slate-800/50"
           }`}
         >
           <Flag className={`w-5 h-5 ${isFlagged ? "fill-current" : ""}`} />
           <span className="font-medium">
-            {isFlagged ? "見直しマークを外す" : "あとで見直す"}
+            {isFlagged ? t("exam.flagButton.remove") : t("exam.flagButton.add")}
           </span>
         </button>
 
@@ -214,30 +237,30 @@ export function ExamScreen({
           <button
             onClick={onPrevious}
             disabled={isFirstQuestion}
-            className={`flex-1 py-3 px-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${
+            className={`flex-1 py-3 px-4 rounded-full font-medium flex items-center justify-center gap-2 transition-all ${
               isFirstQuestion
-                ? "bg-slate-800/30 text-slate-600 cursor-not-allowed"
-                : "bg-slate-800 text-white hover:bg-slate-700 active:scale-[0.98]"
+                ? "bg-slate-900/40 text-slate-600 cursor-not-allowed"
+                : "bg-slate-900/60 border border-slate-700/50 text-white hover:bg-slate-800/60 active:scale-[0.98]"
             }`}
           >
             <ChevronLeft className="w-5 h-5" />
-            前へ
+            {t("exam.prev")}
           </button>
           
           {isLastQuestion ? (
             <button
               onClick={onFinish}
-              className="flex-1 py-3 px-4 rounded-xl font-medium bg-gradient-to-r from-emerald-500 to-teal-500 text-white flex items-center justify-center gap-2 hover:from-emerald-400 hover:to-teal-400 active:scale-[0.98] transition-all"
+              className="flex-1 py-3 px-4 rounded-full font-medium bg-gradient-to-r from-emerald-500 to-teal-500 text-white flex items-center justify-center gap-2 hover:from-emerald-400 hover:to-teal-400 active:scale-[0.98] transition-all"
             >
-              試験終了
+              {t("exam.finish")}
               <AlertTriangle className="w-4 h-4" />
             </button>
           ) : (
             <button
               onClick={onNext}
-              className="flex-1 py-3 px-4 rounded-xl font-medium bg-emerald-600 text-white flex items-center justify-center gap-2 hover:bg-emerald-500 active:scale-[0.98] transition-all"
+              className="flex-1 py-3 px-4 rounded-full font-medium bg-emerald-600 text-white flex items-center justify-center gap-2 hover:bg-emerald-500 active:scale-[0.98] transition-all"
             >
-              次へ
+              {t("exam.next")}
               <ChevronRight className="w-5 h-5" />
             </button>
           )}
@@ -246,15 +269,15 @@ export function ExamScreen({
 
       {/* 問題一覧モーダル */}
       {showQuestionList && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end justify-center">
-          <div className="bg-slate-900 w-full max-h-[80vh] rounded-t-3xl border-t border-slate-700 overflow-hidden animate-slide-up">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-end justify-center">
+          <div className="bg-slate-900 w-full max-h-[80vh] border-t border-slate-700/50 overflow-hidden animate-slide-up">
             <div className="sticky top-0 bg-slate-900 px-4 py-4 border-b border-slate-800 flex items-center justify-between">
-              <h3 className="text-lg font-bold text-white">問題一覧</h3>
+              <h3 className="text-lg font-bold text-white">{t("exam.questionList")}</h3>
               <button
                 onClick={() => setShowQuestionList(false)}
-                className="text-slate-400 hover:text-white transition-colors px-3 py-1"
+                className="text-slate-400 hover:text-white transition-colors px-3 py-1 rounded-lg"
               >
-                閉じる
+                {t("exam.close")}
               </button>
             </div>
             <div className="p-4 overflow-y-auto max-h-[calc(80vh-60px)]">
@@ -292,17 +315,45 @@ export function ExamScreen({
               <div className="mt-4 pt-4 border-t border-slate-800 flex flex-wrap gap-4 text-xs text-slate-400">
                 <span className="flex items-center gap-1">
                   <span className="w-4 h-4 rounded bg-slate-700"></span>
-                  回答済み
+                  {t("exam.legend.answered")}
                 </span>
                 <span className="flex items-center gap-1">
                   <span className="w-4 h-4 rounded bg-slate-800"></span>
-                  未回答
+                  {t("exam.legend.unanswered")}
                 </span>
                 <span className="flex items-center gap-1">
                   <Flag className="w-3 h-3 text-amber-400 fill-current" />
-                  見直し
+                  {t("exam.legend.flagged")}
                 </span>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TOPに戻る確認モーダル */}
+      {showBackToTopConfirm && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+          <div className="bg-slate-800 p-6 max-w-sm w-full border border-slate-700 shadow-xl animate-fade-in">
+            <h3 className="text-xl font-bold text-white mb-4 text-center">
+              {language === "ja" ? "試験を中断しますか？" : "Quit the exam?"}
+            </h3>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowBackToTopConfirm(false)}
+                className="flex-1 py-3 px-4 bg-slate-700 text-white rounded-full font-medium hover:bg-slate-600 transition-colors"
+              >
+                {language === "ja" ? "いいえ" : "No"}
+              </button>
+              <button
+                onClick={() => {
+                  setShowBackToTopConfirm(false);
+                  onBackToTop();
+                }}
+                className="flex-1 py-3 px-4 bg-red-500 text-white rounded-full font-medium hover:bg-red-400 transition-colors"
+              >
+                {language === "ja" ? "はい" : "Yes"}
+              </button>
             </div>
           </div>
         </div>

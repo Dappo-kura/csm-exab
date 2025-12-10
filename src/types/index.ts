@@ -13,17 +13,17 @@ export type QuestionCategory =
   | "comprehensive" // 総合問題
   | "psm2";         // PSM II
 
-// カテゴリ名の日本語マッピング
-export const categoryLabels: Record<QuestionCategory, string> = {
-  basics: "基礎",
-  roles: "役割",
-  events: "イベント",
-  artifacts: "作成物",
-  situation: "シチュエーション",
-  tricky: "引っかけ",
-  deep: "深掘り",
-  comprehensive: "総合",
-  psm2: "PSM II",
+// カテゴリ名の多言語マッピング
+export const categoryLabels: Record<QuestionCategory, { ja: string; en: string }> = {
+  basics: { ja: "基礎", en: "Basics" },
+  roles: { ja: "役割", en: "Roles" },
+  events: { ja: "イベント", en: "Events" },
+  artifacts: { ja: "作成物", en: "Artifacts" },
+  situation: { ja: "シチュエーション", en: "Situation" },
+  tricky: { ja: "引っかけ", en: "Tricky" },
+  deep: { ja: "深掘り", en: "Deep Dive" },
+  comprehensive: { ja: "総合", en: "Comprehensive" },
+  psm2: { ja: "PSM II", en: "PSM II" },
 };
 
 // カテゴリの色設定
@@ -39,21 +39,38 @@ export const categoryColors: Record<QuestionCategory, { bg: string; text: string
   psm2: { bg: "bg-indigo-500/20", text: "text-indigo-400" },
 };
 
-// 選択肢
-export interface Choice {
-  id: string;
-  text: string;
+// 多言語テキスト型
+export interface LocalizedText {
+  ja: string;
+  en: string;
 }
 
-// 問題データ
+// 選択肢（多言語対応）
+export interface Choice {
+  id: string;
+  text: string | LocalizedText;
+}
+
+// 問題データ（多言語対応）
 export interface Question {
   id: number;
   type: QuestionType; // single: 単一選択, multiple: 複数選択
   category: QuestionCategory; // 問題カテゴリ
-  question: string;
+  question: string | LocalizedText;
   choices: Choice[];
   correctAnswers: string[]; // 正解の選択肢ID配列
-  explanation: string; // 解説
+  explanation: string | LocalizedText; // 解説
+}
+
+// 言語に応じたテキストを取得するヘルパー関数
+export function getLocalizedText(
+  text: string | LocalizedText,
+  language: "ja" | "en"
+): string {
+  if (typeof text === "string") {
+    return text;
+  }
+  return text[language];
 }
 
 // ユーザーの回答

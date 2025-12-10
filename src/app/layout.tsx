@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { PWARegister } from "@/components";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 export const metadata: Metadata = {
   title: "PSM I 模擬試験 | Professional Scrum Master™ I",
@@ -49,8 +50,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="512x512" href="/csm-exab/icon-512.png" />
       </head>
       <body className="antialiased min-h-screen bg-slate-900">
-        <PWARegister />
-        {children}
+        <LanguageProvider>
+          <PWARegister />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -11,8 +11,10 @@ import {
   Target,
   BookOpen,
 } from "lucide-react";
-import { ExamResult, Question, categoryLabels, categoryColors } from "@/types";
+import { ExamResult, Question, categoryLabels, categoryColors, getLocalizedText } from "@/types";
 import { EXAM_CONFIG } from "@/data/constants";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getTranslation } from "@/locales/translations";
 
 interface ResultScreenProps {
   result: ExamResult;
@@ -25,6 +27,8 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
   const [expandedQuestions, setExpandedQuestions] = useState<Set<number>>(
     new Set()
   );
+  const { language } = useLanguage();
+  const t = (key: string) => getTranslation(language, key);
 
   const wrongQuestions = questions.filter((q, index) => {
     const userAnswer = result.answers[index];
@@ -76,20 +80,20 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
             result.passed ? "text-emerald-400" : "text-red-400"
           }`}
         >
-          {result.passed ? "合格！" : "不合格"}
+          {result.passed ? t("result.passed") : t("result.failed")}
         </h1>
         
         <p className="text-slate-400">
           {result.passed
-            ? "おめでとうございます！素晴らしい結果です。"
-            : "もう少しです。復習して再チャレンジしましょう。"}
+            ? t("result.passedMessage")
+            : t("result.failedMessage")}
         </p>
       </header>
 
       {/* メインコンテンツ */}
       <main className="flex-1 px-4 pb-8">
         {/* スコアカード */}
-        <section className="bg-slate-800/50 backdrop-blur rounded-2xl p-5 mb-4 border border-slate-700/50">
+        <section className="bg-slate-900/60 backdrop-blur-sm p-5 mb-4 border border-slate-700/50">
           {/* 正答率の円グラフ風表示 */}
           <div className="flex items-center justify-center mb-6">
             <div className="relative w-32 h-32">
@@ -125,34 +129,34 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                 >
                   {result.percentage}%
                 </span>
-                <span className="text-xs text-slate-500">正答率</span>
+                <span className="text-xs text-slate-500">{t("result.percentage")}</span>
               </div>
             </div>
           </div>
 
           {/* 詳細スコア */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-slate-700/50 rounded-xl p-4 text-center">
+            <div className="bg-slate-800/60 p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-1">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span className="text-slate-400 text-sm">正解</span>
+                <span className="text-slate-400 text-sm">{t("result.correct")}</span>
               </div>
               <p className="text-2xl font-bold text-emerald-400">
                 {result.correctCount}
                 <span className="text-sm text-slate-500 font-normal">
-                  /{result.totalQuestions}問
+                  /{result.totalQuestions}
                 </span>
               </p>
             </div>
-            <div className="bg-slate-700/50 rounded-xl p-4 text-center">
+            <div className="bg-slate-800/60 p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-1">
                 <XCircle className="w-4 h-4 text-red-400" />
-                <span className="text-slate-400 text-sm">不正解</span>
+                <span className="text-slate-400 text-sm">{t("result.wrong")}</span>
               </div>
               <p className="text-2xl font-bold text-red-400">
                 {result.wrongCount}
                 <span className="text-sm text-slate-500 font-normal">
-                  /{result.totalQuestions}問
+                  /{result.totalQuestions}
                 </span>
               </p>
             </div>
@@ -162,14 +166,14 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
           <div className="mt-4 pt-4 border-t border-slate-700/50 flex items-center justify-center gap-2 text-sm">
             <Target className="w-4 h-4 text-slate-500" />
             <span className="text-slate-500">
-              合格ライン: {EXAM_CONFIG.PASSING_SCORE}%
+              {t("result.passingLine")}: {EXAM_CONFIG.PASSING_SCORE}%
             </span>
           </div>
         </section>
 
         {/* 間違えた問題セクション */}
         {wrongQuestions.length > 0 && (
-          <section className="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700/50 overflow-hidden">
+          <section className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 overflow-hidden">
             <button
               onClick={() => setShowWrongAnswers(!showWrongAnswers)}
               className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-700/30 transition-colors"
@@ -177,9 +181,9 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
               <div className="flex items-center gap-3">
                 <BookOpen className="w-5 h-5 text-amber-400" />
                 <div>
-                  <span className="text-white font-medium">間違えた問題</span>
+                  <span className="text-white font-medium">{t("result.wrongQuestions")}</span>
                   <span className="text-slate-500 text-sm ml-2">
-                    ({wrongQuestions.length}問)
+                    ({wrongQuestions.length})
                   </span>
                 </div>
               </div>
@@ -213,15 +217,15 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
                               <span
-                                className={`text-xs font-medium px-1.5 py-0.5 rounded ${
+                                className={`text-xs font-medium px-1.5 py-0.5 ${
                                   categoryColors[question.category].bg
                                 } ${categoryColors[question.category].text}`}
                               >
-                                {categoryLabels[question.category]}
+                                {categoryLabels[question.category][language]}
                               </span>
                             </div>
                             <p className="text-slate-300 text-sm line-clamp-2">
-                              {question.question}
+                              {getLocalizedText(question.question, language)}
                             </p>
                           </div>
                           {isExpanded ? (
@@ -247,12 +251,12 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                               return (
                                 <div
                                   key={choice.id}
-                                  className={`text-sm px-3 py-2 rounded-lg ${
+                                  className={`text-sm px-3 py-2 ${
                                     isCorrect
-                                      ? "bg-emerald-500/10 border border-emerald-500/30"
+                                      ? "bg-emerald-500/15 border border-emerald-500/40"
                                       : wasSelected
-                                      ? "bg-red-500/10 border border-red-500/30"
-                                      : "bg-slate-700/30"
+                                      ? "bg-red-500/15 border border-red-500/40"
+                                      : "bg-slate-800/50"
                                   }`}
                                 >
                                   <div className="flex items-start gap-2">
@@ -274,7 +278,7 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                                           : "text-slate-400"
                                       }
                                     >
-                                      {choice.text}
+                                      {getLocalizedText(choice.text, language)}
                                     </span>
                                   </div>
                                 </div>
@@ -283,12 +287,12 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                           </div>
 
                           {/* 解説 */}
-                          <div className="bg-slate-700/30 rounded-lg p-3 border-l-2 border-amber-500/50">
+                          <div className="bg-slate-800/50 p-3 border-l-2 border-amber-500/50">
                             <p className="text-xs text-amber-400 font-medium mb-1">
-                              解説
+                              {t("result.explanation")}
                             </p>
                             <p className="text-sm text-slate-300 leading-relaxed">
-                              {question.explanation}
+                              {getLocalizedText(question.explanation, language)}
                             </p>
                           </div>
                         </div>
@@ -306,10 +310,10 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
       <footer className="sticky bottom-0 p-4 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent pt-8">
         <button
           onClick={onRetry}
-          className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-lg rounded-2xl shadow-lg shadow-emerald-500/25 transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-3"
+          className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-lg rounded-full shadow-lg shadow-emerald-500/25 transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-3"
         >
           <RotateCcw className="w-6 h-6" />
-          もう一度挑戦する
+          {t("result.retry")}
         </button>
       </footer>
     </div>
