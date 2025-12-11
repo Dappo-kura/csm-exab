@@ -1,19 +1,22 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { StartScreen, ExamScreen, ResultScreen, HistoryScreen } from "@/components";
+import { StartScreen, ExamScreen, ResultScreen, HistoryScreen, CategorySelectScreen } from "@/components";
 import { useExam } from "@/hooks/useExam";
 import { useTimer } from "@/hooks/useTimer";
-import { questions, getQuestions } from "@/data/questions";
+import { getQuestions, getQuestionsByCategories } from "@/data/questions";
 import { EXAM_CONFIG } from "@/data/constants";
-import { Question } from "@/types";
+import { Question, QuestionCategory } from "@/types";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { getTranslation } from "@/locales/translations";
 import { saveHistory } from "@/lib/historyStorage";
 
 // アプリの画面状態
-type AppScreen = "start" | "exam" | "result" | "history";
+type AppScreen = "start" | "exam" | "result" | "history" | "categorySelect";
+
+// 試験モード
+type ExamMode = "normal" | "category" | "review";
 
 export default function Home() {
   // 実際の問題数（データが80問未満の場合は全問題を使用）
@@ -25,8 +28,14 @@ export default function Home() {
   // 画面状態
   const [currentScreen, setCurrentScreen] = useState<AppScreen>("start");
 
+  // 試験モード
+  const [examMode, setExamMode] = useState<ExamMode>("normal");
+
   // 試験開始時刻（所要時間計算用）
   const [examStartTime, setExamStartTime] = useState<number>(0);
+
+  // 制限時間（秒）
+  const [timeLimit, setTimeLimit] = useState<number>(EXAM_CONFIG.TIME_LIMIT_SECONDS);
 
   // 言語設定
   const { language } = useLanguage();
@@ -38,19 +47,39 @@ export default function Home() {
 
   // タイマーフック
   const timer = useTimer({
-    initialSeconds: EXAM_CONFIG.TIME_LIMIT_SECONDS,
+    initialSeconds: timeLimit,
     onTimeUp: () => {
       // 時間切れで自動終了
       exam.finishExam();
     },
   });
 
-  // 試験開始時の処理
+  // 制限時間が変わったらタイマーをリセット
+  useEffect(() => {
+    timer.setInitialSeconds(timeLimit);
+    timer.reset();
+  }, [timeLimit]);
+
+  // 通常試験開始時の処理
   const handleStartExam = useCallback(() => {
     // 問題をシャッフルして取得
     const shuffledQuestions = getQuestions(EXAM_CONFIG.TOTAL_QUESTIONS);
     setExamQuestions(shuffledQuestions);
     setExamStartTime(Date.now());
+    setExamMode("normal");
+    setTimeLimit(EXAM_CONFIG.TIME_LIMIT_SECONDS);
+    setCurrentScreen("exam");
+  }, []);
+
+  // カテゴリー別練習開始時の処理
+  const handleStartCategoryPractice = useCallback((categories: QuestionCategory[]) => {
+    const categoryQuestions = getQuestionsByCategories(categories);
+    setExamQuestions(categoryQuestions);
+    setExamStartTime(Date.now());
+    setExamMode("category");
+    // 問題数に応じて制限時間を設定（1問あたり45秒）
+    // カテゴリー練習は制限時間なし（999分）
+    setTimeLimit(999 * 60);
     setCurrentScreen("exam");
   }, []);
 
@@ -75,12 +104,12 @@ export default function Home() {
         percentage: exam.result.percentage,
         passed: exam.result.passed,
         timeSpent,
-        mode: "normal",
+        mode: examMode,
       });
 
       setCurrentScreen("result");
     }
-  }, [exam.examState, exam.result, examStartTime]);
+  }, [exam.examState, exam.result, examStartTime, examMode]);
 
   // 試験終了確認
   const handleFinishClick = useCallback(() => {
@@ -112,8 +141,13 @@ export default function Home() {
     setCurrentScreen("history");
   }, []);
 
-  // 履歴画面から戻る
-  const handleBackFromHistory = useCallback(() => {
+  // カテゴリー選択画面を表示
+  const handleShowCategorySelect = useCallback(() => {
+    setCurrentScreen("categorySelect");
+  }, []);
+
+  // スタート画面に戻る
+  const handleBackToStart = useCallback(() => {
     setCurrentScreen("start");
   }, []);
 
@@ -124,12 +158,21 @@ export default function Home() {
         <StartScreen 
           onStart={handleStartExam} 
           onShowHistory={handleShowHistory}
+          onShowCategorySelect={handleShowCategorySelect}
         />
       )}
 
       {/* 履歴画面 */}
       {currentScreen === "history" && (
-        <HistoryScreen onBack={handleBackFromHistory} />
+        <HistoryScreen onBack={handleBackToStart} />
+      )}
+
+      {/* カテゴリー選択画面 */}
+      {currentScreen === "categorySelect" && (
+        <CategorySelectScreen 
+          onBack={handleBackToStart}
+          onStart={handleStartCategoryPractice}
+        />
       )}
 
       {/* 試験画面 */}

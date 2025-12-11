@@ -3291,3 +3291,37 @@ export function getQuestions(count: number): Question[] {
   const shuffled = getShuffledQuestions();
   return shuffled.slice(0, Math.min(count, shuffled.length));
 }
+
+/**
+ * 指定されたカテゴリーの問題を取得する関数
+ * 問題はシャッフルされた状態で返される
+ */
+export function getQuestionsByCategories(categories: QuestionCategory[]): Question[] {
+  const filteredQuestions = questions.filter((q) => categories.includes(q.category));
+  
+  // シャッフル
+  const shuffled = [...filteredQuestions];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  
+  return shuffled;
+}
+
+/**
+ * 指定された問題IDの問題を取得する関数
+ * 問題はシャッフルされた状態で返される
+ */
+export function getQuestionsByIds(ids: number[]): Question[] {
+  const filteredQuestions = questions.filter((q) => ids.includes(q.id));
+  
+  // シャッフル
+  const shuffled = [...filteredQuestions];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  
+  return shuffled;
+}

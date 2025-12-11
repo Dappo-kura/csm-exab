@@ -13,6 +13,7 @@ interface UseTimerReturn {
   start: () => void;
   pause: () => void;
   reset: () => void;
+  setInitialSeconds: (seconds: number) => void;
   formattedTime: string;
 }
 
@@ -20,6 +21,7 @@ export function useTimer({
   initialSeconds,
   onTimeUp,
 }: UseTimerProps): UseTimerReturn {
+  const [currentInitialSeconds, setCurrentInitialSeconds] = useState(initialSeconds);
   const [remainingSeconds, setRemainingSeconds] = useState(initialSeconds);
   const [isRunning, setIsRunning] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -49,8 +51,13 @@ export function useTimer({
   const reset = useCallback(() => {
     setIsRunning(false);
     clearTimer();
-    setRemainingSeconds(initialSeconds);
-  }, [initialSeconds, clearTimer]);
+    setRemainingSeconds(currentInitialSeconds);
+  }, [currentInitialSeconds, clearTimer]);
+
+  const setInitialSeconds = useCallback((seconds: number) => {
+    setCurrentInitialSeconds(seconds);
+    setRemainingSeconds(seconds);
+  }, []);
 
   useEffect(() => {
     if (isRunning && remainingSeconds > 0) {
@@ -85,11 +92,7 @@ export function useTimer({
     start,
     pause,
     reset,
+    setInitialSeconds,
     formattedTime,
   };
 }
-
-
-
-
-

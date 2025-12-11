@@ -69,6 +69,20 @@ export const translations: Record<Language, Record<string, string>> = {
     "history.clearAll": "全て削除",
     "history.clearConfirmTitle": "履歴を全て削除しますか？",
     "history.clearConfirmMessage": "この操作は取り消せません。全ての学習履歴が削除されます。",
+
+    // === Mode Select ===
+    "mode.title": "モード選択",
+    "mode.normalExam": "通常試験",
+    "mode.normalExamDesc": "80問・60分の本番形式",
+    "mode.categoryPractice": "カテゴリー別練習",
+    "mode.categoryPracticeDesc": "特定カテゴリーを集中学習",
+
+    // === Category Select ===
+    "category.selectTitle": "カテゴリー選択",
+    "category.selectDescription": "練習したいカテゴリーを選択してください。",
+    "category.selectAll": "全て選択",
+    "category.deselectAll": "全て解除",
+    "category.startPractice": "練習を開始",
   },
   en: {
     // === StartScreen ===
@@ -134,6 +148,20 @@ export const translations: Record<Language, Record<string, string>> = {
     "history.clearAll": "Clear All",
     "history.clearConfirmTitle": "Clear all history?",
     "history.clearConfirmMessage": "This action cannot be undone. All your learning history will be deleted.",
+
+    // === Mode Select ===
+    "mode.title": "Select Mode",
+    "mode.normalExam": "Normal Exam",
+    "mode.normalExamDesc": "80 questions in 60 minutes",
+    "mode.categoryPractice": "Category Practice",
+    "mode.categoryPracticeDesc": "Focus on specific categories",
+
+    // === Category Select ===
+    "category.selectTitle": "Select Categories",
+    "category.selectDescription": "Select the categories you want to practice.",
+    "category.selectAll": "Select All",
+    "category.deselectAll": "Deselect All",
+    "category.startPractice": "Start Practice",
   },
 };
 

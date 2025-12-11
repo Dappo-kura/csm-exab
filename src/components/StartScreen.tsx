@@ -1,6 +1,6 @@
 "use client";
 
-import { PlayCircle, Clock, FileQuestion, Target, Info, Sun, Moon, History } from "lucide-react";
+import { PlayCircle, Clock, FileQuestion, Target, Info, Sun, Moon, History, FolderOpen } from "lucide-react";
 import { EXAM_CONFIG } from "@/data/constants";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -9,6 +9,7 @@ import { getTranslation } from "@/locales/translations";
 interface StartScreenProps {
   onStart: () => void;
   onShowHistory: () => void;
+  onShowCategorySelect: () => void;
 }
 
 // 言語切り替えトグルコンポーネント
@@ -75,7 +76,7 @@ function ThemeToggle() {
   );
 }
 
-export function StartScreen({ onStart, onShowHistory }: StartScreenProps) {
+export function StartScreen({ onStart, onShowHistory, onShowCategorySelect }: StartScreenProps) {
   const { language } = useLanguage();
   const { theme } = useTheme();
   const t = (key: string) => getTranslation(language, key);
@@ -210,34 +211,70 @@ export function StartScreen({ onStart, onShowHistory }: StartScreenProps) {
           </ul>
         </section>
 
-        {/* 学習履歴ボタン */}
-        <button
-          onClick={onShowHistory}
-          className={`w-full backdrop-blur-sm p-4 border flex items-center justify-between transition-colors ${
-            theme === "dark"
-              ? "bg-slate-900/60 border-slate-700/50 hover:bg-slate-800/60"
-              : "bg-white/80 border-slate-200 hover:bg-slate-50"
-          }`}
-        >
-          <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 flex items-center justify-center ${
-              theme === "dark" ? "bg-slate-800/80" : "bg-slate-100"
-            }`}>
-              <History className="w-5 h-5 text-indigo-500" />
+        {/* メニューボタン */}
+        <div className="space-y-2">
+          {/* カテゴリー別練習 */}
+          <button
+            onClick={onShowCategorySelect}
+            className={`w-full backdrop-blur-sm p-4 border flex items-center justify-between transition-colors ${
+              theme === "dark"
+                ? "bg-slate-900/60 border-slate-700/50 hover:bg-slate-800/60"
+                : "bg-white/80 border-slate-200 hover:bg-slate-50"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className={`w-10 h-10 flex items-center justify-center ${
+                theme === "dark" ? "bg-slate-800/80" : "bg-slate-100"
+              }`}>
+                <FolderOpen className="w-5 h-5 text-purple-500" />
+              </div>
+              <div className="text-left">
+                <span className={`font-medium block ${
+                  theme === "dark" ? "text-white" : "text-slate-900"
+                }`}>
+                  {t("mode.categoryPractice")}
+                </span>
+                <span className={`text-sm ${
+                  theme === "dark" ? "text-slate-500" : "text-slate-400"
+                }`}>
+                  {t("mode.categoryPracticeDesc")}
+                </span>
+              </div>
             </div>
-            <span className={`font-medium ${
-              theme === "dark" ? "text-white" : "text-slate-900"
-            }`}>
-              {t("start.history")}
+            <span className={theme === "dark" ? "text-slate-500" : "text-slate-400"}>
+              →
             </span>
-          </div>
-          <span className={theme === "dark" ? "text-slate-500" : "text-slate-400"}>
-            →
-          </span>
-        </button>
+          </button>
+
+          {/* 学習履歴 */}
+          <button
+            onClick={onShowHistory}
+            className={`w-full backdrop-blur-sm p-4 border flex items-center justify-between transition-colors ${
+              theme === "dark"
+                ? "bg-slate-900/60 border-slate-700/50 hover:bg-slate-800/60"
+                : "bg-white/80 border-slate-200 hover:bg-slate-50"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className={`w-10 h-10 flex items-center justify-center ${
+                theme === "dark" ? "bg-slate-800/80" : "bg-slate-100"
+              }`}>
+                <History className="w-5 h-5 text-indigo-500" />
+              </div>
+              <span className={`font-medium ${
+                theme === "dark" ? "text-white" : "text-slate-900"
+              }`}>
+                {t("start.history")}
+              </span>
+            </div>
+            <span className={theme === "dark" ? "text-slate-500" : "text-slate-400"}>
+              →
+            </span>
+          </button>
+        </div>
       </main>
 
-      {/* フッター - 開始ボタン */}
+      {/* フッター - 通常試験開始ボタン */}
       <footer className={`sticky bottom-0 p-4 pb-8 pt-8 ${
         theme === "dark"
           ? "bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent"
@@ -248,7 +285,7 @@ export function StartScreen({ onStart, onShowHistory }: StartScreenProps) {
           className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-lg rounded-full shadow-lg shadow-emerald-500/25 transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-3"
         >
           <PlayCircle className="w-6 h-6" />
-          {t("start.button")}
+          {t("mode.normalExam")}
         </button>
       </footer>
     </div>
