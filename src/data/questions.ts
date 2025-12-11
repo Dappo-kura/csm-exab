@@ -3287,17 +3287,20 @@ export function getShuffledQuestions(): Question[] {
  * 指定された数の問題を取得する関数
  * 問題数が足りない場合は全問題を返す
  */
-export function getQuestions(count: number): Question[] {
-  const shuffled = getShuffledQuestions();
-  return shuffled.slice(0, Math.min(count, shuffled.length));
+export function getQuestions(count: number, shuffleQuestions: boolean = true): Question[] {
+  const baseQuestions = shuffleQuestions ? getShuffledQuestions() : [...questions];
+  return baseQuestions.slice(0, Math.min(count, baseQuestions.length));
 }
 
 /**
  * 指定されたカテゴリーの問題を取得する関数
- * 問題はシャッフルされた状態で返される
  */
-export function getQuestionsByCategories(categories: QuestionCategory[]): Question[] {
+export function getQuestionsByCategories(categories: QuestionCategory[], shuffleQuestions: boolean = true): Question[] {
   const filteredQuestions = questions.filter((q) => categories.includes(q.category));
+  
+  if (!shuffleQuestions) {
+    return [...filteredQuestions];
+  }
   
   // シャッフル
   const shuffled = [...filteredQuestions];
@@ -3311,10 +3314,13 @@ export function getQuestionsByCategories(categories: QuestionCategory[]): Questi
 
 /**
  * 指定された問題IDの問題を取得する関数
- * 問題はシャッフルされた状態で返される
  */
-export function getQuestionsByIds(ids: number[]): Question[] {
+export function getQuestionsByIds(ids: number[], shuffleQuestions: boolean = true): Question[] {
   const filteredQuestions = questions.filter((q) => ids.includes(q.id));
+  
+  if (!shuffleQuestions) {
+    return [...filteredQuestions];
+  }
   
   // シャッフル
   const shuffled = [...filteredQuestions];
@@ -3324,4 +3330,27 @@ export function getQuestionsByIds(ids: number[]): Question[] {
   }
   
   return shuffled;
+}
+
+/**
+ * 問題の選択肢をシャッフルする関数
+ */
+export function shuffleQuestionChoices(question: Question): Question {
+  const shuffledChoices = [...question.choices];
+  for (let i = shuffledChoices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledChoices[i], shuffledChoices[j]] = [shuffledChoices[j], shuffledChoices[i]];
+  }
+  
+  return {
+    ...question,
+    choices: shuffledChoices,
+  };
+}
+
+/**
+ * 全問題の選択肢をシャッフルする関数
+ */
+export function shuffleAllChoices(questionList: Question[]): Question[] {
+  return questionList.map(shuffleQuestionChoices);
 }

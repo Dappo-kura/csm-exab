@@ -1,10 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useState, useRef } from "react";
-import { StartScreen, ExamScreen, ResultScreen, HistoryScreen, CategorySelectScreen, ReviewScreen } from "@/components";
+import { StartScreen, ExamScreen, ResultScreen, HistoryScreen, CategorySelectScreen, ReviewScreen, SettingsScreen } from "@/components";
 import { useExam } from "@/hooks/useExam";
 import { useTimer } from "@/hooks/useTimer";
-import { getQuestions, getQuestionsByCategories, getQuestionsByIds } from "@/data/questions";
+import { getQuestions, getQuestionsByCategories, getQuestionsByIds, shuffleAllChoices } from "@/data/questions";
 import { EXAM_CONFIG } from "@/data/constants";
 import { Question, QuestionCategory } from "@/types";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -16,9 +16,10 @@ import {
   addWrongQuestions, 
   removeCorrectQuestions 
 } from "@/lib/wrongQuestionsStorage";
+import { getAppSettings } from "@/lib/settingsStorage";
 
 // アプリの画面状態
-type AppScreen = "start" | "exam" | "result" | "history" | "categorySelect" | "review";
+type AppScreen = "start" | "exam" | "result" | "history" | "categorySelect" | "review" | "settings";
 
 // 試験モード
 type ExamMode = "normal" | "category" | "review";
@@ -71,45 +72,68 @@ export default function Home() {
     timer.reset();
   }, [timeLimit]);
 
+  // 設定を適用して問題を準備
+  const prepareQuestions = useCallback((questions: Question[]): Question[] => {
+    const settings = getAppSettings();
+    
+    // 選択肢をシャッフル
+    if (settings.shuffleChoices) {
+      return shuffleAllChoices(questions);
+    }
+    
+    return questions;
+  }, []);
+
   // 通常試験開始時の処理
   const handleStartExam = useCallback(() => {
+    const settings = getAppSettings();
     resultProcessedRef.current = false;
-    // 問題をシャッフルして取得
-    const shuffledQuestions = getQuestions(EXAM_CONFIG.TOTAL_QUESTIONS);
-    setExamQuestions(shuffledQuestions);
+    
+    // 問題を取得（シャッフル設定に基づく）
+    const baseQuestions = getQuestions(EXAM_CONFIG.TOTAL_QUESTIONS, settings.shuffleQuestions);
+    const preparedQuestions = prepareQuestions(baseQuestions);
+    
+    setExamQuestions(preparedQuestions);
     setExamStartTime(Date.now());
     setExamMode("normal");
     setTimeLimit(EXAM_CONFIG.TIME_LIMIT_SECONDS);
     setCurrentScreen("exam");
-  }, []);
+  }, [prepareQuestions]);
 
   // カテゴリー別練習開始時の処理
   const handleStartCategoryPractice = useCallback((categories: QuestionCategory[]) => {
+    const settings = getAppSettings();
     resultProcessedRef.current = false;
-    const categoryQuestions = getQuestionsByCategories(categories);
-    setExamQuestions(categoryQuestions);
+    
+    const baseQuestions = getQuestionsByCategories(categories, settings.shuffleQuestions);
+    const preparedQuestions = prepareQuestions(baseQuestions);
+    
+    setExamQuestions(preparedQuestions);
     setExamStartTime(Date.now());
     setExamMode("category");
     // カテゴリー練習は制限時間なし（999分）
     setTimeLimit(999 * 60);
     setCurrentScreen("exam");
-  }, []);
+  }, [prepareQuestions]);
 
   // 復習モード開始時の処理
   const handleStartReview = useCallback((removeOnCorrectSetting: boolean) => {
+    const settings = getAppSettings();
     resultProcessedRef.current = false;
     const wrongIds = getWrongQuestionIds();
     if (wrongIds.length === 0) return;
     
-    const reviewQuestions = getQuestionsByIds(wrongIds);
-    setExamQuestions(reviewQuestions);
+    const baseQuestions = getQuestionsByIds(wrongIds, settings.shuffleQuestions);
+    const preparedQuestions = prepareQuestions(baseQuestions);
+    
+    setExamQuestions(preparedQuestions);
     setExamStartTime(Date.now());
     setExamMode("review");
     setRemoveOnCorrect(removeOnCorrectSetting);
     // 復習モードは制限時間なし（999分）
     setTimeLimit(999 * 60);
     setCurrentScreen("exam");
-  }, []);
+  }, [prepareQuestions]);
 
   // 問題が設定されたら試験を開始
   useEffect(() => {
@@ -210,6 +234,11 @@ export default function Home() {
     setCurrentScreen("review");
   }, []);
 
+  // 設定画面を表示
+  const handleShowSettings = useCallback(() => {
+    setCurrentScreen("settings");
+  }, []);
+
   // スタート画面に戻る
   const handleBackToStart = useCallback(() => {
     setCurrentScreen("start");
@@ -224,6 +253,7 @@ export default function Home() {
           onShowHistory={handleShowHistory}
           onShowCategorySelect={handleShowCategorySelect}
           onShowReview={handleShowReview}
+          onShowSettings={handleShowSettings}
         />
       )}
 
@@ -246,6 +276,11 @@ export default function Home() {
           onBack={handleBackToStart}
           onStart={handleStartReview}
         />
+      )}
+
+      {/* 設定画面 */}
+      {currentScreen === "settings" && (
+        <SettingsScreen onBack={handleBackToStart} />
       )}
 
       {/* 試験画面 */}

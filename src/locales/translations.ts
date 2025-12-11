@@ -95,6 +95,14 @@ export const translations: Record<Language, Record<string, string>> = {
     "review.clearConfirmMessage": "間違えた問題のリストが全て削除されます。",
     "review.settings": "復習設定",
     "review.removeOnCorrect": "正解した問題をリストから削除",
+
+    // === Settings ===
+    "settings.title": "設定",
+    "settings.shuffleSection": "シャッフル設定",
+    "settings.shuffleQuestions": "問題の順番をシャッフル",
+    "settings.shuffleChoices": "選択肢の順番をシャッフル",
+    "settings.shuffleQuestionsDesc": "毎回異なる順番で出題",
+    "settings.shuffleChoicesDesc": "選択肢の並び順もランダムに",
   },
   en: {
     // === StartScreen ===
@@ -186,6 +194,14 @@ export const translations: Record<Language, Record<string, string>> = {
     "review.clearConfirmMessage": "All wrong questions will be removed from the list.",
     "review.settings": "Review Settings",
     "review.removeOnCorrect": "Remove from list when answered correctly",
+
+    // === Settings ===
+    "settings.title": "Settings",
+    "settings.shuffleSection": "Shuffle Settings",
+    "settings.shuffleQuestions": "Shuffle question order",
+    "settings.shuffleChoices": "Shuffle choice order",
+    "settings.shuffleQuestionsDesc": "Questions appear in different order each time",
+    "settings.shuffleChoicesDesc": "Answer choices are also randomized",
   },
 };
 

@@ -4,4 +4,5 @@ export { ResultScreen } from "./ResultScreen";
 export { HistoryScreen } from "./HistoryScreen";
 export { CategorySelectScreen } from "./CategorySelectScreen";
 export { ReviewScreen } from "./ReviewScreen";
+export { SettingsScreen } from "./SettingsScreen";
 export { PWARegister } from "./PWARegister";

@@ -1,6 +1,6 @@
 "use client";
 
-import { PlayCircle, Clock, FileQuestion, Target, Info, Sun, Moon, History, FolderOpen, RotateCcw } from "lucide-react";
+import { PlayCircle, Clock, FileQuestion, Target, Info, Sun, Moon, History, FolderOpen, RotateCcw, Settings } from "lucide-react";
 import { EXAM_CONFIG } from "@/data/constants";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -11,6 +11,7 @@ interface StartScreenProps {
   onShowHistory: () => void;
   onShowCategorySelect: () => void;
   onShowReview: () => void;
+  onShowSettings: () => void;
 }
 
 // 言語切り替えトグルコンポーネント
@@ -77,7 +78,7 @@ function ThemeToggle() {
   );
 }
 
-export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onShowReview }: StartScreenProps) {
+export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onShowReview, onShowSettings }: StartScreenProps) {
   const { language } = useLanguage();
   const { theme } = useTheme();
   const t = (key: string) => getTranslation(language, key);
@@ -292,6 +293,32 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
                 {t("start.history")}
+              </span>
+            </div>
+            <span className={theme === "dark" ? "text-slate-500" : "text-slate-400"}>
+              →
+            </span>
+          </button>
+
+          {/* 設定 */}
+          <button
+            onClick={onShowSettings}
+            className={`w-full backdrop-blur-sm p-4 border flex items-center justify-between transition-colors ${
+              theme === "dark"
+                ? "bg-slate-900/60 border-slate-700/50 hover:bg-slate-800/60"
+                : "bg-white/80 border-slate-200 hover:bg-slate-50"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className={`w-10 h-10 flex items-center justify-center ${
+                theme === "dark" ? "bg-slate-800/80" : "bg-slate-100"
+              }`}>
+                <Settings className="w-5 h-5 text-slate-400" />
+              </div>
+              <span className={`font-medium ${
+                theme === "dark" ? "text-white" : "text-slate-900"
+              }`}>
+                {t("settings.title")}
               </span>
             </div>
             <span className={theme === "dark" ? "text-slate-500" : "text-slate-400"}>
