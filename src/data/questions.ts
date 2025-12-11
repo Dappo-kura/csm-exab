@@ -2894,10 +2894,10 @@ export const questions: Question[] = [
       { id: "d", text: { ja: "プロダクトバックログの優先順位を決定する", en: "Deciding Product Backlog priority" } },
       { id: "e", text: { ja: "スプリントの長さを決定する", en: "Deciding Sprint length" } },
     ],
-    correctAnswers: ["a", "b", "c", "e"],
+    correctAnswers: ["a", "b", "c"],
     explanation: {
-      ja: "自己管理チームは誰が、何を、どのように作業を行うかを決定します。スプリントの長さもチームが決定できます。ただし、プロダクトバックログの優先順位はプロダクトオーナーの責務です。",
-      en: "Self-managing teams decide who, what, and how to do work. They can also decide Sprint length. However, Product Backlog priority is the Product Owner's accountability.",
+      ja: "スクラムガイド2020では、自己管理とは「誰が（who）、何を（what）、いつ（when）、どのように（how）作業を行うかを内部的に決定すること」と定義されています。選択肢a, b, cはこれに該当します。プロダクトバックログの優先順位（選択肢d）はプロダクトオーナーの責務です。スプリントの長さ（選択肢e）は自己管理の定義には含まれていません。",
+      en: "The Scrum Guide 2020 defines self-managing as 'internally deciding who does what, when, and how.' Choices a, b, c correspond to this. Product Backlog priority (choice d) is the Product Owner's accountability. Sprint length (choice e) is not included in the definition of self-management.",
     },
   },
   {
