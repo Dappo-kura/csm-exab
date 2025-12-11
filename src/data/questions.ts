@@ -1008,10 +1008,10 @@ export const questions: Question[] = [
       { id: "c", text: { ja: "開発者", en: "Developers" } },
       { id: "d", text: { ja: "スクラムチーム全体", en: "The entire Scrum Team" } },
     ],
-    correctAnswers: ["c"],
+    correctAnswers: ["d"],
     explanation: {
-      ja: "スクラムガイド2020では、完成の定義は開発者が作成する責任があります。組織の標準がある場合は、それを最低限として従い、それを超える場合は開発者が追加の基準を設けることができます。",
-      en: "The Scrum Guide 2020 states that Developers are responsible for creating the Definition of Done. If organizational standards exist, they must follow them at minimum, and may add stricter criteria.",
+      ja: "スクラムガイド2020では、組織の標準がない場合、スクラムチーム全体が適切な完成の定義を作成する責任があります。開発者は完成の定義に従う（conform to）責任があり、複数チームで同じプロダクトを開発する場合は、全チームが同じ完成の定義に従います。",
+      en: "The Scrum Guide 2020 states that if it is not an organizational standard, the Scrum Team must create a Definition of Done appropriate for the product. Developers are required to conform to the Definition of Done, and if multiple teams work on the same product, they must comply with the same Definition of Done.",
     },
   },
   {
@@ -1394,8 +1394,8 @@ export const questions: Question[] = [
     ],
     correctAnswers: ["c"],
     explanation: {
-      ja: "完成の定義は開発者が作成する責任があります。組織の標準がある場合はそれを最低限として従い、必要に応じてより厳格な基準を追加します。",
-      en: "Developers are responsible for creating the Definition of Done. If organizational standards exist, they follow them at minimum and may add stricter criteria as needed.",
+      ja: "スクラムガイド2020では、組織標準がない場合、スクラムチーム全体が完成の定義を作成する責任があります。選択肢の中では、品質に責任を持つ開発者が主導して作成することが最も適切です。開発者は完成の定義に従う責任があり、必要に応じてより厳格な基準を追加できます。",
+      en: "The Scrum Guide 2020 states the Scrum Team must create a Definition of Done if there is no organizational standard. Among the choices, Developers leading the creation is most appropriate as they are accountable for quality. Developers must conform to the Definition of Done and may add stricter criteria as needed.",
     },
   },
   {
