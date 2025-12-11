@@ -39,7 +39,9 @@ export function getWrongQuestionIds(): number[] {
  */
 export function addWrongQuestions(questionIds: number[]): void {
   const current = getWrongQuestionIds();
-  const newIds = [...new Set([...current, ...questionIds])];
+  // 重複を除去（Array.fromを使用してSetを配列に変換）
+  const combined = current.concat(questionIds);
+  const newIds = Array.from(new Set(combined));
   
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(newIds));
