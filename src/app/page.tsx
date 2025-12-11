@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { StartScreen, ExamScreen, ResultScreen } from "@/components";
+import { StartScreen, ExamScreen, ResultScreen, HistoryScreen } from "@/components";
 import { useExam } from "@/hooks/useExam";
 import { useTimer } from "@/hooks/useTimer";
 import { questions, getQuestions } from "@/data/questions";
@@ -10,6 +10,10 @@ import { Question } from "@/types";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { getTranslation } from "@/locales/translations";
+import { saveHistory } from "@/lib/historyStorage";
+
+// アプリの画面状態
+type AppScreen = "start" | "exam" | "result" | "history";
 
 export default function Home() {
   // 実際の問題数（データが80問未満の場合は全問題を使用）
@@ -17,6 +21,12 @@ export default function Home() {
   
   // 確認ダイアログの状態
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
+
+  // 画面状態
+  const [currentScreen, setCurrentScreen] = useState<AppScreen>("start");
+
+  // 試験開始時刻（所要時間計算用）
+  const [examStartTime, setExamStartTime] = useState<number>(0);
 
   // 言語設定
   const { language } = useLanguage();
@@ -40,6 +50,8 @@ export default function Home() {
     // 問題をシャッフルして取得
     const shuffledQuestions = getQuestions(EXAM_CONFIG.TOTAL_QUESTIONS);
     setExamQuestions(shuffledQuestions);
+    setExamStartTime(Date.now());
+    setCurrentScreen("exam");
   }, []);
 
   // 問題が設定されたら試験を開始
@@ -49,6 +61,26 @@ export default function Home() {
       timer.start();
     }
   }, [examQuestions, exam.examState]);
+
+  // 試験が終了したら履歴を保存
+  useEffect(() => {
+    if (exam.examState === "result" && exam.result) {
+      // 所要時間を計算
+      const timeSpent = Math.floor((Date.now() - examStartTime) / 1000);
+      
+      // 履歴を保存
+      saveHistory({
+        score: exam.result.correctCount,
+        totalQuestions: exam.result.totalQuestions,
+        percentage: exam.result.percentage,
+        passed: exam.result.passed,
+        timeSpent,
+        mode: "normal",
+      });
+
+      setCurrentScreen("result");
+    }
+  }, [exam.examState, exam.result, examStartTime]);
 
   // 試験終了確認
   const handleFinishClick = useCallback(() => {
@@ -72,17 +104,36 @@ export default function Home() {
     timer.reset();
     exam.resetExam();
     setExamQuestions([]);
+    setCurrentScreen("start");
   }, [timer, exam]);
+
+  // 履歴画面を表示
+  const handleShowHistory = useCallback(() => {
+    setCurrentScreen("history");
+  }, []);
+
+  // 履歴画面から戻る
+  const handleBackFromHistory = useCallback(() => {
+    setCurrentScreen("start");
+  }, []);
 
   return (
     <main className="min-h-screen">
       {/* スタート画面 */}
-      {exam.examState === "start" && (
-        <StartScreen onStart={handleStartExam} />
+      {currentScreen === "start" && (
+        <StartScreen 
+          onStart={handleStartExam} 
+          onShowHistory={handleShowHistory}
+        />
+      )}
+
+      {/* 履歴画面 */}
+      {currentScreen === "history" && (
+        <HistoryScreen onBack={handleBackFromHistory} />
       )}
 
       {/* 試験画面 */}
-      {exam.examState === "exam" && exam.currentQuestion && (
+      {currentScreen === "exam" && exam.currentQuestion && (
         <>
           <ExamScreen
             question={exam.currentQuestion}
@@ -150,7 +201,7 @@ export default function Home() {
       )}
 
       {/* 結果画面 */}
-      {exam.examState === "result" && exam.result && (
+      {currentScreen === "result" && exam.result && (
         <ResultScreen
           result={exam.result}
           questions={examQuestions}

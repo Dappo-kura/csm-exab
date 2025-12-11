@@ -13,6 +13,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "start.rule.timeLimit": "制限時間",
     "start.rule.questions": "問題数",
     "start.rule.passingScore": "合格ライン",
+    "start.history": "学習履歴",
 
     // === ExamScreen ===
     "exam.questionList": "問題一覧",
@@ -60,6 +61,14 @@ export const translations: Record<Language, Record<string, string>> = {
     "category.deep": "深掘り",
     "category.comprehensive": "総合",
     "category.psm2": "PSM II",
+
+    // === History Screen ===
+    "history.title": "学習履歴",
+    "history.noHistory": "まだ学習履歴がありません。\n試験を受けると履歴が保存されます。",
+    "history.delete": "削除",
+    "history.clearAll": "全て削除",
+    "history.clearConfirmTitle": "履歴を全て削除しますか？",
+    "history.clearConfirmMessage": "この操作は取り消せません。全ての学習履歴が削除されます。",
   },
   en: {
     // === StartScreen ===
@@ -69,6 +78,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "start.rule.timeLimit": "Time Limit",
     "start.rule.questions": "Questions",
     "start.rule.passingScore": "Passing Score",
+    "start.history": "History",
 
     // === ExamScreen ===
     "exam.questionList": "Question List",
@@ -116,6 +126,14 @@ export const translations: Record<Language, Record<string, string>> = {
     "category.deep": "Deep Dive",
     "category.comprehensive": "Comprehensive",
     "category.psm2": "PSM II",
+
+    // === History Screen ===
+    "history.title": "History",
+    "history.noHistory": "No history yet.\nYour exam results will be saved here.",
+    "history.delete": "Delete",
+    "history.clearAll": "Clear All",
+    "history.clearConfirmTitle": "Clear all history?",
+    "history.clearConfirmMessage": "This action cannot be undone. All your learning history will be deleted.",
   },
 };
 
@@ -128,4 +146,3 @@ export function getTranslation(
 ): string {
   return translations[language][key] || key;
 }
-
