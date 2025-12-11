@@ -14,6 +14,7 @@ import {
 import { ExamResult, Question, categoryLabels, categoryColors, getLocalizedText } from "@/types";
 import { EXAM_CONFIG } from "@/data/constants";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { getTranslation } from "@/locales/translations";
 
 interface ResultScreenProps {
@@ -28,6 +29,7 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
     new Set()
   );
   const { language } = useLanguage();
+  const { theme } = useTheme();
   const t = (key: string) => getTranslation(language, key);
 
   const wrongQuestions = questions.filter((q, index) => {
@@ -58,7 +60,11 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
+    <div className={`min-h-screen flex flex-col ${
+      theme === "dark"
+        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+        : "bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200"
+    }`}>
       {/* ヘッダー - 合否表示 */}
       <header className="pt-8 pb-6 px-4 text-center">
         <div
@@ -77,13 +83,13 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
         
         <h1
           className={`text-3xl font-bold mb-2 ${
-            result.passed ? "text-emerald-400" : "text-red-400"
+            result.passed ? "text-emerald-500" : "text-red-500"
           }`}
         >
           {result.passed ? t("result.passed") : t("result.failed")}
         </h1>
         
-        <p className="text-slate-400">
+        <p className={theme === "dark" ? "text-slate-400" : "text-slate-500"}>
           {result.passed
             ? t("result.passedMessage")
             : t("result.failedMessage")}
@@ -93,7 +99,11 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
       {/* メインコンテンツ */}
       <main className="flex-1 px-4 pb-8">
         {/* スコアカード */}
-        <section className="bg-slate-900/60 backdrop-blur-sm p-5 mb-4 border border-slate-700/50">
+        <section className={`backdrop-blur-sm p-5 mb-4 border ${
+          theme === "dark"
+            ? "bg-slate-900/60 border-slate-700/50"
+            : "bg-white/80 border-slate-200"
+        }`}>
           {/* 正答率の円グラフ風表示 */}
           <div className="flex items-center justify-center mb-6">
             <div className="relative w-32 h-32">
@@ -105,7 +115,7 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="12"
-                  className="text-slate-700"
+                  className={theme === "dark" ? "text-slate-700" : "text-slate-200"}
                 />
                 <circle
                   cx="64"
@@ -124,38 +134,52 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <span
                   className={`text-3xl font-bold ${
-                    result.passed ? "text-emerald-400" : "text-red-400"
+                    result.passed ? "text-emerald-500" : "text-red-500"
                   }`}
                 >
                   {result.percentage}%
                 </span>
-                <span className="text-xs text-slate-500">{t("result.percentage")}</span>
+                <span className={`text-xs ${
+                  theme === "dark" ? "text-slate-500" : "text-slate-400"
+                }`}>{t("result.percentage")}</span>
               </div>
             </div>
           </div>
 
           {/* 詳細スコア */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-slate-800/60 p-4 text-center">
+            <div className={`p-4 text-center ${
+              theme === "dark" ? "bg-slate-800/60" : "bg-slate-100"
+            }`}>
               <div className="flex items-center justify-center gap-2 mb-1">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span className="text-slate-400 text-sm">{t("result.correct")}</span>
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                <span className={`text-sm ${
+                  theme === "dark" ? "text-slate-400" : "text-slate-500"
+                }`}>{t("result.correct")}</span>
               </div>
-              <p className="text-2xl font-bold text-emerald-400">
+              <p className="text-2xl font-bold text-emerald-500">
                 {result.correctCount}
-                <span className="text-sm text-slate-500 font-normal">
+                <span className={`text-sm font-normal ${
+                  theme === "dark" ? "text-slate-500" : "text-slate-400"
+                }`}>
                   /{result.totalQuestions}
                 </span>
               </p>
             </div>
-            <div className="bg-slate-800/60 p-4 text-center">
+            <div className={`p-4 text-center ${
+              theme === "dark" ? "bg-slate-800/60" : "bg-slate-100"
+            }`}>
               <div className="flex items-center justify-center gap-2 mb-1">
-                <XCircle className="w-4 h-4 text-red-400" />
-                <span className="text-slate-400 text-sm">{t("result.wrong")}</span>
+                <XCircle className="w-4 h-4 text-red-500" />
+                <span className={`text-sm ${
+                  theme === "dark" ? "text-slate-400" : "text-slate-500"
+                }`}>{t("result.wrong")}</span>
               </div>
-              <p className="text-2xl font-bold text-red-400">
+              <p className="text-2xl font-bold text-red-500">
                 {result.wrongCount}
-                <span className="text-sm text-slate-500 font-normal">
+                <span className={`text-sm font-normal ${
+                  theme === "dark" ? "text-slate-500" : "text-slate-400"
+                }`}>
                   /{result.totalQuestions}
                 </span>
               </p>
@@ -163,9 +187,13 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
           </div>
 
           {/* 合格ライン表示 */}
-          <div className="mt-4 pt-4 border-t border-slate-700/50 flex items-center justify-center gap-2 text-sm">
-            <Target className="w-4 h-4 text-slate-500" />
-            <span className="text-slate-500">
+          <div className={`mt-4 pt-4 border-t flex items-center justify-center gap-2 text-sm ${
+            theme === "dark"
+              ? "border-slate-700/50 text-slate-500"
+              : "border-slate-200 text-slate-400"
+          }`}>
+            <Target className="w-4 h-4" />
+            <span>
               {t("result.passingLine")}: {EXAM_CONFIG.PASSING_SCORE}%
             </span>
           </div>
@@ -173,29 +201,47 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
 
         {/* 間違えた問題セクション */}
         {wrongQuestions.length > 0 && (
-          <section className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 overflow-hidden">
+          <section className={`backdrop-blur-sm border overflow-hidden ${
+            theme === "dark"
+              ? "bg-slate-900/60 border-slate-700/50"
+              : "bg-white/80 border-slate-200"
+          }`}>
             <button
               onClick={() => setShowWrongAnswers(!showWrongAnswers)}
-              className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-700/30 transition-colors"
+              className={`w-full px-5 py-4 flex items-center justify-between text-left transition-colors ${
+                theme === "dark"
+                  ? "hover:bg-slate-700/30"
+                  : "hover:bg-slate-50"
+              }`}
             >
               <div className="flex items-center gap-3">
-                <BookOpen className="w-5 h-5 text-amber-400" />
+                <BookOpen className="w-5 h-5 text-amber-500" />
                 <div>
-                  <span className="text-white font-medium">{t("result.wrongQuestions")}</span>
-                  <span className="text-slate-500 text-sm ml-2">
+                  <span className={`font-medium ${
+                    theme === "dark" ? "text-white" : "text-slate-900"
+                  }`}>{t("result.wrongQuestions")}</span>
+                  <span className={`text-sm ml-2 ${
+                    theme === "dark" ? "text-slate-500" : "text-slate-400"
+                  }`}>
                     ({wrongQuestions.length})
                   </span>
                 </div>
               </div>
               {showWrongAnswers ? (
-                <ChevronUp className="w-5 h-5 text-slate-400" />
+                <ChevronUp className={`w-5 h-5 ${
+                  theme === "dark" ? "text-slate-400" : "text-slate-500"
+                }`} />
               ) : (
-                <ChevronDown className="w-5 h-5 text-slate-400" />
+                <ChevronDown className={`w-5 h-5 ${
+                  theme === "dark" ? "text-slate-400" : "text-slate-500"
+                }`} />
               )}
             </button>
 
             {showWrongAnswers && (
-              <div className="border-t border-slate-700/50">
+              <div className={`border-t ${
+                theme === "dark" ? "border-slate-700/50" : "border-slate-200"
+              }`}>
                 {wrongQuestions.map((question) => {
                   const questionIndex = getQuestionIndex(question.id);
                   const userAnswer = result.answers[questionIndex];
@@ -204,14 +250,24 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                   return (
                     <div
                       key={question.id}
-                      className="border-b border-slate-700/50 last:border-b-0"
+                      className={`border-b last:border-b-0 ${
+                        theme === "dark" ? "border-slate-700/50" : "border-slate-200"
+                      }`}
                     >
                       <button
                         onClick={() => toggleExpanded(question.id)}
-                        className="w-full px-5 py-4 text-left hover:bg-slate-700/20 transition-colors"
+                        className={`w-full px-5 py-4 text-left transition-colors ${
+                          theme === "dark"
+                            ? "hover:bg-slate-700/20"
+                            : "hover:bg-slate-50"
+                        }`}
                       >
                         <div className="flex items-start gap-3">
-                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-slate-700 text-slate-400 text-xs flex items-center justify-center font-medium">
+                          <span className={`flex-shrink-0 w-6 h-6 rounded-full text-xs flex items-center justify-center font-medium ${
+                            theme === "dark"
+                              ? "bg-slate-700 text-slate-400"
+                              : "bg-slate-200 text-slate-600"
+                          }`}>
                             {questionIndex + 1}
                           </span>
                           <div className="flex-1">
@@ -224,14 +280,20 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                                 {categoryLabels[question.category][language]}
                               </span>
                             </div>
-                            <p className="text-slate-300 text-sm line-clamp-2">
+                            <p className={`text-sm line-clamp-2 ${
+                              theme === "dark" ? "text-slate-300" : "text-slate-600"
+                            }`}>
                               {getLocalizedText(question.question, language)}
                             </p>
                           </div>
                           {isExpanded ? (
-                            <ChevronUp className="w-4 h-4 text-slate-500 flex-shrink-0" />
+                            <ChevronUp className={`w-4 h-4 flex-shrink-0 ${
+                              theme === "dark" ? "text-slate-500" : "text-slate-400"
+                            }`} />
                           ) : (
-                            <ChevronDown className="w-4 h-4 text-slate-500 flex-shrink-0" />
+                            <ChevronDown className={`w-4 h-4 flex-shrink-0 ${
+                              theme === "dark" ? "text-slate-500" : "text-slate-400"
+                            }`} />
                           )}
                         </div>
                       </button>
@@ -256,15 +318,17 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                                       ? "bg-emerald-500/15 border border-emerald-500/40"
                                       : wasSelected
                                       ? "bg-red-500/15 border border-red-500/40"
-                                      : "bg-slate-800/50"
+                                      : theme === "dark"
+                                      ? "bg-slate-800/50"
+                                      : "bg-slate-100"
                                   }`}
                                 >
                                   <div className="flex items-start gap-2">
                                     {isCorrect && (
-                                      <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                                      <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
                                     )}
                                     {wasSelected && !isCorrect && (
-                                      <XCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+                                      <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
                                     )}
                                     {!isCorrect && !wasSelected && (
                                       <div className="w-4 h-4 flex-shrink-0" />
@@ -272,10 +336,12 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                                     <span
                                       className={
                                         isCorrect
-                                          ? "text-emerald-300"
+                                          ? "text-emerald-600"
                                           : wasSelected
-                                          ? "text-red-300"
-                                          : "text-slate-400"
+                                          ? "text-red-600"
+                                          : theme === "dark"
+                                          ? "text-slate-400"
+                                          : "text-slate-500"
                                       }
                                     >
                                       {getLocalizedText(choice.text, language)}
@@ -287,11 +353,15 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                           </div>
 
                           {/* 解説 */}
-                          <div className="bg-slate-800/50 p-3 border-l-2 border-amber-500/50">
-                            <p className="text-xs text-amber-400 font-medium mb-1">
+                          <div className={`p-3 border-l-2 border-amber-500/50 ${
+                            theme === "dark" ? "bg-slate-800/50" : "bg-amber-50"
+                          }`}>
+                            <p className="text-xs text-amber-600 font-medium mb-1">
                               {t("result.explanation")}
                             </p>
-                            <p className="text-sm text-slate-300 leading-relaxed">
+                            <p className={`text-sm leading-relaxed ${
+                              theme === "dark" ? "text-slate-300" : "text-slate-600"
+                            }`}>
                               {getLocalizedText(question.explanation, language)}
                             </p>
                           </div>
@@ -307,7 +377,11 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
       </main>
 
       {/* フッター - リトライボタン */}
-      <footer className="sticky bottom-0 p-4 pb-8 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent pt-8">
+      <footer className={`sticky bottom-0 p-4 pb-8 pt-8 ${
+        theme === "dark"
+          ? "bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent"
+          : "bg-gradient-to-t from-slate-100 via-slate-100/95 to-transparent"
+      }`}>
         <button
           onClick={onRetry}
           className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-lg rounded-full shadow-lg shadow-emerald-500/25 transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-3"
@@ -319,4 +393,3 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
     </div>
   );
 }
-

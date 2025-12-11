@@ -16,6 +16,7 @@ import {
 import { Question, categoryLabels, categoryColors, getLocalizedText } from "@/types";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { getTranslation } from "@/locales/translations";
 
 interface ExamScreenProps {
@@ -62,6 +63,7 @@ export function ExamScreen({
   const [showQuestionList, setShowQuestionList] = useState(false);
   const [showBackToTopConfirm, setShowBackToTopConfirm] = useState(false);
   const { language } = useLanguage();
+  const { theme } = useTheme();
   const t = (key: string) => getTranslation(language, key);
   
   const isLastQuestion = currentIndex === totalQuestions - 1;
@@ -73,9 +75,15 @@ export function ExamScreen({
   const isTimeDanger = remainingSeconds <= 60;
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col">
+    <div className={`min-h-screen flex flex-col ${
+      theme === "dark" ? "bg-slate-900" : "bg-slate-50"
+    }`}>
       {/* 固定ヘッダー */}
-      <header className="sticky top-0 z-20 bg-slate-900/95 backdrop-blur border-b border-slate-800">
+      <header className={`sticky top-0 z-20 backdrop-blur border-b ${
+        theme === "dark"
+          ? "bg-slate-900/95 border-slate-800"
+          : "bg-white/95 border-slate-200"
+      }`}>
         <div className="px-4 py-3">
           {/* 上段: タイマーと問題リストボタン */}
           <div className="flex items-center justify-between mb-2">
@@ -85,7 +93,9 @@ export function ExamScreen({
                   ? "bg-red-500/20 text-red-400"
                   : isTimeWarning
                   ? "bg-amber-500/20 text-amber-400"
-                  : "bg-slate-800 text-white"
+                  : theme === "dark"
+                  ? "bg-slate-800 text-white"
+                  : "bg-slate-100 text-slate-900"
               }`}
             >
               <Clock className="w-4 h-4" />
@@ -93,7 +103,11 @@ export function ExamScreen({
             </div>
             <button
               onClick={() => setShowQuestionList(true)}
-              className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 rounded-lg text-slate-300 hover:text-white transition-colors"
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors ${
+                theme === "dark"
+                  ? "bg-slate-800 text-slate-300 hover:text-white"
+                  : "bg-slate-100 text-slate-600 hover:text-slate-900"
+              }`}
             >
               <Grid3X3 className="w-4 h-4" />
               <span className="text-sm font-medium">{t("exam.questionList")}</span>
@@ -103,7 +117,9 @@ export function ExamScreen({
           {/* 下段: 進捗バー */}
           <div className="flex items-center gap-3">
             <div className="flex-1">
-              <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+              <div className={`h-2 rounded-full overflow-hidden ${
+                theme === "dark" ? "bg-slate-800" : "bg-slate-200"
+              }`}>
                 <div
                   className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-300"
                   style={{
@@ -112,13 +128,17 @@ export function ExamScreen({
                 />
               </div>
             </div>
-            <span className="text-sm text-slate-400 whitespace-nowrap">
+            <span className={`text-sm whitespace-nowrap ${
+              theme === "dark" ? "text-slate-400" : "text-slate-500"
+            }`}>
               {currentIndex + 1}/{totalQuestions}
             </span>
           </div>
 
           {/* 統計情報 */}
-          <div className="flex items-center gap-4 mt-2 text-xs text-slate-500">
+          <div className={`flex items-center gap-4 mt-2 text-xs ${
+            theme === "dark" ? "text-slate-500" : "text-slate-400"
+          }`}>
             <span className="flex items-center gap-1">
               <CheckCircle2 className="w-3 h-3 text-emerald-500" />
               {t("exam.answered")}: {answeredCount}
@@ -141,7 +161,9 @@ export function ExamScreen({
             className={`text-xs font-medium px-2 py-1 ${
               question.type === "multiple"
                 ? "bg-purple-500/25 text-purple-400"
-                : "bg-slate-800/80 text-slate-400"
+                : theme === "dark"
+                ? "bg-slate-800/80 text-slate-400"
+                : "bg-slate-200 text-slate-600"
             }`}
           >
             {question.type === "multiple" ? t("exam.multiple") : t("exam.single")}
@@ -153,20 +175,28 @@ export function ExamScreen({
           >
             {categoryLabels[question.category][language]}
           </span>
-          <span className="text-xs text-slate-500">
+          <span className={`text-xs ${
+            theme === "dark" ? "text-slate-500" : "text-slate-400"
+          }`}>
             {t("exam.question")} {currentIndex + 1}
           </span>
         </div>
 
         {/* 問題文 */}
         <div className="mb-6">
-          <p className="text-white text-lg leading-relaxed font-medium">
+          <p className={`text-lg leading-relaxed font-medium ${
+            theme === "dark" ? "text-white" : "text-slate-900"
+          }`}>
             {getLocalizedText(question.question, language)}
           </p>
         </div>
 
         {/* 選択肢 - 1つのコンテナにまとめる */}
-        <div className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 overflow-hidden">
+        <div className={`backdrop-blur-sm border overflow-hidden ${
+          theme === "dark"
+            ? "bg-slate-900/60 border-slate-700/50"
+            : "bg-white/80 border-slate-200"
+        }`}>
           {question.choices.map((choice, index) => {
             const isSelected = selectedAnswers.includes(choice.id);
             const isLast = index === question.choices.length - 1;
@@ -175,25 +205,33 @@ export function ExamScreen({
                 key={choice.id}
                 onClick={() => onSelectAnswer(choice.id)}
                 className={`w-full text-left p-4 transition-all duration-200 active:scale-[0.99] ${
-                  !isLast ? "border-b border-slate-700/50" : ""
+                  !isLast ? `border-b ${theme === "dark" ? "border-slate-700/50" : "border-slate-200"}` : ""
                 } ${
                   isSelected
-                    ? "bg-emerald-500/15 text-white"
-                    : "bg-transparent text-slate-300 hover:bg-slate-800/50"
+                    ? theme === "dark"
+                      ? "bg-emerald-500/15 text-white"
+                      : "bg-emerald-500/10 text-slate-900"
+                    : theme === "dark"
+                    ? "bg-transparent text-slate-300 hover:bg-slate-800/50"
+                    : "bg-transparent text-slate-700 hover:bg-slate-50"
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0 mt-0.5">
                     {question.type === "multiple" ? (
                       isSelected ? (
-                        <CheckSquare className="w-5 h-5 text-emerald-400" />
+                        <CheckSquare className="w-5 h-5 text-emerald-500" />
                       ) : (
-                        <Square className="w-5 h-5 text-slate-500" />
+                        <Square className={`w-5 h-5 ${
+                          theme === "dark" ? "text-slate-500" : "text-slate-400"
+                        }`} />
                       )
                     ) : isSelected ? (
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                     ) : (
-                      <Circle className="w-5 h-5 text-slate-500" />
+                      <Circle className={`w-5 h-5 ${
+                        theme === "dark" ? "text-slate-500" : "text-slate-400"
+                      }`} />
                     )}
                   </div>
                   <span className="flex-1 leading-relaxed">{getLocalizedText(choice.text, language)}</span>
@@ -207,7 +245,11 @@ export function ExamScreen({
         <div className="mt-6 flex justify-end">
           <button
             onClick={() => setShowBackToTopConfirm(true)}
-            className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-300 transition-colors px-3 py-2 rounded-full"
+            className={`flex items-center gap-1.5 text-xs px-3 py-2 rounded-full transition-colors ${
+              theme === "dark"
+                ? "text-slate-500 hover:text-slate-300"
+                : "text-slate-400 hover:text-slate-600"
+            }`}
           >
             <Home className="w-3.5 h-3.5" />
             <span>{language === "ja" ? "TOPに戻る" : "Back to TOP"}</span>
@@ -216,14 +258,20 @@ export function ExamScreen({
       </main>
 
       {/* フッター - ナビゲーション */}
-      <footer className="sticky bottom-0 bg-slate-900/95 backdrop-blur border-t border-slate-800 p-4 pb-8 space-y-3">
+      <footer className={`sticky bottom-0 backdrop-blur border-t p-4 pb-8 space-y-3 ${
+        theme === "dark"
+          ? "bg-slate-900/95 border-slate-800"
+          : "bg-white/95 border-slate-200"
+      }`}>
         {/* 見直しフラグボタン */}
         <button
           onClick={onToggleFlag}
           className={`w-full py-3 px-4 rounded-full border transition-all flex items-center justify-center gap-2 ${
             isFlagged
-              ? "bg-amber-500/15 border-amber-500/60 text-amber-400"
-              : "bg-slate-900/60 border-slate-700/50 text-slate-400 hover:bg-slate-800/50"
+              ? "bg-amber-500/15 border-amber-500/60 text-amber-500"
+              : theme === "dark"
+              ? "bg-slate-900/60 border-slate-700/50 text-slate-400 hover:bg-slate-800/50"
+              : "bg-slate-100 border-slate-200 text-slate-500 hover:bg-slate-200"
           }`}
         >
           <Flag className={`w-5 h-5 ${isFlagged ? "fill-current" : ""}`} />
@@ -239,8 +287,12 @@ export function ExamScreen({
             disabled={isFirstQuestion}
             className={`flex-1 py-3 px-4 rounded-full font-medium flex items-center justify-center gap-2 transition-all ${
               isFirstQuestion
-                ? "bg-slate-900/40 text-slate-600 cursor-not-allowed"
-                : "bg-slate-900/60 border border-slate-700/50 text-white hover:bg-slate-800/60 active:scale-[0.98]"
+                ? theme === "dark"
+                  ? "bg-slate-900/40 text-slate-600 cursor-not-allowed"
+                  : "bg-slate-100 text-slate-300 cursor-not-allowed"
+                : theme === "dark"
+                ? "bg-slate-900/60 border border-slate-700/50 text-white hover:bg-slate-800/60 active:scale-[0.98]"
+                : "bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 active:scale-[0.98]"
             }`}
           >
             <ChevronLeft className="w-5 h-5" />
@@ -270,12 +322,26 @@ export function ExamScreen({
       {/* 問題一覧モーダル */}
       {showQuestionList && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-end justify-center">
-          <div className="bg-slate-900 w-full max-h-[80vh] border-t border-slate-700/50 overflow-hidden animate-slide-up">
-            <div className="sticky top-0 bg-slate-900 px-4 py-4 border-b border-slate-800 flex items-center justify-between">
-              <h3 className="text-lg font-bold text-white">{t("exam.questionList")}</h3>
+          <div className={`w-full max-h-[80vh] border-t overflow-hidden animate-slide-up ${
+            theme === "dark"
+              ? "bg-slate-900 border-slate-700/50"
+              : "bg-white border-slate-200"
+          }`}>
+            <div className={`sticky top-0 px-4 py-4 border-b flex items-center justify-between ${
+              theme === "dark"
+                ? "bg-slate-900 border-slate-800"
+                : "bg-white border-slate-200"
+            }`}>
+              <h3 className={`text-lg font-bold ${
+                theme === "dark" ? "text-white" : "text-slate-900"
+              }`}>{t("exam.questionList")}</h3>
               <button
                 onClick={() => setShowQuestionList(false)}
-                className="text-slate-400 hover:text-white transition-colors px-3 py-1 rounded-lg"
+                className={`px-3 py-1 rounded-lg transition-colors ${
+                  theme === "dark"
+                    ? "text-slate-400 hover:text-white"
+                    : "text-slate-500 hover:text-slate-900"
+                }`}
               >
                 {t("exam.close")}
               </button>
@@ -296,11 +362,15 @@ export function ExamScreen({
                       }}
                       className={`aspect-square rounded-lg font-medium text-sm flex items-center justify-center relative transition-all ${
                         isCurrent
-                          ? "bg-emerald-500 text-white ring-2 ring-emerald-400 ring-offset-2 ring-offset-slate-900"
+                          ? "bg-emerald-500 text-white ring-2 ring-emerald-400 ring-offset-2"
                           : answered
-                          ? "bg-slate-700 text-white"
-                          : "bg-slate-800 text-slate-400"
-                      }`}
+                          ? theme === "dark"
+                            ? "bg-slate-700 text-white"
+                            : "bg-slate-300 text-slate-900"
+                          : theme === "dark"
+                          ? "bg-slate-800 text-slate-400"
+                          : "bg-slate-100 text-slate-500"
+                      } ${isCurrent ? (theme === "dark" ? "ring-offset-slate-900" : "ring-offset-white") : ""}`}
                     >
                       {i + 1}
                       {flagged && (
@@ -312,13 +382,21 @@ export function ExamScreen({
               </div>
               
               {/* 凡例 */}
-              <div className="mt-4 pt-4 border-t border-slate-800 flex flex-wrap gap-4 text-xs text-slate-400">
+              <div className={`mt-4 pt-4 border-t flex flex-wrap gap-4 text-xs ${
+                theme === "dark"
+                  ? "border-slate-800 text-slate-400"
+                  : "border-slate-200 text-slate-500"
+              }`}>
                 <span className="flex items-center gap-1">
-                  <span className="w-4 h-4 rounded bg-slate-700"></span>
+                  <span className={`w-4 h-4 rounded ${
+                    theme === "dark" ? "bg-slate-700" : "bg-slate-300"
+                  }`}></span>
                   {t("exam.legend.answered")}
                 </span>
                 <span className="flex items-center gap-1">
-                  <span className="w-4 h-4 rounded bg-slate-800"></span>
+                  <span className={`w-4 h-4 rounded ${
+                    theme === "dark" ? "bg-slate-800" : "bg-slate-100"
+                  }`}></span>
                   {t("exam.legend.unanswered")}
                 </span>
                 <span className="flex items-center gap-1">
@@ -334,14 +412,24 @@ export function ExamScreen({
       {/* TOPに戻る確認モーダル */}
       {showBackToTopConfirm && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
-          <div className="bg-slate-800 p-6 max-w-sm w-full border border-slate-700 shadow-xl animate-fade-in">
-            <h3 className="text-xl font-bold text-white mb-4 text-center">
+          <div className={`p-6 max-w-sm w-full border shadow-xl animate-fade-in ${
+            theme === "dark"
+              ? "bg-slate-800 border-slate-700"
+              : "bg-white border-slate-200"
+          }`}>
+            <h3 className={`text-xl font-bold mb-4 text-center ${
+              theme === "dark" ? "text-white" : "text-slate-900"
+            }`}>
               {language === "ja" ? "試験を中断しますか？" : "Quit the exam?"}
             </h3>
             <div className="flex gap-3">
               <button
                 onClick={() => setShowBackToTopConfirm(false)}
-                className="flex-1 py-3 px-4 bg-slate-700 text-white rounded-full font-medium hover:bg-slate-600 transition-colors"
+                className={`flex-1 py-3 px-4 rounded-full font-medium transition-colors ${
+                  theme === "dark"
+                    ? "bg-slate-700 text-white hover:bg-slate-600"
+                    : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+                }`}
               >
                 {language === "ja" ? "いいえ" : "No"}
               </button>
@@ -361,6 +449,3 @@ export function ExamScreen({
     </div>
   );
 }
-
-
-

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { PWARegister } from "@/components";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const metadata: Metadata = {
   title: "PSM I 模擬試験 | Professional Scrum Master™ I",
@@ -39,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" className="dark">
       <head>
         {/* iOS用PWA設定 */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,11 +50,13 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="192x192" href="/csm-exab/icon-192.png" />
         <link rel="apple-touch-icon" sizes="512x512" href="/csm-exab/icon-512.png" />
       </head>
-      <body className="antialiased min-h-screen bg-slate-900">
-        <LanguageProvider>
-          <PWARegister />
-          {children}
-        </LanguageProvider>
+      <body className="antialiased min-h-screen">
+        <ThemeProvider>
+          <LanguageProvider>
+            <PWARegister />
+            {children}
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

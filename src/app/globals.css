@@ -5,13 +5,51 @@
 /* カスタムフォントの読み込み */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
 
+/* ダークモード変数 */
+:root.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 30, 41, 59;
+  --card-bg: rgba(15, 23, 42, 0.6);
+  --card-border: rgba(51, 65, 85, 0.5);
+  --text-primary: rgb(255, 255, 255);
+  --text-secondary: rgb(148, 163, 184);
+  --text-muted: rgb(100, 116, 139);
+  --scrollbar-track: rgb(30, 41, 59);
+  --scrollbar-thumb: rgb(71, 85, 105);
+  --scrollbar-thumb-hover: rgb(100, 116, 139);
+}
+
+/* ライトモード変数 */
+:root.light {
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 226, 232, 240;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(203, 213, 225, 0.8);
+  --text-primary: rgb(15, 23, 42);
+  --text-secondary: rgb(71, 85, 105);
+  --text-muted: rgb(100, 116, 139);
+  --scrollbar-track: rgb(226, 232, 240);
+  --scrollbar-thumb: rgb(148, 163, 184);
+  --scrollbar-thumb-hover: rgb(100, 116, 139);
+}
+
+/* デフォルトはダーク */
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 15, 23, 42;
   --background-end-rgb: 30, 41, 59;
+  --card-bg: rgba(15, 23, 42, 0.6);
+  --card-border: rgba(51, 65, 85, 0.5);
+  --text-primary: rgb(255, 255, 255);
+  --text-secondary: rgb(148, 163, 184);
+  --text-muted: rgb(100, 116, 139);
+  --scrollbar-track: rgb(30, 41, 59);
+  --scrollbar-thumb: rgb(71, 85, 105);
+  --scrollbar-thumb-hover: rgb(100, 116, 139);
 }
 
-/* ダークモードがデフォルト */
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -23,6 +61,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* スクロールバーのカスタマイズ */
@@ -32,16 +71,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgb(30, 41, 59);
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(71, 85, 105);
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(100, 116, 139);
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* タップハイライトを無効化（モバイル向け） */
@@ -143,5 +182,49 @@ textarea:focus {
   box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.5);
 }
 
+/* テーマ用ユーティリティクラス */
+/* ダークモード用 */
+.dark .bg-theme-primary {
+  background-color: rgb(15, 23, 42);
+}
+.dark .bg-theme-secondary {
+  background-color: rgb(30, 41, 59);
+}
+.dark .bg-theme-card {
+  background-color: rgba(15, 23, 42, 0.6);
+}
+.dark .border-theme {
+  border-color: rgba(51, 65, 85, 0.5);
+}
+.dark .text-theme-primary {
+  color: rgb(255, 255, 255);
+}
+.dark .text-theme-secondary {
+  color: rgb(148, 163, 184);
+}
+.dark .text-theme-muted {
+  color: rgb(100, 116, 139);
+}
 
-
+/* ライトモード用 */
+.light .bg-theme-primary {
+  background-color: rgb(248, 250, 252);
+}
+.light .bg-theme-secondary {
+  background-color: rgb(241, 245, 249);
+}
+.light .bg-theme-card {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.light .border-theme {
+  border-color: rgba(203, 213, 225, 0.8);
+}
+.light .text-theme-primary {
+  color: rgb(15, 23, 42);
+}
+.light .text-theme-secondary {
+  color: rgb(71, 85, 105);
+}
+.light .text-theme-muted {
+  color: rgb(100, 116, 139);
+}
