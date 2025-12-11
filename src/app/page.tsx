@@ -1,19 +1,24 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { StartScreen, ExamScreen, ResultScreen, HistoryScreen, CategorySelectScreen } from "@/components";
+import { useCallback, useEffect, useState, useRef } from "react";
+import { StartScreen, ExamScreen, ResultScreen, HistoryScreen, CategorySelectScreen, ReviewScreen } from "@/components";
 import { useExam } from "@/hooks/useExam";
 import { useTimer } from "@/hooks/useTimer";
-import { getQuestions, getQuestionsByCategories } from "@/data/questions";
+import { getQuestions, getQuestionsByCategories, getQuestionsByIds } from "@/data/questions";
 import { EXAM_CONFIG } from "@/data/constants";
 import { Question, QuestionCategory } from "@/types";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { getTranslation } from "@/locales/translations";
 import { saveHistory } from "@/lib/historyStorage";
+import { 
+  getWrongQuestionIds, 
+  addWrongQuestions, 
+  removeCorrectQuestions 
+} from "@/lib/wrongQuestionsStorage";
 
 // アプリの画面状態
-type AppScreen = "start" | "exam" | "result" | "history" | "categorySelect";
+type AppScreen = "start" | "exam" | "result" | "history" | "categorySelect" | "review";
 
 // 試験モード
 type ExamMode = "normal" | "category" | "review";
@@ -31,11 +36,17 @@ export default function Home() {
   // 試験モード
   const [examMode, setExamMode] = useState<ExamMode>("normal");
 
+  // 復習モードで正解したら削除するか
+  const [removeOnCorrect, setRemoveOnCorrect] = useState(true);
+
   // 試験開始時刻（所要時間計算用）
   const [examStartTime, setExamStartTime] = useState<number>(0);
 
   // 制限時間（秒）
   const [timeLimit, setTimeLimit] = useState<number>(EXAM_CONFIG.TIME_LIMIT_SECONDS);
+
+  // 結果処理済みフラグ
+  const resultProcessedRef = useRef(false);
 
   // 言語設定
   const { language } = useLanguage();
@@ -62,6 +73,7 @@ export default function Home() {
 
   // 通常試験開始時の処理
   const handleStartExam = useCallback(() => {
+    resultProcessedRef.current = false;
     // 問題をシャッフルして取得
     const shuffledQuestions = getQuestions(EXAM_CONFIG.TOTAL_QUESTIONS);
     setExamQuestions(shuffledQuestions);
@@ -73,12 +85,28 @@ export default function Home() {
 
   // カテゴリー別練習開始時の処理
   const handleStartCategoryPractice = useCallback((categories: QuestionCategory[]) => {
+    resultProcessedRef.current = false;
     const categoryQuestions = getQuestionsByCategories(categories);
     setExamQuestions(categoryQuestions);
     setExamStartTime(Date.now());
     setExamMode("category");
-    // 問題数に応じて制限時間を設定（1問あたり45秒）
     // カテゴリー練習は制限時間なし（999分）
+    setTimeLimit(999 * 60);
+    setCurrentScreen("exam");
+  }, []);
+
+  // 復習モード開始時の処理
+  const handleStartReview = useCallback((removeOnCorrectSetting: boolean) => {
+    resultProcessedRef.current = false;
+    const wrongIds = getWrongQuestionIds();
+    if (wrongIds.length === 0) return;
+    
+    const reviewQuestions = getQuestionsByIds(wrongIds);
+    setExamQuestions(reviewQuestions);
+    setExamStartTime(Date.now());
+    setExamMode("review");
+    setRemoveOnCorrect(removeOnCorrectSetting);
+    // 復習モードは制限時間なし（999分）
     setTimeLimit(999 * 60);
     setCurrentScreen("exam");
   }, []);
@@ -91,9 +119,11 @@ export default function Home() {
     }
   }, [examQuestions, exam.examState]);
 
-  // 試験が終了したら履歴を保存
+  // 試験が終了したら履歴を保存し、間違えた問題を記録
   useEffect(() => {
-    if (exam.examState === "result" && exam.result) {
+    if (exam.examState === "result" && exam.result && !resultProcessedRef.current) {
+      resultProcessedRef.current = true;
+      
       // 所要時間を計算
       const timeSpent = Math.floor((Date.now() - examStartTime) / 1000);
       
@@ -107,9 +137,38 @@ export default function Home() {
         mode: examMode,
       });
 
+      // 間違えた問題と正解した問題を抽出
+      const wrongIds: number[] = [];
+      const correctIds: number[] = [];
+      
+      examQuestions.forEach((question, index) => {
+        const userAnswer = exam.result!.answers[index];
+        const userSet = new Set(userAnswer.selectedAnswers);
+        const correctSet = new Set(question.correctAnswers);
+        const isCorrect =
+          userSet.size === correctSet.size &&
+          Array.from(userSet).every((ans) => correctSet.has(ans));
+        
+        if (isCorrect) {
+          correctIds.push(question.id);
+        } else {
+          wrongIds.push(question.id);
+        }
+      });
+
+      // 間違えた問題を記録
+      if (wrongIds.length > 0) {
+        addWrongQuestions(wrongIds);
+      }
+
+      // 復習モードで正解した問題をリストから削除
+      if (examMode === "review" && removeOnCorrect && correctIds.length > 0) {
+        removeCorrectQuestions(correctIds);
+      }
+
       setCurrentScreen("result");
     }
-  }, [exam.examState, exam.result, examStartTime, examMode]);
+  }, [exam.examState, exam.result, examStartTime, examMode, examQuestions, removeOnCorrect]);
 
   // 試験終了確認
   const handleFinishClick = useCallback(() => {
@@ -146,6 +205,11 @@ export default function Home() {
     setCurrentScreen("categorySelect");
   }, []);
 
+  // 復習画面を表示
+  const handleShowReview = useCallback(() => {
+    setCurrentScreen("review");
+  }, []);
+
   // スタート画面に戻る
   const handleBackToStart = useCallback(() => {
     setCurrentScreen("start");
@@ -159,6 +223,7 @@ export default function Home() {
           onStart={handleStartExam} 
           onShowHistory={handleShowHistory}
           onShowCategorySelect={handleShowCategorySelect}
+          onShowReview={handleShowReview}
         />
       )}
 
@@ -172,6 +237,14 @@ export default function Home() {
         <CategorySelectScreen 
           onBack={handleBackToStart}
           onStart={handleStartCategoryPractice}
+        />
+      )}
+
+      {/* 復習画面 */}
+      {currentScreen === "review" && (
+        <ReviewScreen 
+          onBack={handleBackToStart}
+          onStart={handleStartReview}
         />
       )}
 

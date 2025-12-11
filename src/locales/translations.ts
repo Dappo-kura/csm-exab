@@ -83,6 +83,18 @@ export const translations: Record<Language, Record<string, string>> = {
     "category.selectAll": "全て選択",
     "category.deselectAll": "全て解除",
     "category.startPractice": "練習を開始",
+
+    // === Review Mode ===
+    "review.title": "間違えた問題を復習",
+    "review.description": "過去に間違えた問題を復習できます。",
+    "review.noQuestions": "復習する問題がありません。\n試験を受けて間違えた問題が記録されます。",
+    "review.questionCount": "問",
+    "review.startReview": "復習を開始",
+    "review.clearAll": "リストをクリア",
+    "review.clearConfirmTitle": "復習リストをクリアしますか？",
+    "review.clearConfirmMessage": "間違えた問題のリストが全て削除されます。",
+    "review.settings": "復習設定",
+    "review.removeOnCorrect": "正解した問題をリストから削除",
   },
   en: {
     // === StartScreen ===
@@ -162,6 +174,18 @@ export const translations: Record<Language, Record<string, string>> = {
     "category.selectAll": "Select All",
     "category.deselectAll": "Deselect All",
     "category.startPractice": "Start Practice",
+
+    // === Review Mode ===
+    "review.title": "Review Wrong Answers",
+    "review.description": "Review questions you answered incorrectly.",
+    "review.noQuestions": "No questions to review.\nWrong answers will be recorded after taking exams.",
+    "review.questionCount": "questions",
+    "review.startReview": "Start Review",
+    "review.clearAll": "Clear List",
+    "review.clearConfirmTitle": "Clear review list?",
+    "review.clearConfirmMessage": "All wrong questions will be removed from the list.",
+    "review.settings": "Review Settings",
+    "review.removeOnCorrect": "Remove from list when answered correctly",
   },
 };
 
