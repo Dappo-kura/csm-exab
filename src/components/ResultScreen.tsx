@@ -32,8 +32,14 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
   const { theme } = useTheme();
   const t = (key: string) => getTranslation(language, key);
 
-  const wrongQuestions = questions.filter((q, index) => {
-    const userAnswer = result.answers[index];
+  // questionIdで回答を検索するヘルパー関数
+  const getUserAnswerByQuestionId = (questionId: number) => {
+    return result.answers.find((a) => a.questionId === questionId);
+  };
+
+  const wrongQuestions = questions.filter((q) => {
+    const userAnswer = getUserAnswerByQuestionId(q.id);
+    if (!userAnswer) return true; // 回答が見つからない場合は不正解扱い
     // 両方向でチェック: ユーザーの回答と正答が完全に一致するか
     const userSet = new Set(userAnswer.selectedAnswers);
     const correctSet = new Set(q.correctAnswers);
@@ -244,7 +250,7 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
               }`}>
                 {wrongQuestions.map((question) => {
                   const questionIndex = getQuestionIndex(question.id);
-                  const userAnswer = result.answers[questionIndex];
+                  const userAnswer = getUserAnswerByQuestionId(question.id);
                   const isExpanded = expandedQuestions.has(question.id);
 
                   return (
@@ -306,9 +312,9 @@ export function ResultScreen({ result, questions, onRetry }: ResultScreenProps) 
                               const isCorrect = question.correctAnswers.includes(
                                 choice.id
                               );
-                              const wasSelected = userAnswer.selectedAnswers.includes(
+                              const wasSelected = userAnswer?.selectedAnswers.includes(
                                 choice.id
-                              );
+                              ) ?? false;
 
                               return (
                                 <div

@@ -165,8 +165,14 @@ export default function Home() {
       const wrongIds: number[] = [];
       const correctIds: number[] = [];
       
-      examQuestions.forEach((question, index) => {
-        const userAnswer = exam.result!.answers[index];
+      examQuestions.forEach((question) => {
+        // questionIdで回答を検索
+        const userAnswer = exam.result!.answers.find((a) => a.questionId === question.id);
+        if (!userAnswer) {
+          wrongIds.push(question.id); // 回答が見つからない場合は不正解扱い
+          return;
+        }
+        
         const userSet = new Set(userAnswer.selectedAnswers);
         const correctSet = new Set(question.correctAnswers);
         const isCorrect =
