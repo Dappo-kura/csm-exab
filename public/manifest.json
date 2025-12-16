@@ -1,7 +1,7 @@
 {
-  "name": "PSM I 模擬試験",
-  "short_name": "PSM Exam",
-  "description": "Professional Scrum Master™ I (PSM I) 模擬試験アプリ - オフライン対応",
+  "name": "Pocket Scrum Master",
+  "short_name": "Pocket SM",
+  "description": "Pocket Scrum Master - PSM I 模擬試験アプリ",
   "start_url": "/csm-exab/",
   "display": "standalone",
   "background_color": "#0f172a",

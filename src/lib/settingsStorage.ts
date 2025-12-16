@@ -9,12 +9,14 @@ const STORAGE_KEY = "psm-exam-settings";
 export interface AppSettings {
   shuffleQuestions: boolean; // 問題の順番をシャッフルするか
   shuffleChoices: boolean;   // 選択肢の順番をシャッフルするか
+  isAdRemoved: boolean;      // 広告が非表示（課金済み）か
 }
 
 // デフォルト設定
 const DEFAULT_SETTINGS: AppSettings = {
   shuffleQuestions: true,
   shuffleChoices: true,
+  isAdRemoved: false,
 };
 
 /**
@@ -22,7 +24,7 @@ const DEFAULT_SETTINGS: AppSettings = {
  */
 export function getAppSettings(): AppSettings {
   if (typeof window === "undefined") return DEFAULT_SETTINGS;
-  
+
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) return DEFAULT_SETTINGS;
@@ -39,7 +41,7 @@ export function getAppSettings(): AppSettings {
 export function saveAppSettings(settings: Partial<AppSettings>): void {
   const current = getAppSettings();
   const updated = { ...current, ...settings };
-  
+
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   } catch (error) {

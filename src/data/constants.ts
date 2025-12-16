@@ -12,7 +12,7 @@ export const EXAM_CONFIG = {
 
 // 試験情報の表示用テキスト
 export const EXAM_INFO = {
-  title: "Professional Scrum Master™ I (PSM I)",
+  title: "Pocket Scrum Master",
   subtitle: "模擬試験",
   rules: [
     { label: "制限時間", value: `${EXAM_CONFIG.TIME_LIMIT_MINUTES}分` },

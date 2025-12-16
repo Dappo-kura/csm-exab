@@ -1,6 +1,6 @@
-# PSM I 模擬試験アプリ
+# Pocket Scrum Master
 
-Professional Scrum Master™ I (PSM I) の模擬試験Webアプリケーションです。
+Pocket Scrum Master (PSM I) の模擬試験Webアプリケーションです。
 
 ## 🚀 機能
 

@@ -11,12 +11,14 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { getTranslation } from "@/locales/translations";
 import { saveHistory } from "@/lib/historyStorage";
-import { 
-  getWrongQuestionIds, 
-  addWrongQuestions, 
-  removeCorrectQuestions 
+import {
+  getWrongQuestionIds,
+  addWrongQuestions,
+  removeCorrectQuestions
 } from "@/lib/wrongQuestionsStorage";
 import { getAppSettings } from "@/lib/settingsStorage";
+import { initializeAdMob, showInterstitialAd } from "@/lib/admob";
+import { initializePurchases } from "@/lib/purchases";
 
 // アプリの画面状態
 type AppScreen = "start" | "exam" | "result" | "history" | "categorySelect" | "review" | "settings";
@@ -27,7 +29,7 @@ type ExamMode = "normal" | "category" | "review";
 export default function Home() {
   // 実際の問題数（データが80問未満の場合は全問題を使用）
   const [examQuestions, setExamQuestions] = useState<Question[]>([]);
-  
+
   // 確認ダイアログの状態
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
 
@@ -60,11 +62,23 @@ export default function Home() {
   // タイマーフック
   const timer = useTimer({
     initialSeconds: timeLimit,
-    onTimeUp: () => {
+    onTimeUp: async () => {
       // 時間切れで自動終了
+      await showInterstitialAd();
       exam.finishExam();
     },
   });
+
+  // AdMob初期化と起動時広告
+  useEffect(() => {
+    const init = async () => {
+      await initializeAdMob();
+      await initializePurchases();
+      // タイトル画面表示時に広告を表示
+      await showInterstitialAd();
+    };
+    init();
+  }, []);
 
   // 制限時間が変わったらタイマーをリセット
   useEffect(() => {
@@ -75,12 +89,12 @@ export default function Home() {
   // 設定を適用して問題を準備
   const prepareQuestions = useCallback((questions: Question[]): Question[] => {
     const settings = getAppSettings();
-    
+
     // 選択肢をシャッフル
     if (settings.shuffleChoices) {
       return shuffleAllChoices(questions);
     }
-    
+
     return questions;
   }, []);
 
@@ -88,11 +102,11 @@ export default function Home() {
   const handleStartExam = useCallback(() => {
     const settings = getAppSettings();
     resultProcessedRef.current = false;
-    
+
     // 問題を取得（シャッフル設定に基づく）
     const baseQuestions = getQuestions(EXAM_CONFIG.TOTAL_QUESTIONS, settings.shuffleQuestions);
     const preparedQuestions = prepareQuestions(baseQuestions);
-    
+
     setExamQuestions(preparedQuestions);
     setExamStartTime(Date.now());
     setExamMode("normal");
@@ -104,10 +118,10 @@ export default function Home() {
   const handleStartCategoryPractice = useCallback((categories: QuestionCategory[]) => {
     const settings = getAppSettings();
     resultProcessedRef.current = false;
-    
+
     const baseQuestions = getQuestionsByCategories(categories, settings.shuffleQuestions);
     const preparedQuestions = prepareQuestions(baseQuestions);
-    
+
     setExamQuestions(preparedQuestions);
     setExamStartTime(Date.now());
     setExamMode("category");
@@ -122,10 +136,10 @@ export default function Home() {
     resultProcessedRef.current = false;
     const wrongIds = getWrongQuestionIds();
     if (wrongIds.length === 0) return;
-    
+
     const baseQuestions = getQuestionsByIds(wrongIds, settings.shuffleQuestions);
     const preparedQuestions = prepareQuestions(baseQuestions);
-    
+
     setExamQuestions(preparedQuestions);
     setExamStartTime(Date.now());
     setExamMode("review");
@@ -147,10 +161,10 @@ export default function Home() {
   useEffect(() => {
     if (exam.examState === "result" && exam.result && !resultProcessedRef.current) {
       resultProcessedRef.current = true;
-      
+
       // 所要時間を計算
       const timeSpent = Math.floor((Date.now() - examStartTime) / 1000);
-      
+
       // 履歴を保存
       saveHistory({
         score: exam.result.correctCount,
@@ -164,7 +178,7 @@ export default function Home() {
       // 間違えた問題と正解した問題を抽出
       const wrongIds: number[] = [];
       const correctIds: number[] = [];
-      
+
       examQuestions.forEach((question) => {
         // questionIdで回答を検索
         const userAnswer = exam.result!.answers.find((a) => a.questionId === question.id);
@@ -172,13 +186,13 @@ export default function Home() {
           wrongIds.push(question.id); // 回答が見つからない場合は不正解扱い
           return;
         }
-        
+
         const userSet = new Set(userAnswer.selectedAnswers);
         const correctSet = new Set(question.correctAnswers);
         const isCorrect =
           userSet.size === correctSet.size &&
           Array.from(userSet).every((ans) => correctSet.has(ans));
-        
+
         if (isCorrect) {
           correctIds.push(question.id);
         } else {
@@ -211,14 +225,21 @@ export default function Home() {
   }, [exam.progress]);
 
   // 試験終了確定
-  const handleConfirmFinish = useCallback(() => {
+  const handleConfirmFinish = useCallback(async () => {
     setShowFinishConfirm(false);
     timer.pause();
+
+    // 広告を表示してから結果画面へ
+    await showInterstitialAd();
+
     exam.finishExam();
   }, [timer, exam]);
 
   // リトライ
-  const handleRetry = useCallback(() => {
+  const handleRetry = useCallback(async () => {
+    // 広告を表示してからリトライ
+    await showInterstitialAd();
+
     timer.reset();
     exam.resetExam();
     setExamQuestions([]);
@@ -254,8 +275,8 @@ export default function Home() {
     <main className="min-h-screen">
       {/* スタート画面 */}
       {currentScreen === "start" && (
-        <StartScreen 
-          onStart={handleStartExam} 
+        <StartScreen
+          onStart={handleStartExam}
           onShowHistory={handleShowHistory}
           onShowCategorySelect={handleShowCategorySelect}
           onShowReview={handleShowReview}
@@ -270,7 +291,7 @@ export default function Home() {
 
       {/* カテゴリー選択画面 */}
       {currentScreen === "categorySelect" && (
-        <CategorySelectScreen 
+        <CategorySelectScreen
           onBack={handleBackToStart}
           onStart={handleStartCategoryPractice}
         />
@@ -278,7 +299,7 @@ export default function Home() {
 
       {/* 復習画面 */}
       {currentScreen === "review" && (
-        <ReviewScreen 
+        <ReviewScreen
           onBack={handleBackToStart}
           onStart={handleStartReview}
         />
@@ -316,19 +337,16 @@ export default function Home() {
           {/* 終了確認ダイアログ */}
           {showFinishConfirm && (
             <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-              <div className={`rounded-2xl p-6 max-w-sm w-full border shadow-xl animate-fade-in ${
-                theme === "dark"
-                  ? "bg-slate-800 border-slate-700"
-                  : "bg-white border-slate-200"
-              }`}>
-                <h3 className={`text-xl font-bold mb-2 ${
-                  theme === "dark" ? "text-white" : "text-slate-900"
+              <div className={`rounded-2xl p-6 max-w-sm w-full border shadow-xl animate-fade-in ${theme === "dark"
+                ? "bg-slate-800 border-slate-700"
+                : "bg-white border-slate-200"
                 }`}>
+                <h3 className={`text-xl font-bold mb-2 ${theme === "dark" ? "text-white" : "text-slate-900"
+                  }`}>
                   {t("dialog.finishTitle")}
                 </h3>
-                <p className={`mb-6 ${
-                  theme === "dark" ? "text-slate-400" : "text-slate-500"
-                }`}>
+                <p className={`mb-6 ${theme === "dark" ? "text-slate-400" : "text-slate-500"
+                  }`}>
                   {language === "ja"
                     ? `まだ${exam.progress.total - exam.progress.answered}問が未回答です。本当に終了してよろしいですか？`
                     : `${exam.progress.total - exam.progress.answered} ${t("dialog.finishMessage")}`}
@@ -336,11 +354,10 @@ export default function Home() {
                 <div className="flex gap-3">
                   <button
                     onClick={() => setShowFinishConfirm(false)}
-                    className={`flex-1 py-3 px-4 rounded-full font-medium transition-colors ${
-                      theme === "dark"
-                        ? "bg-slate-700 text-white hover:bg-slate-600"
-                        : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-                    }`}
+                    className={`flex-1 py-3 px-4 rounded-full font-medium transition-colors ${theme === "dark"
+                      ? "bg-slate-700 text-white hover:bg-slate-600"
+                      : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+                      }`}
                   >
                     {t("dialog.back")}
                   </button>

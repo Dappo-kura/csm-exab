@@ -5,9 +5,9 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const metadata: Metadata = {
-  title: "PSM I 模擬試験 | Professional Scrum Master™ I",
+  title: "Pocket Scrum Master",
   description:
-    "Professional Scrum Master™ I (PSM I) の模擬試験アプリです。60分80問の本番形式で実力をチェックしましょう。",
+    "Pocket Scrum Master - PSM I 模擬試験アプリ",
   keywords: ["PSM", "スクラムマスター", "模擬試験", "Scrum", "アジャイル"],
   authors: [{ name: "PSM Exam App" }],
   manifest: "/csm-exab/manifest.json",
