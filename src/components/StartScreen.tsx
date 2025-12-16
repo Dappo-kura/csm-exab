@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PlayCircle, Clock, FileQuestion, Target, Info, Sun, Moon, History, FolderOpen, RotateCcw, Settings, ChevronDown, ChevronUp, Zap } from "lucide-react";
+import { PlayCircle, Clock, FileQuestion, Target, Info, Sun, Moon, History, FolderOpen, RotateCcw, Settings, ChevronDown, ChevronUp, Zap, Lock } from "lucide-react";
 import { EXAM_CONFIG } from "@/data/constants";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -82,11 +82,11 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
   const { theme } = useTheme();
   const t = (key: string) => getTranslation(language, key);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
-  const [isAdRemoved, setIsAdRemoved] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
 
   useEffect(() => {
     const settings = getAppSettings();
-    setIsAdRemoved(settings.isAdRemoved);
+    setIsPremium(settings.isPremium);
   }, []);
 
   const handlePurchase = async () => {
@@ -98,16 +98,26 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
 
     const success = await purchaseAdRemoval(pkg);
     if (success) {
-      setIsAdRemoved(true);
-      alert(language === "ja" ? "広告を削除しました！" : "Ads removed successfully!");
+      setIsPremium(true);
+      alert(language === "ja" ? "プレミアムプランにアップグレードしました！" : "Upgraded to Premium!");
     }
   };
 
   const handleRestore = async () => {
     const success = await restorePurchases();
     if (success) {
-      setIsAdRemoved(true);
+      setIsPremium(true);
       alert(language === "ja" ? "購入を復元しました！" : "Purchases restored!");
+    }
+  };
+
+  const handleLockedFeature = () => {
+    const message = language === "ja"
+      ? "この機能はプレミアムプラン限定です。\nアップグレードしますか？"
+      : "This feature is for Premium users only.\nWould you like to upgrade?";
+
+    if (confirm(message)) {
+      handlePurchase();
     }
   };
 
@@ -130,7 +140,7 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
       : "bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200"
       }`}>
       {/* 右上のコントロール */}
-      <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
+      <div className="absolute top-12 right-3 z-10 flex items-center gap-2">
         <ThemeToggle />
         <LanguageToggle />
       </div>
@@ -235,13 +245,13 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
 
         {/* メニューボタン - 2x2グリッド */}
         <div className="grid grid-cols-2 gap-3 mb-4">
-          {/* カテゴリー別練習 */}
+          {/* カテゴリー別練習 (Premium限定) */}
           <button
-            onClick={onShowCategorySelect}
-            className={`backdrop-blur-sm p-4 border rounded-lg flex flex-col items-start transition-colors ${theme === "dark"
+            onClick={isPremium ? onShowCategorySelect : handleLockedFeature}
+            className={`relative backdrop-blur-sm p-4 border rounded-lg flex flex-col items-start transition-colors ${theme === "dark"
               ? "bg-slate-900/60 border-slate-700/50 hover:bg-slate-800/60"
               : "bg-white/80 border-slate-200 hover:bg-slate-50"
-              }`}
+              } ${!isPremium && "opacity-50 grayscale"}`}
           >
             <div className={`w-10 h-10 mb-2 rounded-lg flex items-center justify-center ${theme === "dark" ? "bg-slate-800/80" : "bg-slate-100"
               }`}>
@@ -255,15 +265,20 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
               }`}>
               {t("mode.categoryPracticeDesc")}
             </span>
+            {!isPremium && (
+              <div className="absolute top-2 right-2 p-1 bg-slate-800/80 rounded-full">
+                <Lock className="w-4 h-4 text-emerald-400" />
+              </div>
+            )}
           </button>
 
-          {/* 間違えた問題を復習 */}
+          {/* 間違えた問題を復習 (Premium限定) */}
           <button
-            onClick={onShowReview}
-            className={`backdrop-blur-sm p-4 border rounded-lg flex flex-col items-start transition-colors ${theme === "dark"
+            onClick={isPremium ? onShowReview : handleLockedFeature}
+            className={`relative backdrop-blur-sm p-4 border rounded-lg flex flex-col items-start transition-colors ${theme === "dark"
               ? "bg-slate-900/60 border-slate-700/50 hover:bg-slate-800/60"
               : "bg-white/80 border-slate-200 hover:bg-slate-50"
-              }`}
+              } ${!isPremium && "opacity-50 grayscale"}`}
           >
             <div className={`w-10 h-10 mb-2 rounded-lg flex items-center justify-center ${theme === "dark" ? "bg-slate-800/80" : "bg-slate-100"
               }`}>
@@ -273,6 +288,11 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
               }`}>
               {t("review.title")}
             </span>
+            {!isPremium && (
+              <div className="absolute top-2 right-2 p-1 bg-slate-800/80 rounded-full">
+                <Lock className="w-4 h-4 text-emerald-400" />
+              </div>
+            )}
           </button>
 
           {/* 学習履歴 */}
@@ -312,20 +332,25 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
           </button>
         </div>
 
-        {/* 広告削除エリア */}
-        {!isAdRemoved && (
+        {/* プレミアムプラン販売エリア */}
+        {!isPremium && (
           <div className="mt-2">
             <button
               onClick={handlePurchase}
               className={`w-full p-4 border rounded-lg flex items-center justify-center gap-3 transition-colors mb-2 ${theme === "dark"
-                ? "bg-slate-900/60 border-slate-700/50 hover:bg-slate-800/60 text-emerald-400"
-                : "bg-white/80 border-slate-200 hover:bg-slate-50 text-emerald-600"
+                ? "bg-slate-900/60 border-emerald-500/50 hover:bg-slate-800/60 text-emerald-400"
+                : "bg-white/80 border-emerald-200 hover:bg-slate-50 text-emerald-600"
                 }`}
             >
               <Zap className="w-5 h-5" />
-              <span className="font-bold">
-                {language === "ja" ? "広告を非表示にする (¥980)" : "Remove Ads"}
-              </span>
+              <div className="flex flex-col items-start text-left">
+                <span className="font-bold">
+                  {language === "ja" ? "プレミアムにアップグレード (¥1,200)" : "Upgrade to Premium (¥1,200)"}
+                </span>
+                <span className="text-xs opacity-80">
+                  {language === "ja" ? "カテゴリー別・復習機能を解放＆広告なし" : "Unlock all features & Remove Ads"}
+                </span>
+              </div>
             </button>
 
             <button

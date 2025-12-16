@@ -35,6 +35,12 @@ export default function Home() {
 
   // 画面状態
   const [currentScreen, setCurrentScreen] = useState<AppScreen>("start");
+  const currentScreenRef = useRef<AppScreen>("start");
+
+  // 画面遷移時にRefを更新
+  useEffect(() => {
+    currentScreenRef.current = currentScreen;
+  }, [currentScreen]);
 
   // 試験モード
   const [examMode, setExamMode] = useState<ExamMode>("normal");
@@ -74,8 +80,14 @@ export default function Home() {
     const init = async () => {
       await initializeAdMob();
       await initializePurchases();
-      // タイトル画面表示時に広告を表示
-      await showInterstitialAd();
+
+      // TOP画面表示から1秒待機
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // まだスタート画面にいる場合のみ広告を表示
+      if (currentScreenRef.current === "start") {
+        await showInterstitialAd();
+      }
     };
     init();
   }, []);

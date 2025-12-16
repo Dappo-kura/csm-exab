@@ -15,7 +15,7 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
   const [settings, setSettings] = useState<AppSettings>({
     shuffleQuestions: true,
     shuffleChoices: true,
-    isAdRemoved: false,
+    isPremium: false,
   });
 
   const { language } = useLanguage();
@@ -36,20 +36,20 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
 
   return (
     <div className={`min-h-screen flex flex-col ${theme === "dark"
-        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
-        : "bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200"
+      ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+      : "bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200"
       }`}>
       {/* ヘッダー */}
       <header className={`sticky top-0 z-10 backdrop-blur border-b px-4 py-4 ${theme === "dark"
-          ? "bg-slate-900/90 border-slate-800"
-          : "bg-white/90 border-slate-200"
+        ? "bg-slate-900/90 border-slate-800"
+        : "bg-white/90 border-slate-200"
         }`}>
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
             className={`p-2 rounded-full transition-colors ${theme === "dark"
-                ? "hover:bg-slate-800 text-slate-400 hover:text-white"
-                : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"
+              ? "hover:bg-slate-800 text-slate-400 hover:text-white"
+              : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"
               }`}
           >
             <ArrowLeft className="w-5 h-5" />
@@ -68,8 +68,8 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
       <main className="flex-1 px-4 py-6">
         {/* シャッフル設定セクション */}
         <section className={`backdrop-blur-sm border overflow-hidden ${theme === "dark"
-            ? "bg-slate-900/60 border-slate-700/50"
-            : "bg-white/80 border-slate-200"
+          ? "bg-slate-900/60 border-slate-700/50"
+          : "bg-white/80 border-slate-200"
           }`}>
           <div className={`px-4 py-3 border-b ${theme === "dark" ? "border-slate-700/50" : "border-slate-200"
             }`}>
@@ -86,8 +86,8 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
           <button
             onClick={() => handleSettingChange("shuffleQuestions", !settings.shuffleQuestions)}
             className={`w-full px-4 py-4 flex items-center justify-between border-b transition-colors ${theme === "dark"
-                ? "border-slate-700/50 hover:bg-slate-800/30"
-                : "border-slate-200 hover:bg-slate-50"
+              ? "border-slate-700/50 hover:bg-slate-800/30"
+              : "border-slate-200 hover:bg-slate-50"
               }`}
           >
             <div className="text-left">
@@ -101,10 +101,10 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
               </p>
             </div>
             <div className={`w-12 h-7 rounded-full p-1 transition-colors ${settings.shuffleQuestions
-                ? "bg-emerald-500"
-                : theme === "dark"
-                  ? "bg-slate-700"
-                  : "bg-slate-300"
+              ? "bg-emerald-500"
+              : theme === "dark"
+                ? "bg-slate-700"
+                : "bg-slate-300"
               }`}>
               <div className={`w-5 h-5 rounded-full bg-white transition-transform ${settings.shuffleQuestions ? "translate-x-5" : "translate-x-0"
                 }`} />
@@ -115,8 +115,8 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
           <button
             onClick={() => handleSettingChange("shuffleChoices", !settings.shuffleChoices)}
             className={`w-full px-4 py-4 flex items-center justify-between transition-colors ${theme === "dark"
-                ? "hover:bg-slate-800/30"
-                : "hover:bg-slate-50"
+              ? "hover:bg-slate-800/30"
+              : "hover:bg-slate-50"
               }`}
           >
             <div className="text-left">
@@ -130,10 +130,10 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
               </p>
             </div>
             <div className={`w-12 h-7 rounded-full p-1 transition-colors ${settings.shuffleChoices
-                ? "bg-emerald-500"
-                : theme === "dark"
-                  ? "bg-slate-700"
-                  : "bg-slate-300"
+              ? "bg-emerald-500"
+              : theme === "dark"
+                ? "bg-slate-700"
+                : "bg-slate-300"
               }`}>
               <div className={`w-5 h-5 rounded-full bg-white transition-transform ${settings.shuffleChoices ? "translate-x-5" : "translate-x-0"
                 }`} />

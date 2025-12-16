@@ -18,9 +18,9 @@ export async function initializeAdMob() {
 }
 
 export async function showInterstitialAd(): Promise<boolean> {
-    // 広告削除済みの場合は何もしない
+    // プレミアムユーザーなら何もしない
     const settings = getAppSettings();
-    if (settings.isAdRemoved) {
+    if (settings.isPremium) {
         return true;
     }
 

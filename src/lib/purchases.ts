@@ -6,7 +6,7 @@ import { saveAppSettings } from './settingsStorage';
 const REVENUECAT_API_KEY = 'goog_YOUR_REVENUECAT_PUBLIC_API_KEY';
 
 // Entitlement ID (configured in RevenueCat dashboard)
-const ENTITLEMENT_ID = 'ad_free';
+const ENTITLEMENT_ID = 'premium_access';
 
 export async function initializePurchases() {
     try {
@@ -38,7 +38,7 @@ export async function purchaseAdRemoval(pkg: PurchasesPackage): Promise<boolean>
         const isPro = typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined";
 
         if (isPro) {
-            saveAppSettings({ isAdRemoved: true });
+            saveAppSettings({ isPremium: true });
             return true;
         }
     } catch (error: any) {
@@ -56,7 +56,7 @@ export async function restorePurchases(): Promise<boolean> {
         const isPro = typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined";
 
         if (isPro) {
-            saveAppSettings({ isAdRemoved: true });
+            saveAppSettings({ isPremium: true });
             return true;
         } else {
             // 復元したけど権限がない場合
@@ -75,7 +75,7 @@ export async function checkSubscriptionStatus() {
         const { customerInfo } = await Purchases.getCustomerInfo();
         const isPro = typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined";
 
-        saveAppSettings({ isAdRemoved: isPro });
+        saveAppSettings({ isPremium: isPro });
         return isPro;
     } catch (error) {
         console.error('Failed to check subscription status', error);

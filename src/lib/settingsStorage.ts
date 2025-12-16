@@ -9,14 +9,14 @@ const STORAGE_KEY = "psm-exam-settings";
 export interface AppSettings {
   shuffleQuestions: boolean; // 問題の順番をシャッフルするか
   shuffleChoices: boolean;   // 選択肢の順番をシャッフルするか
-  isAdRemoved: boolean;      // 広告が非表示（課金済み）か
+  isPremium: boolean;        // プレミアムプラン（広告なし＋全機能）
 }
 
 // デフォルト設定
 const DEFAULT_SETTINGS: AppSettings = {
   shuffleQuestions: true,
   shuffleChoices: true,
-  isAdRemoved: false,
+  isPremium: false,
 };
 
 /**
