@@ -145,7 +145,7 @@ export function useExam({ questions }: UseExamProps): UseExamReturn {
       // questionIdで回答を検索
       const userAnswer = answers.find((a) => a.questionId === question.id);
       if (!userAnswer) return; // 回答が見つからない場合はスキップ
-      
+
       // 両方向でチェック: ユーザーの回答と正答が完全に一致するか
       const userSet = new Set(userAnswer.selectedAnswers);
       const correctSet = new Set(question.correctAnswers);
