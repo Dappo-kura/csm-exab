@@ -1,4 +1,5 @@
 import { AdMob, AdOptions } from '@capacitor-community/admob';
+import { Capacitor } from '@capacitor/core';
 import { getAppSettings } from './settingsStorage';
 
 // Test ID for Android Interstitial
@@ -6,6 +7,10 @@ import { getAppSettings } from './settingsStorage';
 const ADMOB_AD_UNIT_ID = 'ca-app-pub-3940256099942544/1033173712';
 
 export async function initializeAdMob() {
+    if (Capacitor.getPlatform() === 'web') {
+        console.log('Web platform: AdMob disabled');
+        return;
+    }
     try {
         await AdMob.initialize({
             testingDevices: ['2077ef9a63d2b398840261c8221a0c9b'], // 必要に応じてデバイスIDを追加
@@ -18,6 +23,10 @@ export async function initializeAdMob() {
 }
 
 export async function showInterstitialAd(): Promise<boolean> {
+    if (Capacitor.getPlatform() === 'web') {
+        return true;
+    }
+
     // プレミアムユーザーなら何もしない
     const settings = getAppSettings();
     if (settings.isPremium) {

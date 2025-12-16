@@ -1,4 +1,5 @@
 import { Purchases, PurchasesOfferings, PurchasesPackage } from '@revenuecat/purchases-capacitor';
+import { Capacitor } from '@capacitor/core';
 import { saveAppSettings } from './settingsStorage';
 
 // RevenueCat API Key (Android)
@@ -9,6 +10,12 @@ const REVENUECAT_API_KEY = 'goog_YOUR_REVENUECAT_PUBLIC_API_KEY';
 const ENTITLEMENT_ID = 'premium_access';
 
 export async function initializePurchases() {
+    if (Capacitor.getPlatform() === 'web') {
+        console.log('Web platform detected: Premium features unlocked for demo');
+        saveAppSettings({ isPremium: true });
+        return;
+    }
+
     try {
         await Purchases.configure({ apiKey: REVENUECAT_API_KEY });
         await checkSubscriptionStatus(); // 初期化時にステータスを確認
