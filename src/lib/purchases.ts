@@ -4,7 +4,7 @@ import { saveAppSettings } from './settingsStorage';
 
 // RevenueCat API Key (Android)
 // TODO: Replace with your actual RevenueCat Public API Key
-const REVENUECAT_API_KEY = 'goog_YOUR_REVENUECAT_PUBLIC_API_KEY';
+const REVENUECAT_API_KEY = 'goog_QytuSfvSOOhzEOHDiFqpswxQJAK';
 
 // Entitlement ID (configured in RevenueCat dashboard)
 const ENTITLEMENT_ID = 'premium_access';
@@ -28,12 +28,12 @@ export async function initializePurchases() {
 export async function getAdRemovalPackage(): Promise<PurchasesPackage | null> {
     try {
         const offerings: PurchasesOfferings = await Purchases.getOfferings();
-        if (offerings.current && offerings.current.availablePackages.length > 0) {
-            // "ad_removal" などのパッケージIDを探すか、単に最初のパッケージを返す
-            // ここでは簡略化のため、currentオファリングの最初のパッケージを返します
-            return offerings.current.availablePackages[0];
+        const currentOffering = offerings.current || offerings.all['default'];
+
+        if (currentOffering && currentOffering.availablePackages.length > 0) {
+            return currentOffering.availablePackages[0];
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error('Failed to get offerings', error);
     }
     return null;
