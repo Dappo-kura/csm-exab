@@ -6,48 +6,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
 
 /* ダークモード変数 */
+/* ダークモード変数 - より深くリッチな色合いに */
 :root.dark {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 15, 23, 42;
-  --background-end-rgb: 30, 41, 59;
-  --card-bg: rgba(15, 23, 42, 0.6);
-  --card-border: rgba(51, 65, 85, 0.5);
+  --background-start-rgb: 2, 6, 23;    /* slate-950 */
+  --background-end-rgb: 15, 23, 42;    /* slate-900 */
+  --card-bg: rgba(15, 23, 42, 0.7);
+  --card-border: rgba(51, 65, 85, 0.4);
   --text-primary: rgb(255, 255, 255);
   --text-secondary: rgb(148, 163, 184);
   --text-muted: rgb(100, 116, 139);
-  --scrollbar-track: rgb(30, 41, 59);
-  --scrollbar-thumb: rgb(71, 85, 105);
-  --scrollbar-thumb-hover: rgb(100, 116, 139);
+  --scrollbar-track: rgb(2, 6, 23);
+  --scrollbar-thumb: rgb(51, 65, 85);
+  --scrollbar-thumb-hover: rgb(71, 85, 105);
 }
 
 /* ライトモード変数 */
 :root.light {
   --foreground-rgb: 15, 23, 42;
   --background-start-rgb: 248, 250, 252;
-  --background-end-rgb: 226, 232, 240;
-  --card-bg: rgba(255, 255, 255, 0.8);
+  --background-end-rgb: 241, 245, 249;
+  --card-bg: rgba(255, 255, 255, 0.9);
   --card-border: rgba(203, 213, 225, 0.8);
   --text-primary: rgb(15, 23, 42);
   --text-secondary: rgb(71, 85, 105);
   --text-muted: rgb(100, 116, 139);
-  --scrollbar-track: rgb(226, 232, 240);
-  --scrollbar-thumb: rgb(148, 163, 184);
-  --scrollbar-thumb-hover: rgb(100, 116, 139);
+  --scrollbar-track: rgb(241, 245, 249);
+  --scrollbar-thumb: rgb(203, 213, 225);
+  --scrollbar-thumb-hover: rgb(148, 163, 184);
 }
 
 /* デフォルトはダーク */
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 15, 23, 42;
-  --background-end-rgb: 30, 41, 59;
-  --card-bg: rgba(15, 23, 42, 0.6);
-  --card-border: rgba(51, 65, 85, 0.5);
+  --background-start-rgb: 2, 6, 23;
+  --background-end-rgb: 15, 23, 42;
+  --card-bg: rgba(15, 23, 42, 0.7);
+  --card-border: rgba(51, 65, 85, 0.4);
   --text-primary: rgb(255, 255, 255);
   --text-secondary: rgb(148, 163, 184);
   --text-muted: rgb(100, 116, 139);
-  --scrollbar-track: rgb(30, 41, 59);
-  --scrollbar-thumb: rgb(71, 85, 105);
-  --scrollbar-thumb-hover: rgb(100, 116, 139);
+  --scrollbar-track: rgb(2, 6, 23);
+  --scrollbar-thumb: rgb(51, 65, 85);
+  --scrollbar-thumb-hover: rgb(71, 85, 105);
 }
 
 body {
@@ -62,6 +63,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background 0.3s ease, color 0.3s ease;
+  letter-spacing: 0.015em; /* 少し広げて可読性向上 */
 }
 
 /* スクロールバーのカスタマイズ */
@@ -110,7 +112,7 @@ body {
 }
 
 .animate-slide-up {
-  animation: slide-up 0.3s ease-out forwards;
+  animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; /* イージングをより自然に */
 }
 
 /* フェードインアニメーション */
@@ -124,7 +126,40 @@ body {
 }
 
 .animate-fade-in {
-  animation: fade-in 0.2s ease-out forwards;
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* 浮遊アニメーション */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* 光沢（Shine）アニメーション */
+@keyframes shine {
+  0% { transform: translateX(-100%) skewX(-20deg); }
+  15% { transform: translateX(200%) skewX(-20deg); }
+  100% { transform: translateX(200%) skewX(-20deg); }
+}
+
+.animate-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: shine 4s ease-in-out infinite;
 }
 
 /* パルスアニメーション（タイマー警告用） */

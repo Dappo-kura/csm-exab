@@ -147,8 +147,8 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
 
       {/* ヘッダー */}
       <header className="pt-6 pb-3 px-4 text-center">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 mb-3 shadow-lg shadow-emerald-500/25">
-          <FileQuestion className="w-7 h-7 text-white" />
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 mb-4 shadow-lg shadow-emerald-500/30 animate-float">
+          <FileQuestion className="w-8 h-8 text-white" />
         </div>
         <h1 className={`text-xl font-bold mb-1 ${theme === "dark" ? "text-white" : "text-slate-900"
           }`}>
@@ -337,20 +337,23 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
           <div className="mt-2">
             <button
               onClick={handlePurchase}
-              className={`w-full p-4 border rounded-lg flex items-center justify-center gap-3 transition-colors mb-2 ${theme === "dark"
-                ? "bg-slate-900/60 border-emerald-500/50 hover:bg-slate-800/60 text-emerald-400"
-                : "bg-white/80 border-emerald-200 hover:bg-slate-50 text-emerald-600"
+              className={`w-full p-4 border rounded-xl flex items-center justify-center gap-4 transition-all duration-300 relative overflow-hidden group mb-3 ${theme === "dark"
+                ? "bg-gradient-to-br from-amber-900/40 via-yellow-900/20 to-amber-900/40 border-amber-500/50 hover:border-amber-400 text-amber-100"
+                : "bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-50 border-amber-200 hover:border-amber-300 text-amber-800"
                 }`}
             >
-              <Zap className="w-5 h-5" />
-              <div className="flex flex-col items-start text-left">
-                <span className="font-bold">
-                  {language === "ja" ? "プレミアムにアップグレード (¥1,200)" : "Upgrade to Premium (¥1,200)"}
+              <div className={`p-2 rounded-full ${theme === "dark" ? "bg-amber-500/20" : "bg-amber-100"}`}>
+                <Zap className={`w-5 h-5 ${theme === "dark" ? "text-amber-400" : "text-amber-600"}`} />
+              </div>
+              <div className="flex flex-col items-start text-left z-10">
+                <span className="font-bold text-base">
+                  {language === "ja" ? "プレミアムにアップグレード" : "Upgrade to Premium"}
                 </span>
-                <span className="text-xs opacity-80">
-                  {language === "ja" ? "カテゴリー別・復習機能を解放＆広告なし" : "Unlock all features & Remove Ads"}
+                <span className={`text-xs ${theme === "dark" ? "text-amber-200/80" : "text-amber-700/80"}`}>
+                  {language === "ja" ? "全機能解放・広告なし (¥1,200)" : "Unlock all features & Remove Ads"}
                 </span>
               </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:animate-shine" />
             </button>
 
             <button
@@ -370,10 +373,11 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
         }`}>
         <button
           onClick={onStart}
-          className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-lg rounded-full shadow-lg shadow-emerald-500/25 transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-3"
+          className="relative w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-lg rounded-full shadow-lg shadow-emerald-500/30 transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-3 overflow-hidden group"
         >
-          <PlayCircle className="w-6 h-6" />
-          {t("mode.normalExam")}
+          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-full" />
+          <PlayCircle className="w-6 h-6 animate-pulse" />
+          <span className="relative">{t("mode.normalExam")}</span>
         </button>
       </footer>
     </div>
