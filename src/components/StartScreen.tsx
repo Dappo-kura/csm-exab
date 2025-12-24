@@ -148,14 +148,21 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
       {/* ヘッダー */}
       <header className="pt-6 pb-3 px-4 text-center">
         <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl mb-4 shadow-lg shadow-emerald-500/20 animate-float overflow-hidden bg-transparent">
+          {/* GitHub Pages等のサブディレクトリ環境に対応するため、環境に応じてパスを切り替え */}
           <img
-            src="/hero-icon.png"
+            src={process.env.NODE_ENV === 'production' ? "/csm-exab/hero-icon.png" : "/hero-icon.png"}
             alt="App Icon"
             className="w-full h-full object-cover"
             onError={(e) => {
-              // 画像読み込みエラー時はバックアップとして /csm-exab/ パスを試す（GitHub Pages対策）
+              // 読み込み失敗時のフォールバック：逆のパターンを試す
               const target = e.target as HTMLImageElement;
-              if (target.src.endsWith('/hero-icon.png') && !target.src.includes('/csm-exab')) {
+              const currentSrc = target.src;
+
+              if (currentSrc.includes('/csm-exab/')) {
+                // /csm-exab/ が含まれていて失敗したなら、ルートパスを試す
+                target.src = '/hero-icon.png';
+              } else {
+                // そうでなければ、/csm-exab/ を付与してみる
                 target.src = '/csm-exab/hero-icon.png';
               }
             }}
