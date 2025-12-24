@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { PlayCircle, Clock, FileQuestion, Target, Info, Sun, Moon, History, FolderOpen, RotateCcw, Settings, ChevronDown, ChevronUp, Zap, Lock } from "lucide-react";
+import { Capacitor } from "@capacitor/core";
 import { EXAM_CONFIG } from "@/data/constants";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -150,19 +151,29 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
         <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl mb-4 shadow-lg shadow-emerald-500/20 animate-float overflow-hidden bg-transparent">
           {/* GitHub Pages等のサブディレクトリ環境に対応するため、環境に応じてパスを切り替え */}
           <img
-            src={process.env.NODE_ENV === 'production' ? "/csm-exab/hero-icon.png" : "/hero-icon.png"}
+            src={
+              // Android/iOSなら常にルートパス、Web版Productionならサブディレクトリ付き、それ以外はルート
+              Capacitor.isNativePlatform()
+                ? "/hero-icon.png"
+                : process.env.NODE_ENV === 'production' ? "/csm-exab/hero-icon.png" : "/hero-icon.png"
+            }
             alt="App Icon"
             className="w-full h-full object-cover"
             onError={(e) => {
-              // 読み込み失敗時のフォールバック：逆のパターンを試す
               const target = e.target as HTMLImageElement;
-              const currentSrc = target.src;
+              // Android等のネイティブ環境ではルートパス
+              if (Capacitor.isNativePlatform()) {
+                if (!target.src.endsWith('/hero-icon.png')) {
+                  target.src = '/hero-icon.png';
+                }
+                return;
+              }
 
+              // Web環境（GitHub Pages等）でのフォールバック
+              const currentSrc = target.src;
               if (currentSrc.includes('/csm-exab/')) {
-                // /csm-exab/ が含まれていて失敗したなら、ルートパスを試す
                 target.src = '/hero-icon.png';
               } else {
-                // そうでなければ、/csm-exab/ を付与してみる
                 target.src = '/csm-exab/hero-icon.png';
               }
             }}
