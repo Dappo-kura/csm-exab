@@ -147,8 +147,19 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
 
       {/* ヘッダー */}
       <header className="pt-6 pb-3 px-4 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 mb-4 shadow-lg shadow-emerald-500/30 animate-float">
-          <FileQuestion className="w-8 h-8 text-white" />
+        <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl mb-4 shadow-lg shadow-emerald-500/20 animate-float overflow-hidden bg-transparent">
+          <img
+            src="/hero-icon.png"
+            alt="App Icon"
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              // 画像読み込みエラー時はバックアップとして /csm-exab/ パスを試す（GitHub Pages対策）
+              const target = e.target as HTMLImageElement;
+              if (target.src.endsWith('/hero-icon.png') && !target.src.includes('/csm-exab')) {
+                target.src = '/csm-exab/hero-icon.png';
+              }
+            }}
+          />
         </div>
         <h1 className={`text-xl font-bold mb-1 ${theme === "dark" ? "text-white" : "text-slate-900"
           }`}>
@@ -367,7 +378,7 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
       </main>
 
       {/* フッター - 通常試験開始ボタン */}
-      <footer className={`sticky bottom-0 p-4 pb-6 ${theme === "dark"
+      <footer className={`sticky bottom-0 p-4 pb-9 ${theme === "dark"
         ? "bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent"
         : "bg-gradient-to-t from-slate-100 via-slate-100/95 to-transparent"
         }`}>
