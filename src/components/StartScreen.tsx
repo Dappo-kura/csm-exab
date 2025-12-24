@@ -149,34 +149,11 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
       {/* ヘッダー */}
       <header className="pt-6 pb-3 px-4 text-center">
         <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl mb-4 shadow-lg shadow-emerald-500/20 animate-float overflow-hidden bg-transparent">
-          {/* GitHub Pages等のサブディレクトリ環境に対応するため、環境に応じてパスを切り替え */}
+          {/* Android環境での確実な読み込みのため、相対パスを使用 */}
           <img
-            src={
-              // Android/iOSなら常にルートパス、Web版Productionならサブディレクトリ付き、それ以外はルート
-              Capacitor.isNativePlatform()
-                ? "/hero-icon.png"
-                : process.env.NODE_ENV === 'production' ? "/csm-exab/hero-icon.png" : "/hero-icon.png"
-            }
+            src="hero-icon.png"
             alt="App Icon"
             className="w-full h-full object-cover"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              // Android等のネイティブ環境ではルートパス
-              if (Capacitor.isNativePlatform()) {
-                if (!target.src.endsWith('/hero-icon.png')) {
-                  target.src = '/hero-icon.png';
-                }
-                return;
-              }
-
-              // Web環境（GitHub Pages等）でのフォールバック
-              const currentSrc = target.src;
-              if (currentSrc.includes('/csm-exab/')) {
-                target.src = '/hero-icon.png';
-              } else {
-                target.src = '/csm-exab/hero-icon.png';
-              }
-            }}
           />
         </div>
         <h1 className={`text-xl font-bold mb-1 ${theme === "dark" ? "text-white" : "text-slate-900"
