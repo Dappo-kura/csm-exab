@@ -136,18 +136,18 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
     ];
 
   return (
-    <div className={`min-h-screen flex flex-col ${theme === "dark"
+    <div className={`min-h-screen relative flex flex-col ${theme === "dark"
       ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
       : "bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200"
       }`}>
       {/* 右上のコントロール */}
-      <div className="absolute top-12 right-3 z-10 flex items-center gap-2">
+      <div className="absolute top-[calc(env(safe-area-inset-top)+12px)] right-3 z-10 flex items-center gap-2" style={{ top: 'calc(env(safe-area-inset-top) + 12px)' }}>
         <ThemeToggle />
         <LanguageToggle />
       </div>
 
       {/* ヘッダー */}
-      <header className="pt-6 pb-3 px-4 text-center">
+      <header className="pt-[calc(env(safe-area-inset-top)+24px)] pb-3 px-4 text-center" style={{ paddingTop: 'calc(env(safe-area-inset-top) + 24px)' }}>
         <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl mb-4 shadow-lg shadow-emerald-500/20 animate-float overflow-hidden bg-transparent">
           {/* Android環境での確実な読み込みのため、相対パスを使用 */}
           <img
@@ -373,10 +373,10 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
       </main>
 
       {/* フッター - 通常試験開始ボタン */}
-      <footer className={`sticky bottom-0 p-4 pb-9 ${theme === "dark"
+      <footer className={`sticky bottom-0 p-4 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] ${theme === "dark"
         ? "bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent"
         : "bg-gradient-to-t from-slate-100 via-slate-100/95 to-transparent"
-        }`}>
+        }`} style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 1.5rem)' }}>
         <button
           onClick={onStart}
           className="relative w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-lg rounded-full shadow-lg shadow-emerald-500/30 transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-3 overflow-hidden group"

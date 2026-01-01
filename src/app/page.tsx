@@ -75,19 +75,11 @@ export default function Home() {
     },
   });
 
-  // AdMob初期化と起動時広告
+  // AdMob初期化
   useEffect(() => {
     const init = async () => {
       await initializeAdMob();
       await initializePurchases();
-
-      // TOP画面表示から1秒待機
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // まだスタート画面にいる場合のみ広告を表示
-      if (currentScreenRef.current === "start") {
-        await showInterstitialAd();
-      }
     };
     init();
   }, []);

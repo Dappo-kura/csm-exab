@@ -35,6 +35,12 @@ export async function getAdRemovalPackage(): Promise<PurchasesPackage | null> {
         }
     } catch (error: any) {
         console.error('Failed to get offerings', error);
+        // 環境によるエラー（エミュレータ未設定など）をユーザーに分かりやすく表示
+        if (error.message.includes('not allowed to make the purchase')) {
+            alert('課金情報を取得できませんでした。エミュレータのGoogle Play設定、またはテストアカウントを確認してください。');
+        } else {
+            alert(`商品情報の取得に失敗しました: ${error.message}`);
+        }
     }
     return null;
 }

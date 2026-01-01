@@ -40,10 +40,10 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
       : "bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200"
       }`}>
       {/* ヘッダー */}
-      <header className={`sticky top-0 z-10 backdrop-blur border-b px-4 py-4 ${theme === "dark"
+      <header className={`sticky top-0 z-10 backdrop-blur border-b px-4 pt-[calc(env(safe-area-inset-top)+16px)] pb-4 ${theme === "dark"
         ? "bg-slate-900/90 border-slate-800"
         : "bg-white/90 border-slate-200"
-        }`}>
+        }`} style={{ paddingTop: 'calc(env(safe-area-inset-top) + 16px)' }}>
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
@@ -144,6 +144,7 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
     </div>
   );
 }
+
 
 
 
