@@ -82,7 +82,7 @@ export function ExamScreen({
         ? "bg-slate-900/95 border-slate-800"
         : "bg-white/95 border-slate-200"
         }`}>
-        <div className="px-4 py-3">
+        <div className="px-4 pt-[calc(env(safe-area-inset-top)+26px)] pb-3" style={{ paddingTop: 'calc(env(safe-area-inset-top) + 26px)' }}>
           {/* 上段: タイマーと問題リストボタン */}
           <div className="flex items-center justify-between mb-2">
             <div

@@ -141,13 +141,13 @@ export function StartScreen({ onStart, onShowHistory, onShowCategorySelect, onSh
       : "bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200"
       }`}>
       {/* 右上のコントロール */}
-      <div className="absolute top-[calc(env(safe-area-inset-top)+12px)] right-3 z-10 flex items-center gap-2" style={{ top: 'calc(env(safe-area-inset-top) + 12px)' }}>
+      <div className="absolute top-[calc(env(safe-area-inset-top)+20px)] right-3 z-10 flex items-center gap-2" style={{ top: 'calc(env(safe-area-inset-top) + 20px)' }}>
         <ThemeToggle />
         <LanguageToggle />
       </div>
 
       {/* ヘッダー */}
-      <header className="pt-[calc(env(safe-area-inset-top)+24px)] pb-3 px-4 text-center" style={{ paddingTop: 'calc(env(safe-area-inset-top) + 24px)' }}>
+      <header className="pt-[calc(env(safe-area-inset-top)+32px)] pb-3 px-4 text-center" style={{ paddingTop: 'calc(env(safe-area-inset-top) + 32px)' }}>
         <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl mb-4 shadow-lg shadow-emerald-500/20 animate-float overflow-hidden bg-transparent">
           {/* Android環境での確実な読み込みのため、相対パスを使用 */}
           <img
